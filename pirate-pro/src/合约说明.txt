@@ -1,0 +1,55 @@
+Rinkeby：
+
+CaptainGameConfig: 0xfb8643685a0d7aa43d6db62b76d5f7afc88c2f13
+CaptainToken: 0xecde6184af55cd0103e4d8681d85230aca5f354d
+CaptainSell: 0xce85fb0091d7583f7fd2512e6e620d99f43e642e
+
+一、卡牌的配置信息
+CaptainGameConfig: 0xfb8643685a0d7aa43d6db62b76d5f7afc88c2f13
+function getCardInfo(uint32 cardId) external constant returns (uint32, uint32, uint32,uint32,uint256,bool,uint256) {
+return (
+cardInfo[cardId].color,
+cardInfo[cardId].attack,
+cardInfo[cardId].strength,
+cardInfo[cardId].defense,
+cardInfo[cardId].price,
+cardInfo[cardId].unitSellable,
+captainIndxToCount[cardId]);  //卡牌总数
+}
+
+
+获取卡牌基础信息，预售页首页获取卡牌的信息。
+
+
+
+
+
+二、卡牌的购买
+CaptainSell: 0xce85fb0091d7583f7fd2512e6e620d99f43e642e
+
+function prepurchase(uint32 _captainId) external payable 购买卡牌
+
+function getCaptainCount(uint32 _captainId) external view returns (uint256)  该卡牌已经出售多少张
+
+监听事件：
+BuyToken(_captainId, price,address(this),msg.sender);
+
+三、Captain卡牌数据
+CaptainToken: 0xecde6184af55cd0103e4d8681d85230aca5f354d
+
+获取用户拥有的卡牌列表：
+function tokensOfOwner(address _owner) external view returns (uint256[],uint32[])
+
+tokenlist , captainlist
+
+获取某个卡牌的token列表
+function tokensOfCaptain(uint256 _captainId) public view returns(uint256[] captainTokens)
+
+
+
+星云链：
+Captain: n1m7NsoxUKr45oh49jz5QNYRTFYvGbWd3Mx
+
+getCaptain(captainId)  获取卡牌的详细信息
+
+PrePurchase(captainId) 购买

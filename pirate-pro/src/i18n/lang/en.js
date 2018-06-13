@@ -1,0 +1,27 @@
+module.exports = {
+	message: {
+		tabhome: "I am tabhome",
+		changeLocale: "changeLanguage--English",
+		myassets: "My Assets",
+		left: "Left",
+		loggedin: "Logged, you can set your display name by clicking it.",
+		logmetamask: "You need to log on MetaMask first.",
+		beforelog: "Please log in first.",
+		waitbuy: "This request is being processed, please wait for the result.",
+		successbuy: "Sucsessfully traded. Check your backpack!",
+		successsetname: "SET DISPLAY NAME SUCCESSFULLY.",
+		nametoolong: "your display name is too long.",
+		nameexisted: "This name already exists, please choose another one.",
+		servererror: "server error.",
+		name1: "JACK",
+		name2: "JOANNA",
+		name3: "GLIB CLOB",
+		detail1: "She's a natural gunslinger, able to hit a moving target with her pistols at any speed. She followed Captain Idris for a while, but parted ways with him due to an incident involving a Norwegian Sea Monster, a small galley, and a bottle of Rum. She looks cold on the outside, but she adheres to a strict personal sense of justice.",
+		detail2: "Cursed and turned into a skeleton by a mysterious forbidden chest found on the ocean floor. He's lost the ability to speak, but his deep, dark peering empty sockets for eyes are as unnerving as ever. He fights with extreme brutality, and there's no such thing as a fair fight.",
+		detail3: "Stevie is an odd fellow; Abandoned at birth, he grew up among a handful of different pirate crews. He's picked up a lot of strange quirks over the years, and has grown into quite the unpredicatable sailor. He searches restlessly for his parents, but what are his motivations - reunion, or revenge...?",
+		confirm1: "You are about to purchase: 'CAPTAIN JACK'.",
+		confirmbuy: "After raising your request to the blockchain, it will take about 1 or 2 minutes to process. Please note, there will be a transaction fee on the blockchain, commonly known as  'GAS'.",
+		confirm2: "You are about to purchase: 'CAPTAIN JOANNA'.",
+		confirm3: "You are about to purchase: 'CAPTAIN GLIB CLOB'.",
+	}
+}
