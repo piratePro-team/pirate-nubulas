@@ -7,8 +7,8 @@
 		  	<div class="name"><p class="colorb">{{bigpopupBuymsg.buycard?((bigpopupBuymsg.player == 1)?$t('message.name1'):((bigpopupBuymsg.player == 2)?$t('message.name2'):$t('message.name3'))):""}}</p></div>
 		  	<div class="moredetail colorb">{{bigpopupBuymsg.buycard?((bigpopupBuymsg.player == 1)?$t('message.detail1'):((bigpopupBuymsg.player == 2)?$t('message.detail2'):$t('message.detail3'))):""}}</div>
 		  	<div class="ability">
-		  		<div class="row"><div class="col-80"></div><div class="col-20"><p>{{bigpopupBuymsg.buycard?$store.state.captain[bigpopupBuymsg.player - 1].attack:""}}</p></div></div>
-		  		<div class="row"><div class="col-80"></div><div class="col-20"><p>{{bigpopupBuymsg.buycard?$store.state.captain[bigpopupBuymsg.player - 1].defense:""}}</p></div></div>
+		  		<div class="row"><div class="col-70">{{$t("message.attack")}}</div><div class="col-30">{{bigpopupBuymsg.buycard?$store.state.captain[bigpopupBuymsg.player - 1].attack:""}}</div></div>
+		  		<div class="row"><div class="col-70">{{$t("message.defense")}}</div><div class="col-30">{{bigpopupBuymsg.buycard?$store.state.captain[bigpopupBuymsg.player - 1].defense:""}}</div></div>
 		  	</div>
 		  	<div class="btn" @click="buycard"><div>{{bigpopupBuymsg.buycard?$store.state.captain[bigpopupBuymsg.player - 1].price:""}}ETH</div></div>
 		</div>
@@ -316,7 +316,7 @@ export default {
 	}
 	.ability>.row{
 		align-items: center;
-		width: 74%;
+		width: 60%;
 		position: relative;
 		left: 26%;
 	}
@@ -327,76 +327,31 @@ export default {
 	.ability>.row:nth-child(2){
 		height: 15.9%;
 	}
-	.ability>.row:nth-child(3){
-		height: 16.5%;
-	}
-	.ability>.row:nth-child(4){
-		height: 17.5%;
-	}
-	.ability>.row:nth-child(5){
-		height: 17%;
-	}
-	.ability>.row>.col-20,.ability>.row>.col-80{
-		height: 100%;
+	.ability>.row>.col-30,.ability>.row>.col-70{
+		width: auto;
+		height: 80%;
 		overflow-x: visible;
 	}
-	.ability>.row>.col-20{
-		width: 24.1%;
+	.ability>.row>.col-30{
+		width: auto;
 		position: relative;
-		display: table;
+		padding: 0 10px;
+		background-color: rgb(107,62,19);
+		border-radius: 5px;
+		color: #fff;
 	}
-	.ability>.row>.col-20>p{
-		text-align: center;
-		width: 100%;
-		display: table-cell;
-		vertical-align: middle;
-	}
-	/*.ability>.row:nth-child(1)>.col-80{
-		background: url("../../../../assets/ability1.png") left top no-repeat;
-		background-size: auto 100%;
-	}
-	.ability>.row:nth-child(1)>.col-20{
-		left: -40.5%;
-	}
-	.ability>.row:nth-child(2)>.col-80{
-		background: url("../../../../assets/ability2.png") left top no-repeat;
-		background-size: auto 100%;
-	}
-	.ability>.row:nth-child(2)>.col-20{
-		left: -37%;
-	}
-	.ability>.row:nth-child(3)>.col-80{
-		background: url("../../../../assets/ability3.png") left top no-repeat;
-		background-size: auto 100%;
-	}
-	.ability>.row:nth-child(3)>.col-20{
-		left: -26%;
-	}
-	.ability>.row:nth-child(4)>.col-80{
-		background: url("../../../../assets/ability4.png") left top no-repeat;
-		background-size: auto 100%;
-	}
-	.ability>.row:nth-child(4)>.col-20{
-		left: -51%;
-	}
-	.ability>.row:nth-child(5){
-		background: url("../../../../assets/ability5.png") left top no-repeat;
-		background-size: auto 81%;
-	}
-	.ability>.row:nth-child(5)>.col-20{
-		left: -13%;
-		top: -12%;
-	}*/
 	.btn{
 		width: 60.3%;
 		height: 18%;
 		position: absolute;
-		top: 80.8%;
+		top: 61%;
 		left: 14.1%;
 		font-size: 24px;
-	    color: rgb(254,238,0);
+	    color: rgb(135,45,0);
 	    text-align: center;
 	    display: table;
+	    background: url("../../../../assets/price2.png") center center no-repeat;
+	    background-size: contain;
 	}
 	.btn:hover{
 		cursor: pointer;

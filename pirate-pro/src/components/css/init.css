@@ -175,6 +175,10 @@ template {
   display: flex;
   width: 20%;
 }
+.col-30{
+  display: flex;
+  width: 30%;
+}
 .col-40{
   display: flex;
   width: 40%;
@@ -186,6 +190,10 @@ template {
 .col-60{
   display: flex;
   width: 60%;
+}
+.col-70{
+  display: flex;
+  width: 70%;
 }
 .col-80{
   display: flex;

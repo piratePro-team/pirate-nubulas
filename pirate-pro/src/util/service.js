@@ -15,7 +15,7 @@ if(!localStorage.getItem("j")){
 //添加数组控制弹窗提示交易成功
 var arrhash = [];
 if(sessionStorage.getItem("购买哈希")){
-	console.log("-----=====+++++",sessionStorage.getItem("购买哈希"));
+	console.log("本地存储的购买哈希",sessionStorage.getItem("购买哈希"));
 	arrhash = JSON.parse(sessionStorage.getItem("购买哈希"));
 }
 

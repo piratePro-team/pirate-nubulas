@@ -11,7 +11,7 @@
         </div> -->
         <div class="pretitle hide" :style="{'height':titleheight}"></div>
         <div class="pretitle2"></div>
-        <div class="pretitle3">These 3 epic pirates will only be sold in Pre-Sale, don't miss out!</div>
+        <div class="pretitle3">{{$t("message.notmiss")}}</div>
         <ul class="preplayer" :style="{'height':playerheight}">
           <li v-for="(carditem,index) in carditems">
             <div class="soldamount">{{$t("message.left")}} : {{carditem.soldamount}}/{{carditem.totalamount}}</div>
@@ -32,16 +32,32 @@
       <div class="introduce-pots" :style="{'height':potsheight}">
         <div class="shadow" :style="{'height':potsheight}" v-show="showshadow"></div>
         <div class="pots-title"></div>
-        <div class="pot1">upgrade boat and craft weapons  to win the everyday prize!</div>
-        <div class="pot2">Who owns the 9 pirates can be the King of  Pirates and plunder from the market!</div>
-        <div class="pot3">Alliance who wins in the Honor  Battle can get prize and divide it based on everyone's contribution!</div>
+        <div class="pot1">{{$t("message.pot1")}}</div>
+        <div class="pot2">{{$t("message.pot2")}}</div>
+        <div class="pot3">{{$t("message.pot3")}}</div>
       </div>
       <div class="roadmap" :style="{'height':mapheight}">
         <div class="shadow" :style="{'height':mapheight}" v-show="showshadow"></div>
         <div class="maptitle"></div>
-        <div class="width100"><div class="date1">06-15</div><div class="date2">07-19</div><div class="date3">08-09</div></div>
-        <div class="maptop"><div class="maptop1">Crew Recruitment</div><div class="maptop2">Raise the Anchor</div><div class="maptop3">Eye of the Storm</div></div>
-        <div class="mapbottom"><div class="mapbottom1">Live</div><div class="mapbottom2">Dev</div><div class="mapbottom3">Dev</div></div>
+        <div class="width100"><div class="date1">{{$t("message.date1")}}</div><div class="date2">{{$t("message.date2")}}</div><div class="date3">{{$t("message.date3")}}</div></div>
+        <div class="maptop"><div class="maptop1">{{$t("message.plan1")}}</div><div class="maptop2">{{$t("message.plan2")}}</div><div class="maptop3">{{$t("message.plan3")}}</div></div>
+        <div class="maptext">
+          <div class="maptext1">{{$t("message.plancontext1")}}</div>
+          <div class="maptext2">
+            {{$t("message.plancontext2line1")}}<br/>
+            {{$t("message.plancontext2line2")}}<br/>
+            {{$t("message.plancontext2line3")}}<br/>
+            {{$t("message.plancontext2line4")}}<br/>
+          </div>
+          <div class="maptext3">
+            {{$t("message.plancontext3line1")}}<br/>
+            {{$t("message.plancontext3line2")}}<br/>
+            {{$t("message.plancontext3line3")}}<br/>
+            {{$t("message.plancontext3line4")}}<br/>
+            {{$t("message.plancontext3line5")}}<br/>
+          </div>
+        </div>
+        <div class="mapbottom"><div class="mapbottom1">{{$t("message.live")}}</div><div class="mapbottom2">{{$t("message.next")}}</div><div class="mapbottom3">{{$t("message.next")}}</div></div>
       </div>
     </div>
 </template>
@@ -434,13 +450,14 @@ export default {
   background-size: 100%; 
 }
 .pretitle3{
-  width: 34.4%;
+  width: 37%;
   height: auto;
   color: rgb(211,193,135);
   font-size: 15px;
   margin: 0 auto;
-  padding-left: 2.5%;
+  padding-left: 0;
   padding-bottom: 1%;
+  text-align: center;
 }
 .roadmap{
   width: 100%;
@@ -485,7 +502,8 @@ export default {
   height: 100%;
   float: left;
   text-align: center;
-  padding-top: 1%;
+  padding-top: .5%;
+  box-sizing: border-box;
 }
 .maptop1{
   margin-left: 20.3%;
@@ -497,10 +515,28 @@ export default {
   background:url("../../assets/maptop2.png") center center no-repeat;
   background-size: 100%;
 }
+.maptext{
+  width: 100%;
+  height: 38%;
+}
+.maptext1,.maptext2,.maptext3{
+  width: 17.5%;
+  height: 100%;
+  float: left;
+  text-align: center;
+}
+.maptext1{
+  margin-left: 20.5%;
+}
+.maptext2{
+  margin-left: 1%;
+}
+.maptext3{
+  margin-left: 1%;
+}
 .mapbottom{
   width: 100%;
   height: 7.7%;
-  margin-top: 15%;
 }
 .mapbottom1,.mapbottom2,.mapbottom3{
   width: 17.5%;
