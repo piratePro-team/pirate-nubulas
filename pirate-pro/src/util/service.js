@@ -12,6 +12,12 @@ let service = {};
 if(!localStorage.getItem("j")){
 	localStorage.setItem("j","1");
 }
+//添加数组控制弹窗提示交易成功
+var arrhash = [];
+if(sessionStorage.getItem("购买哈希")){
+	console.log("-----=====+++++",sessionStorage.getItem("购买哈希"));
+	arrhash = JSON.parse(sessionStorage.getItem("购买哈希"));
+}
 
 service.init = function(){
 	
@@ -50,7 +56,7 @@ service.init = function(){
 	}
 	
 	//获取角色卡牌信息
-	CaptainGameConfigInstance.getCardInfo(1,function(error,result){
+	CaptainGameConfigInstance.getCardInfo(3,function(error,result){
 		if(!error){
 			console.log(result);
 			store.state.captain[0].color = result[0].toString();
@@ -66,7 +72,7 @@ service.init = function(){
 			console.log(error);
 		}
 	})
-	CaptainGameConfigInstance.getCardInfo(2,function(error,result){
+	CaptainGameConfigInstance.getCardInfo(5,function(error,result){
 		if(!error){
 			console.log(result);
 			store.state.captain[1].color = result[0].toString();
@@ -82,7 +88,7 @@ service.init = function(){
 			console.log(error);
 		}
 	})
-	CaptainGameConfigInstance.getCardInfo(3,function(error,result){
+	CaptainGameConfigInstance.getCardInfo(6,function(error,result){
 		if(!error){
 			console.log(result);
 			store.state.captain[2].color = result[0].toString();
@@ -106,7 +112,7 @@ service.init = function(){
 	}else{
 		CaptainSellInstance = CaptainSell.at(store.state.CaptainSell_address4);
 	}
-	CaptainSellInstance.getCaptainCount(1,function(error,result){
+	CaptainSellInstance.getCaptainCount(3,function(error,result){
 		if(!error){
 			console.log(result);
 			store.state.cardarr[0].soldamount = store.state.cardarr[0].totalamount - result.toString();
@@ -114,7 +120,7 @@ service.init = function(){
 			console.log(error);
 		}
 	})
-	CaptainSellInstance.getCaptainCount(2,function(error,result){
+	CaptainSellInstance.getCaptainCount(5,function(error,result){
 		if(!error){
 			console.log(result);
 			store.state.cardarr[1].soldamount = store.state.captain[1].totalcount - result.toString();
@@ -122,7 +128,7 @@ service.init = function(){
 			console.log(error);
 		}
 	})
-	CaptainSellInstance.getCaptainCount(3,function(error,result){
+	CaptainSellInstance.getCaptainCount(6,function(error,result){
 		if(!error){
 			console.log(result);
 			store.state.cardarr[2].soldamount = store.state.captain[2].totalcount - result.toString();
@@ -268,13 +274,13 @@ service.login = function(){
 }
 
 service.buycard = function(i){
+	
 	//判断是否在支持metamask的google浏览器上运行
     if(typeof web3 == 'undefined'){
 		store.dispatch("showsmallpopup",{enable:true});
 		store.state.alertmsg.alert = i18n.messages[i18n.locale].message.logmetamask;
 	}
-	console.log(i);
-
+	
 	if(store.state.cardarr[i-1].soldamount == 0){
 		alert("cannotbuy!!");
 		return;
@@ -283,7 +289,16 @@ service.buycard = function(i){
 	if(typeof web3 !== 'undefined'){
 		store.state.myaccount = web3.eth.accounts[0];
 	}
-	
+
+	if(i==1){
+		i=3;
+	}else if(i==2){
+		i=5;
+	}else if(i==3){
+		i=6;
+	}
+	console.log(i);
+
 	if(!store.state.myaccount){
 		store.dispatch("showsmallpopup");
 		store.state.alertmsg.alert = i18n.messages[i18n.locale].message.logmetamask;
@@ -314,9 +329,9 @@ service.buycard = function(i){
 		    to: store.state.CaptainSell_address4, 
 		    value: web3.toWei(store.state.captain[0].price,"ether")
 		};
-		if(i == 2){
+		if(i == 5){
 			transaction.value = web3.toWei(store.state.captain[1].price,"ether");
-		}else if(i == 3){
+		}else if(i == 6){
 			transaction.value = web3.toWei(store.state.captain[2].price,"ether");
 		}
 		if(version == 4){
@@ -329,6 +344,9 @@ service.buycard = function(i){
 		CaptainSellInstance.prepurchase(i,transaction,function(error,result){
 			if(!error){
 				console.log("购买结果是：",result);
+				arrhash.push(result);
+				sessionStorage.setItem("购买哈希",JSON.stringify(arrhash));
+				console.log("购买哈希",sessionStorage.getItem("购买哈希"));
 				store.dispatch("showsmallpopup");
 				store.state.alertmsg.alert = i18n.messages[i18n.locale].message.waitbuy;
 			}else{
@@ -340,6 +358,9 @@ service.buycard = function(i){
 		CaptainSellInstance.BuyToken(store.state.myaccount).watch(function(error,result){
 			if(!error){
 				console.log("购买成功后返回的结果是：",result);
+				if(JSON.parse(sessionStorage.getItem("购买哈希")).indexOf(result.transactionHash) ==-1 ){
+					return;
+				}
 				store.dispatch("showsmallpopup");
 				store.state.alertmsg.alert = i18n.messages[i18n.locale].message.successbuy;
 				if(n==1){
@@ -372,7 +393,14 @@ service.buycard = function(i){
 				CaptainSellInstance.getCaptainCount(i,function(error,result){
 					if(!error){
 						console.log(result);
-						store.state.cardarr[i -1].soldamount = store.state.captain[i].totalcount - parseInt(result.toString());
+						if(i==3){
+							i=1;
+						}else if(i==5){
+							i=2;
+						}else if(i==6){
+							i=3;
+						}
+						store.state.cardarr[i -1].soldamount = store.state.captain[i-1].totalcount - parseInt(result.toString());
 						if(store.state.cardarr[i -1].soldamount == 0){
 							alert("cannotbuy!!")
 						}
@@ -456,11 +484,11 @@ service.getmycards = function(){
 			console.log("该地址拥有的卡牌数组是：",result);
 			store.dispatch("clearmycaptain");
 			for(var i=0;i<result[1].length;i++){
-				if(result[1][i].toString() == 1){
-					// store.state.mycaptain1.push("1");
-				}else if(result[1][i].toString() == 2){
+				if(result[1][i].toString() == 3){
+					store.state.mycaptain1.push("1");
+				}else if(result[1][i].toString() == 5){
 					store.state.mycaptain2.push("1");
-				}else if(result[1][i].toString() == 3){
+				}else if(result[1][i].toString() == 6){
 					store.state.mycaptain3.push("1");
 				}
 
@@ -469,9 +497,9 @@ service.getmycards = function(){
 			console.log(error);
 		}
 	})
-	console.log("我的船长1数组：",store.state.mycaptain1);
-	console.log("我的船长2数组：",store.state.mycaptain2);
-	console.log("我的船长3数组：",store.state.mycaptain3);
+	console.log("我的船长3数组：",store.state.mycaptain1);
+	console.log("我的船长5数组：",store.state.mycaptain2);
+	console.log("我的船长6数组：",store.state.mycaptain3);
 }
 
 service.showbigpopup = function(){
@@ -534,6 +562,9 @@ service.changenickname = function(nameObj){
 				store.dispatch("showsmallpopup");
 				store.state.alertmsg.alert = i18n.messages[i18n.locale].message.nameexisted;
 			}else if(response.data.state == 500){
+				store.dispatch("showsmallpopup");
+				store.state.alertmsg.alert = i18n.messages[i18n.locale].message.servererror;
+			}else if(response.data.state == 10002){
 				store.dispatch("showsmallpopup");
 				store.state.alertmsg.alert = i18n.messages[i18n.locale].message.servererror;
 			}
