@@ -47,5 +47,10 @@ module.exports = {
 		plancontext3line3: "3. Battle system",
 		plancontext3line4: "4. Alliance system",
 		plancontext3line5: "5. Alliance betting",
+		cancel: "CANCEL",
+		ok: "OK",
+		game_title_confirmpurchase: "CONFIRM TO PURCHASE",
+		game_text_setname: "SET YOUR DISPLAY NAME",
+		game_title_myassets: "My Assets",
 	}
 }

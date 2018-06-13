@@ -47,5 +47,10 @@ module.exports = {
 		plancontext3line3: "3. 海洋竞技场",
 		plancontext3line4: "4. 联盟功勋战",
 		plancontext3line5: "5. 联盟幸运猜",
+		cancel: "取消",
+		ok: "确定",
+		game_title_confirmpurchase: "确认购买",
+		game_text_setname: "设置你的昵称",
+		game_title_myassets: "我的背包",
 	}
 }

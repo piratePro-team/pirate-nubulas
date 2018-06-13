@@ -114,24 +114,37 @@ service.init = function(){
 	}
 	CaptainSellInstance.getCaptainCount(3,function(error,result){
 		if(!error){
-			console.log(result);
-			store.state.cardarr[0].soldamount = store.state.cardarr[0].totalamount - result.toString();
+			console.log("售出结果3",result);
+			if(isNaN(parseFloat(result))){
+				store.state.cardarr[0].soldamount = "-";
+			}else{
+				store.state.cardarr[0].soldamount = isNaN(store.state.cardarr[0].totalamount - parseFloat(result))?"-":store.state.cardarr[0].totalamount - parseFloat(result);
+			}
 		}else{
 			console.log(error);
 		}
 	})
 	CaptainSellInstance.getCaptainCount(5,function(error,result){
 		if(!error){
-			console.log(result);
-			store.state.cardarr[1].soldamount = store.state.captain[1].totalcount - result.toString();
+			console.log("售出结果5",result);
+			if(isNaN(parseFloat(result))){
+				store.state.cardarr[1].soldamount = "-";
+			}else{
+				store.state.cardarr[1].soldamount = isNaN(store.state.cardarr[1].totalamount - parseFloat(result))?"-":store.state.cardarr[1].totalamount - parseFloat(result);
+			}
 		}else{
 			console.log(error);
 		}
 	})
 	CaptainSellInstance.getCaptainCount(6,function(error,result){
 		if(!error){
-			console.log(result);
-			store.state.cardarr[2].soldamount = store.state.captain[2].totalcount - result.toString();
+			console.log("售出结果6",result);
+			
+			if(isNaN(parseFloat(result))){
+				store.state.cardarr[2].soldamount = "-";
+			}else{
+				store.state.cardarr[2].soldamount = isNaN(store.state.cardarr[2].totalamount - parseFloat(result))?"-":store.state.cardarr[2].totalamount - parseFloat(result);
+			}
 		}else{
 			console.log(error);
 		}

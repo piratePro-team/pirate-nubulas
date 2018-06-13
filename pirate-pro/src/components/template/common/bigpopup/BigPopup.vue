@@ -14,20 +14,23 @@
 		</div>
   	</div>
 	<div v-show="bigpopupBuymsg.confirmbuycard" class="confirmbuycard">
+		<div class="confirmtitle"><div class="ghost"></div><div>{{$t("message.game_title_confirmpurchase")}}</div></div>
 		<div class="known">{{bigpopupBuymsg.player == 1?$t("message.confirm1"):(bigpopupBuymsg.player == 2?$t("message.confirm2"):$t("message.confirm3"))}}<br/>{{$t("message.confirmbuy")}}</div>
 		<div class="price"><div>{{confirm_price}}ETH</div></div>
-		<div class="cancelbtn" @click="closepopup"></div>
-		<div class="nextbtn" @click="buycard"></div>
+		<div class="cancelbtn" @click="closepopup"><p>{{$t("message.cancel")}}</p></div>
+		<div class="nextbtn" @click="buycard"><p>{{$t("message.ok")}}</p></div>
 	</div>
 	<div v-show="bigpopupBuymsg.myassets" class="myassets">
+		<div class="myassetstitle"><div class="ghost"></div><div>{{$t("message.game_title_myassets")}}</div></div>
 		<div class="captain1" v-bind:class="{'hidemycard':!mycaptain1.length}"><div><div>{{mycaptain1.length}}</div></div></div>
 		<div class="captain2" v-bind:class="{'hidemycard':!mycaptain2.length}"><div><div>{{mycaptain2.length}}</div></div></div>
 		<div class="captain3" v-bind:class="{'hidemycard':!mycaptain3.length}"><div><div>{{mycaptain3.length}}</div></div></div>
 	</div>
 	<div v-show="bigpopupBuymsg.setnickname" class="setnickname">
+		<div class="setnicktitle"><div class="ghost"></div><div>{{$t("message.game_text_setname")}}</div></div>
 		<input class="inputname" type="text" maxlength="16" v-bind:placeholder="alertplaceholder" ref="inputname" @focus="clearplace"/>
-		<div class="cancelbtn" @click="closepopup"></div>
-		<div class="nextbtn" @click="changenickname"></div>
+		<div class="cancelbtn" @click="closepopup"><p>{{$t("message.cancel")}}</p></div>
+		<div class="nextbtn" @click="changenickname"><p>{{$t("message.ok")}}</p></div>
 	</div>	  	
   </div>
 </template>
@@ -180,6 +183,7 @@ export default {
 	.close:hover{
 		cursor: pointer;
 	}
+
 	.buycard{
 		width: 100%;
 		height: 100%;
@@ -194,15 +198,15 @@ export default {
 		left: 10%;
 	}
 	.role.role1{
-		background:url("../../../../assets/player1.png") center center no-repeat;
+		background:url("../../../../assets/myplayer1.png") center center no-repeat;
 		background-size: 100% 100%;
 	}
 	.role.role2{
-		background:url("../../../../assets/player2.png") center center no-repeat;
-		background-size: 107% 100%;
+		background:url("../../../../assets/myplayer2.png") center center no-repeat;
+		background-size: 100% 100%;
 	}
 	.role.role3{
-		background:url("../../../../assets/player3.png") center center no-repeat;
+		background:url("../../../../assets/myplayer3.png") center center no-repeat;
 		background-size: 100% 100%;
 	}
 	.introduce{
@@ -367,6 +371,29 @@ export default {
 		background: url("../../../../assets/bigpopup2.png") center center no-repeat;
 		background-size: 100% 100%;
 	}
+
+	.confirmtitle{
+		width: 100%;
+		height: 26px;
+		font-size: 26px;
+		color: rgb(76,38,2);
+    	position: relative;
+    	top: 13%;
+    	display: flex;
+    	justify-content: center;
+	}
+	.ghost{
+		width: 5%;
+		height: 100%;
+		background:url("../../../../assets/ghost.png") center center no-repeat;
+		background-size: contain; 
+		float: left;
+		display: flex;
+	}
+	.ghost+div{
+		float: left;
+		display: flex;
+	}
 	.known{
 		width: 100%;
 		height: 27.4%;
@@ -400,19 +427,46 @@ export default {
 		float: left;
 		position: relative;
 		top: 37.4%;
+		font-size:20px;
+		color: #fff;
+		text-align: center;
+		display: table;
+	}
+	.cancelbtn>p,.nextbtn>p{
+		display: table-cell;
+		vertical-align: middle;
 	}
 	.cancelbtn{
 		margin: 0 10% 0 19.9%;
+		background:url("../../../../assets/cancelbtn.png") center center no-repeat;
+		background-size: contain; 
 	}
 	.cancelbtn:hover,.nextbtn:hover{
 		cursor: pointer;
+	}
+	.nextbtn{
+		background:url("../../../../assets/okbtn.png") center center no-repeat;
+		background-size: contain; 
+	}
+	.nextbtn>p{
+		color: rgb(135,45,0);
 	}
 	/*我的卡牌弹窗样式*/
 	.myassets{
 		width: 100%;
 		height: 100%;
-		background: url("../../../../assets/bigpopup3.png") center center no-repeat;
+		background: url("../../../../assets/bigpopup2.png") center center no-repeat;
 		background-size: 100% 100%;
+	}
+	.myassetstitle{
+		width: 100%;
+		height: 26px;
+		font-size: 26px;
+		color: rgb(76,38,2);
+    	position: relative;
+    	top: 13%;
+    	display: flex;
+    	justify-content: center;
 	}
 	.captain1,.captain2,.captain3{
 		width: 29%;
@@ -422,15 +476,15 @@ export default {
 		position: relative;
 		top: 20%;
 		left: 5%;
-		background: url("../../../../assets/player1.png") center 0 no-repeat;
+		background: url("../../../../assets/myplayer1.png") center 0 no-repeat;
 		background-size: 100% 100%;
 	}
 	.captain2{
-		background: url("../../../../assets/player2.png") center 0 no-repeat;
+		background: url("../../../../assets/myplayer2.png") center 0 no-repeat;
 		background-size: 107% 100%;
 	}
 	.captain3{
-		background: url("../../../../assets/player3.png") -5px 0 no-repeat;
+		background: url("../../../../assets/myplayer3.png") -5px 0 no-repeat;
 		background-size: 100% 100%;
 	}
 	.captain1>div,.captain2>div,.captain3>div{
@@ -453,8 +507,18 @@ export default {
 	.setnickname{
 		width: 100%;
 		height: 100%;
-		background: url("../../../../assets/bigpopup4.png") center center no-repeat;
+		background: url("../../../../assets/bigpopup2.png") center center no-repeat;
 		background-size: 100% 100%;
+	}
+	.setnicktitle{
+		width: 100%;
+		height: 26px;
+		font-size: 26px;
+		color: rgb(76,38,2);
+    	position: relative;
+    	top: 13%;
+    	display: flex;
+    	justify-content: center;
 	}
 	.inputname{
 		width: 51%;
@@ -466,12 +530,15 @@ export default {
 	    left: -1.2%;
 	    outline: none;
 	    border: 0;
-	    background: transparent;
+	    background:url("../../../../assets/input.png") center center no-repeat;
+	    background-size: 100% 100%;
 	    color: rgb(119,93,71);
+	    padding-left: 2px;
 	}
 	.setnickname .cancelbtn,.setnickname .nextbtn{
 		position: relative;
-		top: 66.5%;
+		top: 60%;
 	}
+
 </style>
 

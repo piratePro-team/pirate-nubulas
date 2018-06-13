@@ -16,6 +16,7 @@
           <li v-for="(carditem,index) in carditems">
             <div class="soldamount">{{$t("message.left")}} : {{carditem.soldamount}}/{{carditem.totalamount}}</div>
             <div @mouseenter="light($event)" @mouseleave="none($event)" @click="detail(index + 1)"><div></div></div>
+            <div class="attack">{{$store.state.captain[index].attack}}</div><div class="defense">{{$store.state.captain[index].defense}}</div>
           </li>
         </ul>
         <ul class="prebtn" :style="{'height':btnheight}">
@@ -399,6 +400,27 @@ export default {
   color: rgb(255,186,123);
   padding-top: 5%;
   box-sizing: border-box;
+}
+.preplayer li div.attack,.preplayer li div.defense{
+  width: 16%;
+  height: 4.3%;
+  margin: 0;
+  top: -16.5%;
+  left: 23%;
+  float: left;
+  color: rgb(222,178,94);
+}
+.preplayer li div.defense{
+  left:51%;
+}
+.preplayer li:nth-child(3) div.attack,.preplayer li:nth-child(3) div.defense{
+  top: -17%;
+}
+.preplayer li:nth-child(3) div.attack{
+  left: 22%;
+}
+.preplayer li:nth-child(3) div.defense{
+  left: 50%;
 }
 .introduce-pots{
   width: 100%;
