@@ -1,6 +1,7 @@
 <template>
   <div class="footer-bar" :style="{'height':footerHeight}">
     <div class="shadow" :style="{'height':footerHeight}" v-show="showshadow || showsmallpopup"></div>
+    <div class="faqpopup" v-show="showFAQ" @click="closefaq"></div>
     <!-- <div class="topfooter">
       <ul class="list1">
         <li></li>
@@ -18,7 +19,7 @@
       </ul>
     </div>
     <div class="botfooter"></div> -->
-    <a class="faq" v-bind:href="items1[2].href" target="_Blank">FAQ</a>
+    <p class="faq" @click="showfaq">FAQ</p>
     <a class="twitter" v-bind:href="items3[1].href" target="_Blank"></a>
     <a class="facebook" v-bind:href="items3[0].href" target="_Blank"></a>
     <a class="bitguild" v-bind:href="items4[2].href" target="_Blank"></a>
@@ -32,7 +33,8 @@ export default {
   data () {
     return {
       msg: 'FooterBar',
-      footerHeight: document.documentElement.clientWidth / 1920 * 390 + "px",
+      showFAQ: false,
+      footerHeight: document.documentElement.clientWidth / 1920 * 145 + "px",
       items1: [{title:"Home",href:this.configData.foot_ul1.foot_ul1_1},{title:"How it works",href:this.configData.foot_ul1.foot_ul1_2},{title:"FAQ",href:this.configData.foot_ul1.foot_ul1_3},{title:"TOS",href:this.configData.foot_ul1.foot_ul1_4},{title:"Pravacy Policy",href:this.configData.foot_ul1.foot_ul1_5}],
       items2: [{title:"Marketplace",href:this.configData.foot_ul2.foot_ul2_1},{title:"My Contacts",href:this.configData.foot_ul2.foot_ul2_2}],
       items3: [{title:"FACEBOOK",href:this.configData.foot_ul3.foot_ul3_1},{title:"TWITTER",href:this.configData.foot_ul3.foot_ul3_2}],
@@ -42,14 +44,20 @@ export default {
   methods: {
     lineHeight: function () {
       
+    },
+    showfaq: function () {
+      this.showFAQ = true;
+    },
+    closefaq: function () {
+      this.showFAQ = false;
     }
   },
   mounted:function(){
     var _this = this;
     window.addEventListener("resize",function(){
       var val = document.documentElement.clientWidth;
-      console.log("footerHeight",val/1920*390);
-      _this.footerHeight = val / 1920 * 390 + "px";
+      console.log("footerHeight",val/1920*145);
+      _this.footerHeight = val / 1920 * 145 + "px";
     })
 
   },
@@ -71,6 +79,15 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.faqpopup{
+  width: 60%;
+  height: 200%;
+  background:#fff; 
+  position: absolute;
+  left: 20%;
+  top: -200%;
+  overflow-y: scroll;
+}
 .footer-bar{
   width: 100%;
   background:url("../../assets/footer.png") center center no-repeat;
@@ -251,14 +268,14 @@ ul>li>a{
 }
 .twitter,.facebook,.bitguild{
   width: 1.3%;
-  height: 6.5%;
-  margin-left: 0.5%;
+  height: 16.5%;
+  margin-left: .8%;
 }
 .facebook{
   margin-left: 0.7%;
 }
 .bitguild{
-
+  margin-left: 0.5%;
 }
 .copyright{
   width: 100%;

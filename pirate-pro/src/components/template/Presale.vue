@@ -17,10 +17,11 @@
             <div class="soldamount">{{$t("message.left")}} : {{carditem.soldamount}}/{{carditem.totalamount}}</div>
             <div @mouseenter="light($event)" @mouseleave="none($event)" @click="detail(index + 1)"><div></div></div>
             <div class="attack">{{$store.state.captain[index].attack}}</div><div class="defense">{{$store.state.captain[index].defense}}</div>
+            <div class="level" v-bind:class="{'level1':carditem.level == 1}"></div>
           </li>
         </ul>
         <ul class="prebtn" :style="{'height':btnheight}">
-          <li v-for="(btnitem,index) in btnitems"><div @click="confirmbuycard(index + 1)" :style="{'height':divheight}" v-bind:class="{'clickbg':clicked[index]}" @mousedown="btndown(index)"><div>{{btnitem.price}}ETH</div></div></li>
+          <li v-for="(btnitem,index) in btnitems"><div @click="confirmbuycard(index + 1)" :style="{'height':divheight}" v-bind:class="{'clickbg':clicked[index]}" @mousedown="btndown(index)"><div>{{btnitem.price}} ETH</div></div></li>
         </ul>
         <div class="sale" v-show="showbigpopup">
           <bigPopup :bigpopup-buymsg="buymsg"></bigPopup>
@@ -142,7 +143,7 @@ export default {
 
     var _this = this;
     window.addEventListener("resize",function(){
-        console.log("缩放");
+        // console.log("缩放");
         var val = document.documentElement.clientWidth;
         var val2 = document.documentElement.clientHeight;
         /*if(document.documentElement.clientWidth > 1680){
@@ -158,7 +159,7 @@ export default {
           _this.titleheight = "9.44%";
           _this.playerheight = "70%";
           _this.btnheight = "14.5%";
-          _this.divheight = "62%";
+          _this.divheight = "80%";
           _this.potsheight = document.documentElement.clientWidth /1920 * 860 + "px";
           _this.mapheight = (document.documentElement.clientWidth) /1920 * 715 + "px";
         // }
@@ -301,6 +302,24 @@ export default {
   background:url("../../assets/player3.png") center -3px no-repeat;
   background-size: 100% 100%; 
 }
+.preplayer li div.level{
+  width: 10%;
+  height: 10%;
+  margin: 0;
+  position: relative;
+  top: -86.7%;
+  left: 41%;
+}
+.preplayer li:nth-child(2) div.level{
+  left: 39%;
+}
+.preplayer li:nth-child(3) div.level{
+  left: 39%;
+}
+.preplayer li div.level.level1{
+  background:url("../../assets/level1.png") center center no-repeat;
+  background-size: 70% 70%; 
+}
 .prebtn{
   height: 14.5%;
 }
@@ -397,15 +416,55 @@ export default {
   top: -2%;
   text-align: center;
   font-size:19px;
-  color: rgb(255,186,123);
+  font-weight: 700;
+  color: rgb(255,230,17);
   padding-top: 5%;
   box-sizing: border-box;
+}
+@media all and (max-width: 1600px){
+  .preplayer li div.soldamount{
+    font-size: 18px;
+  }
+  .prebtn>li>div{
+    font-size: 22px;
+  }
+}
+@media all and (max-width: 1400px){
+  .preplayer li div.soldamount{
+    font-size: 17px;
+  }
+  .prebtn>li>div{
+    font-size: 20px;
+  }
+}
+@media all and (max-width: 1300px){
+  .preplayer li div.soldamount{
+    font-size: 16px;
+  }
+  .prebtn>li>div{
+    font-size: 19px;
+  }
+}
+@media all and (max-width: 1100px){
+  .preplayer li div.soldamount{
+    font-size: 15px;
+  }
+  .prebtn>li>div{
+    font-size: 18px;
+  }
+}
+@media all and (max-width: 1000px){
+  .preplayer li div.soldamount{
+    font-size: 14px;
+  }
+  .prebtn>li>div{
+    font-size: 17px;
+  }
 }
 .preplayer li div.attack,.preplayer li div.defense{
   width: 16%;
   height: 4.3%;
   margin: 0;
-  top: -16.5%;
   left: 23%;
   float: left;
   color: rgb(222,178,94);
@@ -413,14 +472,47 @@ export default {
 .preplayer li div.defense{
   left:51%;
 }
+.preplayer li:nth-child(1) div.attack,.preplayer li:nth-child(1) div.defense{
+  top: -16.6%;
+}
+.preplayer li:nth-child(2) div.attack,.preplayer li:nth-child(2) div.defense{
+  top: -16.5%;
+}
 .preplayer li:nth-child(3) div.attack,.preplayer li:nth-child(3) div.defense{
-  top: -17%;
+  top: -16.7%;
 }
 .preplayer li:nth-child(3) div.attack{
   left: 22%;
 }
 .preplayer li:nth-child(3) div.defense{
   left: 50%;
+}
+@media all and (min-width: 1100px){
+  .preplayer li div{
+    font-size: 12px;
+  }
+  .preplayer li:nth-child(1) div.attack,.preplayer li:nth-child(1) div.defense{
+    top: -16.1%;
+  }
+}
+@media all and (min-width: 1400px){
+  .preplayer li:nth-child(1) div.attack,.preplayer li:nth-child(1) div.defense{
+    top: -16.5%;
+  }
+  .preplayer li:nth-child(2) div.attack,.preplayer li:nth-child(2) div.defense{
+    top: -16.2%;
+  }
+  .preplayer li:nth-child(3) div.attack,.preplayer li:nth-child(3) div.defense{
+    top: -16.6%;
+  }
+}
+@media all and (min-width: 1800px){
+  .preplayer li:nth-child(1) div.attack,.preplayer li:nth-child(1) div.defense{
+    top: -16%;
+  }
+  .preplayer li:nth-child(2) div.attack,.preplayer li:nth-child(2) div.defense,.preplayer li:nth-child(3) div.attack,.preplayer li:nth-child(3) div.defense{
+    top: -16%;
+  }
 }
 .introduce-pots{
   width: 100%;
@@ -472,7 +564,7 @@ export default {
   background-size: 100%; 
 }
 .pretitle3{
-  width: 37%;
+  width: 80%;
   height: auto;
   color: rgb(211,193,135);
   font-size: 15px;

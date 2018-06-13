@@ -18,7 +18,7 @@ const state = {
 	enableclose: true,
 	btnclicked: [false,false,false],
 	pricearr: [{price:"-"},{price:"-"},{price:"-"}],
-	cardarr: [{soldamount:"-",totalamount:"-"},{soldamount:"-",totalamount:"-"},{soldamount:"-",totalamount:"-"}],
+	cardarr: [{soldamount:"-",totalamount:"-",level:"1"},{soldamount:"-",totalamount:"-",level:"1"},{soldamount:"-",totalamount:"-",level:"1"}],
 	buymsg: {
 		myassets: "",
 		setnickname: "",

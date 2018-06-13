@@ -6,8 +6,8 @@
         <div class="col-50" @click="changeLocale('zh-ch')"></div><div class="col-50" @click="changeLocale('en')"></div>
       </div>
       <div class="row">
-        <div class="col-40" @click="login"><p class="text-left" v-bind:title="mytitlename">{{username.username}}</p></div>
-        <div class="col-60"><p class="text-right"  @click="myassets">{{$t("message.myassets")}}</p></div>
+        <div class="col-50" @click="login"><p class="text-left" v-bind:title="mytitlename">{{username.username}}</p></div>
+        <div class="col-50"><p class="text-right"  @click="myassets">{{$t("message.myassets")}}</p></div>
       </div>
     </div>
     <!-- <div class="language"  @click="changeLocale()">{{$t("message.changeLocale")}}</div> -->
@@ -184,7 +184,7 @@ export default {
     cursor: pointer;
   }
   .topright>div:nth-child(2){
-    width: 56%;
+    width: 66%;
     min-width: 126px;
     height:100%;
     padding: 0 5%;
