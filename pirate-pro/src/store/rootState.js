@@ -9,7 +9,6 @@ const state = {
 	showshadow: false,
 	locale: "zh-ch",
 	username: "Login",
-	titlename: this.username,
 	myaccount: "",
 	showheader: true,
 	showfooter: true,

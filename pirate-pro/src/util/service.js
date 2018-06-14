@@ -3,7 +3,6 @@ import store from '../store/store'
 import CaptainSell from './contracts/CaptainSell'
 import CaptainToken from './contracts/CaptainToken'
 import CaptainGameConfig from './contracts/CaptainGameConfig'
-
 // const md5 = require("md5-node");
 import md5 from "md5-node"
 
@@ -19,6 +18,7 @@ if(localStorage.getItem("购买哈希")){
 	console.log("本地存储的购买哈希",JSON.parse(localStorage.getItem("购买哈希")));
 	arrhash = JSON.parse(localStorage.getItem("购买哈希"));
 }
+
 
 service.init = function(){
 	
@@ -157,17 +157,23 @@ service.confirmlogin = function(){
     //判断用户是否已经登录过
 	if(localStorage.getItem("昵称")){
 		console.log("用户已经登录过",localStorage.getItem("昵称"));
-		store.state.titlename = localStorage.getItem("昵称");
+		
 		if(web3.eth.accounts[0]){
-			store.state.username = localStorage.getItem("昵称");
-			console.log("9999999999",sessionStorage.getItem("F5"));
+			var arr = JSON.parse(localStorage.getItem("昵称"));
+			for(var i=0;i<arr.length;i++){
+				if(arr[i].meta.indexOf(web3.eth.accounts[0]) >-1){
+					store.state.username = arr[i].name;
+				}
+			}
+			console.log("强制刷新",sessionStorage.getItem("F5"));
 		}else{
 			if(sessionStorage.getItem("F5") != "f"){
-				store.state.username = localStorage.getItem("昵称");
-				console.log("9999999999",sessionStorage.getItem("F5"));
+				var arr = JSON.parse(localStorage.getItem("昵称"));
+				store.state.username = arr[0].name;
+				console.log("F5刷新：",sessionStorage.getItem("F5"));
 			}else{
 				store.state.username = "Login";
-				console.log("9999999999",sessionStorage.getItem("F5"));
+				console.log("网页刷新",sessionStorage.getItem("F5"));
 			}
 			
 		}
@@ -206,10 +212,6 @@ service.login = function(){
     if(typeof web3 == 'undefined'){
 		store.dispatch("showsmallpopup",{enable:true});
 		store.state.alertmsg.alert = i18n.messages[i18n.locale].message.logmetamask;
-		/*window.onscroll = function(){
-			console.log("000",document.getElementsByClassName("smallpopup")[0].style.top);//(document.documentElement.clientHeight - parseInt(((document.documentElement.clientWidth)/ 1920 * 1080)* 0.25) )/2 
-			document.getElementsByClassName("smallpopup")[0].style.top = document.documentElement.scrollTop +"px";
-		}*/
 		return;
 	}
 	//获取以太账户
@@ -217,8 +219,8 @@ service.login = function(){
 		store.state.myaccount = web3.eth.accounts[0];
 		sessionStorage.setItem("我的以太坊账户",store.state.myaccount);
 		console.log("本地以太账户地址是：",store.state.myaccount);//0xf3e01b7b5961d6ffa0ef6521556e3aa7141622b0
-	}else{
-		store.state.myaccount = "";
+	}else{														//0x81d892Dc906f55E2E3Af7FC3BAdddfbdC7C310A6
+		store.state.myaccount = "";								//0x56702418A78defB3d856e300e95df9384b5aB184
 	}
 	
 	//注册用户
@@ -237,23 +239,30 @@ service.login = function(){
 	}
 	//登录海盗游戏用户
 	if(store.state.myaccount){
-		sessionStorage.setItem("我的以太坊账户",store.state.myaccount);
+		
 		var url=configData.base_url+configData.get_username;
 		var tokenstr = store.state.myaccount.toString();
 		axios.post(url, {token: tokenstr}).then(function(result){
-			console.log("成功",result);
+			console.log("登录成功：",result);
 			if(!result.data.data.name){
 				store.state.username = tokenstr;
-				store.state.titlename = tokenstr;
-				console.log("用户名",store.state.username);
+				console.log("用户名是：",store.state.username);
 			}else{
 				store.dispatch("showsmallpopup");
 				store.state.alertmsg.alert = i18n.messages[i18n.locale].message.loggedin;
 				store.state.username = result.data.data.name;
-				store.state.titlename = result.data.data.name;
-				console.log("我的昵称是",result.data.data.name);
+				console.log("我的昵称是：",result.data.data.name);
 			}
-			localStorage.setItem("昵称",store.state.username);
+			var meta = {"meta":store.state.myaccount,"name":store.state.username};
+			var arr = JSON.parse(localStorage.getItem("昵称"));
+			arr.push(meta);
+			localStorage.setItem("昵称",JSON.stringify(arr));
+			for(var i=0;i<arr.length;i++){
+				if(arr[i].meta.indexOf(store.state.myaccount) >-1){
+					arr[i].name = store.state.username;
+					localStorage.setItem("昵称",JSON.stringify(arr));
+				}
+			}
 			console.log("我的昵称在缓存中：",localStorage.getItem("昵称"));
 			//存储登录日志
 			var setlogurl = configData.base_url+configData.setlog;
@@ -381,7 +390,7 @@ service.buycard = function(i){
 							store.state.cardarr[i -1].soldamount = store.state.captain[i-1].totalcount - parseInt(result.toString());
 							if(store.state.cardarr[i -1].soldamount == 0){
 								alert("cannotbuy!!");
-								
+
 							}
 						}else{
 							console.log(error);
@@ -561,9 +570,17 @@ service.changenickname = function(nameObj){
 				store.dispatch("showsmallpopup");
 				store.state.alertmsg.alert = i18n.messages[i18n.locale].message.successsetname;
 				store.state.username = username;
-				localStorage.setItem("昵称",store.state.username);
-				store.state.titlename = username;
-				console.log("我的昵称在缓存中：",localStorage.getItem("昵称"),store.state.titlename);
+				var meta = {"meta":store.state.myaccount,"name":store.state.username};
+				var arr = JSON.parse(localStorage.getItem("昵称"));
+				arr.push(meta);
+				localStorage.setItem("昵称",JSON.stringify(arr));
+				for(var i=0;i<arr.length;i++){
+					if(arr[i].meta.indexOf(store.state.myaccount) >-1){
+						arr[i].name = username;
+						localStorage.setItem("昵称",JSON.stringify(arr));
+					}
+				}
+				console.log("我的昵称在缓存中：",localStorage.getItem("昵称"));
 			}else if(response.data.state == 10003){
 				store.dispatch("showsmallpopup");
 				store.state.alertmsg.alert = i18n.messages[i18n.locale].message.nametoolong;

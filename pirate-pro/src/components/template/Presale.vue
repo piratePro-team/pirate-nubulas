@@ -329,14 +329,13 @@ export default {
   box-sizing: border-box;
 }
 .prebtn>li>div{
-  width: 100%;
-  height: 80%;
+  width: 60%;
+  height: 60%;
   margin:0 auto;
   text-align: center;
   font-size: 24px;
   color: rgb(254,238,0);
   display: table;
-  padding-top: 3%;
   box-sizing: border-box;
 }
 .prebtn>li>div>div{
@@ -347,29 +346,15 @@ export default {
 }
 .prebtn>li>div:hover{
   cursor: pointer;
-}
-.prebtn li:nth-child(1)>div{
-  background:url("../../assets/player1b.png");
-  background-size: 100% 100%; 
-}
-.prebtn li:nth-child(1)>div.clickbg{
   background:url("../../assets/player1b_click.png");
   background-size: 100% 100%; 
 }
-.prebtn li:nth-child(2)>div{
-  background:url("../../assets/player2b.png");
+.prebtn li>div{
+  background:url("../../assets/player1b.png");
   background-size: 100% 100%; 
 }
-.prebtn li:nth-child(2)>div.clickbg{
-  background:url("../../assets/player2b_click.png");
-  background-size: 100% 100%; 
-}
-.prebtn li:nth-child(3)>div{
-  background:url("../../assets/player3b.png");
-  background-size: 100% 100%; 
-}
-.prebtn li:nth-child(3)>div.clickbg{
-  background:url("../../assets/player3b_click.png");
+.prebtn li>div.clickbg{
+  background:url("../../assets/player1b_afterclick.png");
   background-size: 100% 100%; 
 }
 .preplayer li div{
@@ -383,7 +368,7 @@ export default {
   background:transparent;
   overflow: hidden; 
 }
-.preplayer li div:hover{
+.preplayer li div:nth-child(2):hover{
   cursor: pointer;
 }
 .preplayer li div div{
@@ -638,6 +623,9 @@ export default {
   height: 100%;
   float: left;
   text-align: center;
+  line-height: 1.8;
+  padding-top: 1%;
+  box-sizing: border-box;
 }
 .maptext1{
   margin-left: 20.5%;

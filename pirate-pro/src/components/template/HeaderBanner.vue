@@ -119,7 +119,7 @@ export default {
       return this.$store.state.showshadow
     },
     mytitlename () {
-      return this.$store.state.titlename
+      return this.$store.state.username
     }, 
   }
 }

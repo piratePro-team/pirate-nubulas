@@ -62,6 +62,7 @@ export default {
   		this.service.buycard(i);
   		this.$store.dispatch("closebigpopup");
   		this.$store.dispatch("clearbigpopup");
+  		
   	},
   	changenickname: function () {
   		var name = this.$refs.inputname.value;
@@ -354,11 +355,13 @@ export default {
 	    color: rgb(135,45,0);
 	    text-align: center;
 	    display: table;
-	    background: url("../../../../assets/price2.png") center center no-repeat;
+	    background: url("../../../../assets/okbtn.png") center center no-repeat;
 	    background-size: contain;
 	}
 	.btn:hover{
 		cursor: pointer;
+		background: url("../../../../assets/okbtn_click.png") center center no-repeat;
+	    background-size: contain;
 	}
 	.btn>div{
 		display: table-cell;
@@ -446,6 +449,10 @@ export default {
 	}
 	.nextbtn{
 		background:url("../../../../assets/okbtn.png") center center no-repeat;
+		background-size: contain; 
+	}
+	.nextbtn:hover{
+		background:url("../../../../assets/okbtn_click.png") center center no-repeat;
 		background-size: contain; 
 	}
 	.nextbtn>p{

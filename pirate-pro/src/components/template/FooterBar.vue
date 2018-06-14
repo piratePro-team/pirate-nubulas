@@ -22,7 +22,7 @@
     <p class="faq" @click="showfaq">FAQ</p>
     <a class="twitter" v-bind:href="items3[1].href" target="_Blank"></a>
     <a class="facebook" v-bind:href="items3[0].href" target="_Blank"></a>
-    <a class="bitguild" v-bind:href="items4[2].href" target="_Blank"></a>
+    <a class="bitguild"></a>
     <p class="copyright">All rights reserved. 2018 Pirate Conquest</p>
   </div>
 </template>
