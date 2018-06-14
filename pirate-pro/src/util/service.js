@@ -4,7 +4,8 @@ import CaptainSell from './contracts/CaptainSell'
 import CaptainToken from './contracts/CaptainToken'
 import CaptainGameConfig from './contracts/CaptainGameConfig'
 
-
+// const md5 = require("md5-node");
+import md5 from "md5-node"
 
 let service = {};
 
@@ -14,9 +15,9 @@ if(!localStorage.getItem("j")){
 }
 //添加数组控制弹窗提示交易成功
 var arrhash = [];
-if(sessionStorage.getItem("购买哈希")){
-	console.log("本地存储的购买哈希",sessionStorage.getItem("购买哈希"));
-	arrhash = JSON.parse(sessionStorage.getItem("购买哈希"));
+if(localStorage.getItem("购买哈希")){
+	console.log("本地存储的购买哈希",JSON.parse(localStorage.getItem("购买哈希")));
+	arrhash = JSON.parse(localStorage.getItem("购买哈希"));
 }
 
 service.init = function(){
@@ -45,10 +46,16 @@ service.init = function(){
 	
 	var CaptainGameConfig = web3.eth.contract(store.state.CaptainGameConfig_abiarray);
 	var CaptainGameConfigInstance = "";
+	//获取当前各种卡牌已卖出的数量
+	var CaptainSell = web3.eth.contract(store.state.CaptainSell_abiarray);
+	var CaptainSellInstance = "";
+	
 	if(version == 4){
 		CaptainGameConfigInstance = CaptainGameConfig.at(store.state.CaptainGameConfig_address4);
+		CaptainSellInstance = CaptainSell.at(store.state.CaptainSell_address4);
 	}else{
 		CaptainGameConfigInstance = CaptainGameConfig.at(store.state.CaptainGameConfig_address4);
+		CaptainSellInstance = CaptainSell.at(store.state.CaptainSell_address4);
 	}
 	console.log("以太坊初始化后metamask账户：",web3.eth.accounts[0]);
 	if(web3.eth.accounts[0]){
@@ -68,6 +75,14 @@ service.init = function(){
 			store.state.captain[0].totalcount = result[6].toString();
 			store.state.pricearr[0].price = store.state.captain[0].price;
 			store.state.cardarr[0].totalamount =  store.state.captain[0].totalcount;
+			CaptainSellInstance.getCaptainCount(3,function(error,result){
+				if(!error){
+					console.log("售出结果3",result);
+					store.state.cardarr[0].soldamount = store.state.cardarr[0].totalamount - result.toString();
+				}else{
+					console.log(error);
+				}
+			})
 		}else{
 			console.log(error);
 		}
@@ -84,6 +99,14 @@ service.init = function(){
 			store.state.captain[1].totalcount = result[6].toString();
 			store.state.pricearr[1].price = store.state.captain[1].price;
 			store.state.cardarr[1].totalamount =  store.state.captain[1].totalcount;
+			CaptainSellInstance.getCaptainCount(5,function(error,result){
+				if(!error){
+					console.log("售出结果5",result);
+					store.state.cardarr[1].soldamount = store.state.cardarr[1].totalamount - result.toString();
+				}else{
+					console.log(error);
+				}
+			})
 		}else{
 			console.log(error);
 		}
@@ -100,55 +123,19 @@ service.init = function(){
 			store.state.captain[2].totalcount = result[6].toString();
 			store.state.pricearr[2].price = store.state.captain[2].price;
 			store.state.cardarr[2].totalamount =  store.state.captain[2].totalcount;
+			CaptainSellInstance.getCaptainCount(6,function(error,result){
+				if(!error){
+					console.log("售出结果6",result);
+					store.state.cardarr[2].soldamount = store.state.cardarr[2].totalamount - result.toString();
+				}else{
+					console.log(error);
+				}
+			})
 		}else{
 			console.log(error);
 		}
 	})
-	//获取当前各种卡牌已卖出的数量
-	var CaptainSell = web3.eth.contract(store.state.CaptainSell_abiarray);
-	var CaptainSellInstance = "";
-	if(version == 4){
-		CaptainSellInstance = CaptainSell.at(store.state.CaptainSell_address4);
-	}else{
-		CaptainSellInstance = CaptainSell.at(store.state.CaptainSell_address4);
-	}
-	CaptainSellInstance.getCaptainCount(3,function(error,result){
-		if(!error){
-			console.log("售出结果3",result);
-			if(isNaN(parseFloat(result))){
-				store.state.cardarr[0].soldamount = "-";
-			}else{
-				store.state.cardarr[0].soldamount = isNaN(store.state.cardarr[0].totalamount - parseFloat(result))?"-":store.state.cardarr[0].totalamount - parseFloat(result);
-			}
-		}else{
-			console.log(error);
-		}
-	})
-	CaptainSellInstance.getCaptainCount(5,function(error,result){
-		if(!error){
-			console.log("售出结果5",result);
-			if(isNaN(parseFloat(result))){
-				store.state.cardarr[1].soldamount = "-";
-			}else{
-				store.state.cardarr[1].soldamount = isNaN(store.state.cardarr[1].totalamount - parseFloat(result))?"-":store.state.cardarr[1].totalamount - parseFloat(result);
-			}
-		}else{
-			console.log(error);
-		}
-	})
-	CaptainSellInstance.getCaptainCount(6,function(error,result){
-		if(!error){
-			console.log("售出结果6",result);
-			
-			if(isNaN(parseFloat(result))){
-				store.state.cardarr[2].soldamount = "-";
-			}else{
-				store.state.cardarr[2].soldamount = isNaN(store.state.cardarr[2].totalamount - parseFloat(result))?"-":store.state.cardarr[2].totalamount - parseFloat(result);
-			}
-		}else{
-			console.log(error);
-		}
-	})
+
 	//获取当前区块GAS价格
 	web3.eth.getGasPrice(function(error,result){
 		if(!error){
@@ -360,8 +347,8 @@ service.buycard = function(i){
 			if(!error){
 				console.log("购买结果是：",result);
 				arrhash.push(result);
-				sessionStorage.setItem("购买哈希",JSON.stringify(arrhash));
-				console.log("购买哈希",sessionStorage.getItem("购买哈希"));
+				localStorage.setItem("购买哈希",JSON.stringify(arrhash));
+				console.log("购买哈希",localStorage.getItem("购买哈希"));
 				store.dispatch("showsmallpopup");
 				store.state.alertmsg.alert = i18n.messages[i18n.locale].message.waitbuy;
 			}else{
@@ -369,17 +356,39 @@ service.buycard = function(i){
 			}
 		})
 		//监听购买事件
-		var n=1;
 		CaptainSellInstance.BuyToken(store.state.myaccount).watch(function(error,result){
 			if(!error){
 				console.log("购买成功后返回的结果是：",result);
-				if(JSON.parse(sessionStorage.getItem("购买哈希")).indexOf(result.transactionHash) ==-1 ){
+				if(localStorage.getItem("购买哈希").indexOf(result.transactionHash) == -1 ){
 					return;
-				}
-				store.dispatch("showsmallpopup");
-				store.state.alertmsg.alert = i18n.messages[i18n.locale].message.successbuy;
-				if(n==1){
-					console.log("购买日志存储次数：",n);
+				}else{
+					var index = JSON.parse(localStorage.getItem("购买哈希")).indexOf(result.transactionHash);
+					var newarrhash = JSON.parse(localStorage.getItem("购买哈希")).splice(index,1);
+					localStorage.setItem("购买哈希",JSON.stringify(newarrhash));
+					store.dispatch("showsmallpopup");
+					store.state.alertmsg.alert = i18n.messages[i18n.locale].message.successbuy;
+					//刷新卡牌卖出数量
+					CaptainSellInstance.getCaptainCount(i,function(error,result){
+						if(!error){
+							console.log(result);
+							if(i==3){
+								i=1;
+							}else if(i==5){
+								i=2;
+							}else if(i==6){
+								i=3;
+							}
+							store.state.cardarr[i -1].soldamount = store.state.captain[i-1].totalcount - parseInt(result.toString());
+							if(store.state.cardarr[i -1].soldamount == 0){
+								alert("cannotbuy!!");
+								
+							}
+						}else{
+							console.log(error);
+						}
+					})
+					//重新获取我的卡牌列表
+					service.getmycards();
 					//存储玩家购买卡牌日志
 					var buyurl = configData.base_url+configData.setlog;
 					var buydata = {
@@ -396,40 +405,14 @@ service.buycard = function(i){
 					var buystr = JSON.stringify(buydata);
 					axios.post(buyurl,{type:1,data:buystr}).then(function(result){
 						console.log(result);
-						++n;
 					}).catch(function(err){
 						console.log(err);
 					})
-				}else{
-					console.log("购买日志存储次数：",n);
 				}
-				
-				//刷新卡牌卖出数量
-				CaptainSellInstance.getCaptainCount(i,function(error,result){
-					if(!error){
-						console.log(result);
-						if(i==3){
-							i=1;
-						}else if(i==5){
-							i=2;
-						}else if(i==6){
-							i=3;
-						}
-						store.state.cardarr[i -1].soldamount = store.state.captain[i-1].totalcount - parseInt(result.toString());
-						if(store.state.cardarr[i -1].soldamount == 0){
-							alert("cannotbuy!!")
-						}
-					}else{
-						console.log(error);
-					}
-				})
-				//重新获取我的卡牌列表
-				service.getmycards();
 			}else{
 				console.log(error);
 			}
 		})
-		
 		//获取某种卡牌的token列表
 		CaptainTokenInstance.tokensOfCaptain(i,function(error,result){
 			if(!error){
@@ -546,11 +529,22 @@ service.setnickname = function(){
 service.changenickname = function(nameObj){
 	var username = nameObj.name.toString();
 	var tokenstr = store.state.myaccount;
-	var newsignature = web3.toHex("new"+username);
-	console.log("十六进制",username,tokenstr,newsignature);
+	/*var newsignature = web3.toHex("pirate_change_name:"+username);
+	console.log("十六进制",username,tokenstr,newsignature);*/
 	var url = configData.base_url + configData.set_username;
 	var address = store.state.myaccount;
-	web3.currentProvider.sendAsync({
+	var nowtime = new Date().getTime();
+	var secstr = "name="+username+"&time="+nowtime+"&token="+address+"&"+"09acE6EbXWdHWAjCQBqgU6GfKg7PgQza";
+	console.log("签名：",secstr);
+	secstr = encodeURI(secstr);
+	secstr = md5(secstr);
+	var postData = {
+		name: username,
+		token: address,
+		time: nowtime,
+		signature: secstr
+	};
+	/*web3.currentProvider.sendAsync({
 		id: 1,
 		method: 'personal_sign',
 		params: [
@@ -560,7 +554,7 @@ service.changenickname = function(nameObj){
 	}, function(err, result) {
 		if(!result.error){
 		  let postData = {name: username,token: tokenstr,signature:result.result};
-		  console.info(postData);
+		  console.info(postData);*/
 		  axios.post(url, postData).then(function (response) {
 			console.log("设置用户名",response);
 			if(response.data.state == 200){
@@ -579,16 +573,13 @@ service.changenickname = function(nameObj){
 			}else if(response.data.state == 500){
 				store.dispatch("showsmallpopup");
 				store.state.alertmsg.alert = i18n.messages[i18n.locale].message.servererror;
-			}else if(response.data.state == 10002){
-				store.dispatch("showsmallpopup");
-				store.state.alertmsg.alert = i18n.messages[i18n.locale].message.servererror;
 			}
 			
 		  }).catch(function (error) {
 		    console.log(error);
 		  });
-		}
-	});
+		/*}
+	});*/
 }
 
 

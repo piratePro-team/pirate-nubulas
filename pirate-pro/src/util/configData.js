@@ -21,7 +21,7 @@ const configData = {
 	},
 	base_url: 'http://test.pirateconquest.io',
 	test_api: '//test.magicacademy.io',
-	set_username: '/api/users/setName',
+	set_username: '/api/users/setNameComment',
 	get_username: '/api/users/getName',
 	get_more_username: '/api/users/getNameByList',
 	register: '/api/users/register',
