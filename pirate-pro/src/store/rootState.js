@@ -70,7 +70,7 @@ const state = {
 	confirm_price: "-",
 	//合约参数
 	CaptainGameConfig_abiarray: CaptainGameConfig.abi,
-	CaptainGameConfig_address4: "0xeced24856b6ca995c16c2533c1887485f45edcb3",
+	CaptainGameConfig_address4: "0xf1fa3476ea6d6d62b706cf5daadd6fcbc8044990",
 	CaptainSell_abiarray: CaptainSell.abi,
 	CaptainSell_address4: "0xb5bcf6e7c205a756bbd9010202123007988df6a8",
 	CaptainToken_abiarray: CaptainToken.abi,

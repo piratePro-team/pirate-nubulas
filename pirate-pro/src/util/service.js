@@ -22,7 +22,7 @@ if(sessionStorage.getItem("购买哈希")){
 service.init = function(){
 	
 	console.log("初始化海盗网站==cookie:",document.cookie);
-	console.log("初始化海盗网站==昵称：",sessionStorage.getItem("昵称"));
+	console.log("初始化海盗网站==昵称：",localStorage.getItem("昵称"));
 	console.log("初始化海盗网站==以太坊：",sessionStorage.getItem("我的以太坊账户"));
 	console.log("初始化海盗网站==刷新：",sessionStorage.getItem("F5"));
 	console.log("用户已经设置过语种：",sessionStorage.getItem("lang"));
@@ -168,15 +168,15 @@ service.init = function(){
 
 service.confirmlogin = function(){
     //判断用户是否已经登录过
-	if(sessionStorage.getItem("昵称")){
-		console.log("用户已经登录过",sessionStorage.getItem("昵称"));
-		store.state.titlename = sessionStorage.getItem("昵称");
+	if(localStorage.getItem("昵称")){
+		console.log("用户已经登录过",localStorage.getItem("昵称"));
+		store.state.titlename = localStorage.getItem("昵称");
 		if(web3.eth.accounts[0]){
-			store.state.username = sessionStorage.getItem("昵称");
+			store.state.username = localStorage.getItem("昵称");
 			console.log("9999999999",sessionStorage.getItem("F5"));
 		}else{
 			if(sessionStorage.getItem("F5") != "f"){
-				store.state.username = sessionStorage.getItem("昵称");
+				store.state.username = localStorage.getItem("昵称");
 				console.log("9999999999",sessionStorage.getItem("F5"));
 			}else{
 				store.state.username = "Login";
@@ -192,6 +192,7 @@ service.confirmlogin = function(){
 			if(j==1){
 				store.dispatch("showsmallpopup",{enable:true});
 				store.state.alertmsg.alert = i18n.messages[i18n.locale].message.loggedin;
+				service.login();
 				localStorage.setItem("j","2");
 			}
 		}else if(sessionStorage.getItem("我的以太坊账户")){
@@ -200,6 +201,7 @@ service.confirmlogin = function(){
 			if(j==1){
 				store.dispatch("showsmallpopup",{enable:true});
 				store.state.alertmsg.alert = i18n.messages[i18n.locale].message.loggedin;
+				service.login();
 				localStorage.setItem("j","2");
 			}
 			
@@ -238,9 +240,9 @@ service.login = function(){
 	}else{
 		var registerurl = configData.base_url+configData.register;
 		axios.post(registerurl,{token:store.state.myaccount}).then(function(response){
-			console.log(response);
+			console.log("注册成功",response);
 		}).catch(function(error){
-			console.log(error);
+			console.log("注册失败",error);
 		})
 		store.state.username = "Login";
 		var invite_uid = Math.round(Math.random()*10).toString() + Math.round(Math.random()*10).toString() + Math.round(Math.random()*10).toString() + Math.round(Math.random()*10).toString() + Math.round(Math.random()*10).toString();
@@ -264,8 +266,8 @@ service.login = function(){
 				store.state.titlename = result.data.data.name;
 				console.log("我的昵称是",result.data.data.name);
 			}
-			sessionStorage.setItem("昵称",store.state.username);
-			console.log("我的昵称在缓存中：",sessionStorage.getItem("昵称"));
+			localStorage.setItem("昵称",store.state.username);
+			console.log("我的昵称在缓存中：",localStorage.getItem("昵称"));
 			//存储登录日志
 			var setlogurl = configData.base_url+configData.setlog;
 			var logdata = {address:store.state.myaccount};
@@ -321,7 +323,7 @@ service.buycard = function(i){
 		//购买卡牌
 		store.state.username = store.state.myaccount;
 		var j = localStorage.getItem("j");
-		if(!sessionStorage.getItem("昵称")){
+		if(!localStorage.getItem("昵称")){
 			if(j == 1){
 				console.log("判断是否第一次登录购买：",j);
 				++j;
@@ -565,9 +567,9 @@ service.changenickname = function(nameObj){
 				store.dispatch("showsmallpopup");
 				store.state.alertmsg.alert = i18n.messages[i18n.locale].message.successsetname;
 				store.state.username = username;
-				sessionStorage.setItem("昵称",store.state.username);
+				localStorage.setItem("昵称",store.state.username);
 				store.state.titlename = username;
-				console.log("我的昵称在缓存中：",sessionStorage.getItem("昵称"),store.state.titlename);
+				console.log("我的昵称在缓存中：",localStorage.getItem("昵称"),store.state.titlename);
 			}else if(response.data.state == 10003){
 				store.dispatch("showsmallpopup");
 				store.state.alertmsg.alert = i18n.messages[i18n.locale].message.nametoolong;
