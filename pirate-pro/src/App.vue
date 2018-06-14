@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" v-bind:class="{'zhapp':locale_zh,'enapp':locale_en}">
     <HeaderBanner v-show="showheader.showheader"></HeaderBanner>
     <router-view/>
     <FooterBar v-show="showfooter.showfooter"></FooterBar>
@@ -68,6 +68,20 @@ export default {
     showfooter () {
       return {
         showfooter:this.$store.state.showfooter
+      }
+    },
+    locale_zh () {
+      if(this.$store.state.locale == "zh-ch"){
+        return true
+      }else{
+        return false
+      }
+    },
+    locale_en () {
+      if(this.$store.state.locale == "en"){
+        return true
+      }else{
+        return false
       }
     }
   }

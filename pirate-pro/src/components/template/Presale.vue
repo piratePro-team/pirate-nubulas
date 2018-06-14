@@ -159,7 +159,7 @@ export default {
           _this.titleheight = "9.44%";
           _this.playerheight = "70%";
           _this.btnheight = "14.5%";
-          _this.divheight = "80%";
+          _this.divheight = "60%";
           _this.potsheight = document.documentElement.clientWidth /1920 * 860 + "px";
           _this.mapheight = (document.documentElement.clientWidth) /1920 * 715 + "px";
         // }
@@ -231,13 +231,13 @@ export default {
   background: url("../../assets/presale.png") center center no-repeat;
   background-size: 100% 100%;
 }
-.pretitle{
+/*.pretitle{
   width: 46.9%;
   height: 22.2%;
   margin: 0 auto;
   background:url("../../assets/pretitle.png") center center no-repeat;
   background-size: 100% 100%; 
-}
+}*/
 .topright{
   width: 11.2%;
   min-width: 156px;
@@ -360,6 +360,7 @@ export default {
 .preplayer li div{
   width: 80%;
   height: 83%;
+  font-size: 13px;
   margin: 5% 7%;
   position: relative;
   top: -2.7%;
@@ -455,13 +456,16 @@ export default {
   color: rgb(222,178,94);
 }
 .preplayer li div.defense{
-  left:51%;
+  left:52%;
 }
 .preplayer li:nth-child(1) div.attack,.preplayer li:nth-child(1) div.defense{
   top: -16.6%;
 }
 .preplayer li:nth-child(2) div.attack,.preplayer li:nth-child(2) div.defense{
   top: -16.5%;
+}
+.preplayer li:nth-child(2) div.defense{
+  left: 51%;
 }
 .preplayer li:nth-child(3) div.attack,.preplayer li:nth-child(3) div.defense{
   top: -16.7%;
@@ -474,29 +478,33 @@ export default {
 }
 @media all and (min-width: 1100px){
   .preplayer li div{
-    font-size: 12px;
+    font-size: 13px;
   }
-  .preplayer li:nth-child(1) div.attack,.preplayer li:nth-child(1) div.defense{
+  .preplayer li:nth-child(1) div.attack,.preplayer li:nth-child(1) div.defense,.preplayer li:nth-child(2) div.attack,.preplayer li:nth-child(2) div.defense,
+  .preplayer li:nth-child(3) div.attack,.preplayer li:nth-child(3) div.defense{
     top: -16.1%;
   }
 }
 @media all and (min-width: 1400px){
-  .preplayer li:nth-child(1) div.attack,.preplayer li:nth-child(1) div.defense{
-    top: -16.5%;
+  .preplayer li:nth-child(1) div.attack{
+    top: -16%;
+  }
+  .preplayer li:nth-child(1) div.defense{
+    top:-15.5%;
   }
   .preplayer li:nth-child(2) div.attack,.preplayer li:nth-child(2) div.defense{
-    top: -16.2%;
+    top: -15.8%;
   }
   .preplayer li:nth-child(3) div.attack,.preplayer li:nth-child(3) div.defense{
-    top: -16.6%;
+    top: -15.6%;
   }
 }
 @media all and (min-width: 1800px){
   .preplayer li:nth-child(1) div.attack,.preplayer li:nth-child(1) div.defense{
-    top: -16%;
+    top: -15.5%;
   }
   .preplayer li:nth-child(2) div.attack,.preplayer li:nth-child(2) div.defense,.preplayer li:nth-child(3) div.attack,.preplayer li:nth-child(3) div.defense{
-    top: -16%;
+    top: -15.3%;
   }
 }
 .introduce-pots{
@@ -508,14 +516,20 @@ export default {
   width: 100%;
   height: 23.3%;
   margin: 0 auto;
-  background: url("../../assets/pots-title.png") center center no-repeat;
+}
+.enapp .pots-title{
+  background: url("../../assets/potstitle_en.png") center center no-repeat;
+  background-size: 100%;
+}
+.zhapp .pots-title{
+  background: url("../../assets/potstitle_zh.png") center center no-repeat;
   background-size: 100%;
 }
 .pot1,.pot2,.pot3{
   position: relative;
   text-align: center;
   font-weight: 600;
-  line-height: 15px;
+  line-height: 1.3;
 }
 .pot1{
   width: 13%;
@@ -530,7 +544,7 @@ export default {
   height: 11.6%;
   font-size:12px;
   color: rgb(69,102,120);
-  top: -16%;
+  top: -26%;
   left: 39%;
 }
 .pot3{
@@ -541,11 +555,50 @@ export default {
   top: 23%;
   left: 60.5%;
 }
+@media all and (min-width:900px){
+  .pot2{
+    top:-24%;
+  }
+}
+@media all and (min-width:1000px){
+  .pot2{
+    top:-20%;
+  }
+}
+@media all and (min-width:1100px){
+  .pot2{
+    top:-18%;
+  }
+}
+@media all and (min-width:1300px){
+  .pot2{
+    top:-16%;
+  }
+  .pot1,.pot2,.pot3{
+    font-size: 13px;
+  }
+}
+@media all and (min-width:1500px){
+  .pot1,.pot2,.pot3{
+    font-size: 14px;
+  }
+}
+@media all and (min-width:1700px){
+  .pot1,.pot2,.pot3{
+    font-size: 16px;
+  }
+}
 .pretitle2{
-  width: 34.4%;
+  width: 100%;
   height: 9.44%;
   margin: 0 auto;
-  background:url("../../assets/pretitle2.png") center center no-repeat;
+}
+.zhapp .pretitle2{
+  background:url("../../assets/presaletitle_zh.png") center center no-repeat;
+  background-size: 100%; 
+}
+.enapp .pretitle2{
+  background:url("../../assets/presaletitle_en.png") center center no-repeat;
   background-size: 100%; 
 }
 .pretitle3{
@@ -566,7 +619,13 @@ export default {
 .roadmap .maptitle{
   width: 100%;
   height: 21.7%;
-  background:url("../../assets/maptitle.png") center center no-repeat;
+}
+.enapp .maptitle{
+  background:url("../../assets/maptitle_en.png") center center no-repeat;
+  background-size: 100%; 
+}
+.zhapp .maptitle{
+  background:url("../../assets/maptitle_zh.png") center center no-repeat;
   background-size: 100%; 
 }
 .width100{
@@ -575,7 +634,7 @@ export default {
 .date1,.date2,.date3{
   width: 17.34%;
   height: 100%;
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 900;
   float: left;
   box-sizing: border-box;
@@ -595,7 +654,7 @@ export default {
 }
 .maptop1,.maptop2,.maptop3{
   color: #fff;
-  font-size: 15px;
+  font-size: 12px;
   font-weight: 600;
   width: 17.5%;
   height: 100%;
@@ -603,6 +662,7 @@ export default {
   text-align: center;
   padding-top: .5%;
   box-sizing: border-box;
+  min-width: 150px;
 }
 .maptop1{
   margin-left: 20.3%;
@@ -645,7 +705,7 @@ export default {
   height: 100%;
   float: left;
   text-align: center;
-  padding-top: 0.8%;
+  padding-top: 1%;
   box-sizing: border-box;
 }
 .mapbottom1{
@@ -657,5 +717,89 @@ export default {
   margin-left: 1%;
   background:url("../../assets/mapbottom2.png") center center no-repeat;
   background-size: 100%;
+}
+@media all and (min-width:900px){
+  .date1,.date2,.date3{
+    font-size: 17px;
+  }
+  .maptop1,.maptop2,.maptop3{
+    font-size: 12px;
+  }
+  .maptext1,.maptext2,.maptext3{
+    font-size: 12px;
+  }
+  .mapbottom1,.mapbottom2,.mapbottom3{
+    font-size: 13px;
+  }
+}
+@media all and (min-width:1000px){
+  .date1,.date2,.date3{
+    font-size: 18px;
+  }
+  .maptop1,.maptop2,.maptop3{
+    font-size: 13px;
+  }
+  .maptext1,.maptext2,.maptext3{
+    font-size: 13px;
+  }
+  .mapbottom1,.mapbottom2,.mapbottom3{
+    font-size: 14px;
+  }
+}
+@media all and (min-width:1200px){
+  .date1,.date2,.date3{
+    font-size: 19px;
+  }
+  .maptop1,.maptop2,.maptop3{
+    font-size: 14px;
+  }
+  .maptext1,.maptext2,.maptext3{
+    font-size: 14px;
+  }
+  .mapbottom1,.mapbottom2,.mapbottom3{
+    font-size: 15px;
+  }
+}
+@media all and (min-width:1400px){
+  .date1,.date2,.date3{
+    font-size: 21px;
+  }
+  .maptop1,.maptop2,.maptop3{
+    font-size: 15px;
+  }
+  .maptext1,.maptext2,.maptext3{
+    font-size: 15px;
+  }
+  .mapbottom1,.mapbottom2,.mapbottom3{
+    font-size: 16px;
+  }
+}
+@media all and (min-width:1500px){
+  .date1,.date2,.date3{
+    font-size: 23px;
+  }
+  .maptop1,.maptop2,.maptop3{
+    font-size: 16px;
+  }
+  .maptext1,.maptext2,.maptext3{
+    font-size: 16px;
+  }
+  .mapbottom1,.mapbottom2,.mapbottom3{
+    font-size: 17px;
+  }
+}
+@media all and (min-width:1700px){
+  .date1,.date2,.date3{
+    font-size: 25px;
+  }
+  .maptop1,.maptop2,.maptop3{
+    font-size: 17px;
+  }
+  .maptext1,.maptext2,.maptext3{
+    font-size: 17px;
+  }
+  .mapbottom1,.mapbottom2,.mapbottom3{
+    font-size: 18px;
+  }
 }
 </style>

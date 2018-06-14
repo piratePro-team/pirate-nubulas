@@ -2,12 +2,13 @@
   <div class="header-banner" :style="{'height':topheight}">
     <div class="shadow" :style="{'height':topheight}" v-show="showshadow || showsmallpopup"></div>
     <div class="topright">
+      <ul class="language" v-bind:class="{'open':selectlan}" @click="openlanbox">
+        <li class="en" @click="changeLocale('en')" v-show="selectlan"></li>
+        <li class="zh" @click="changeLocale('zh-ch')" v-show="selectlan"></li>
+      </ul>
       <div class="row">
-        <div class="col-50" @click="changeLocale('zh-ch')"></div><div class="col-50" @click="changeLocale('en')"></div>
-      </div>
-      <div class="row">
-        <div class="col-50" @click="login"><p class="text-left" v-bind:title="mytitlename">{{username.username}}</p></div>
-        <div class="col-50"><p class="text-right"  @click="myassets">{{$t("message.myassets")}}</p></div>
+        <div class="col-50" @click="login"><p class="text-center" v-bind:title="mytitlename">{{username.username}}</p></div>
+        <div class="col-50"><p class="text-center"  @click="myassets">{{$t("message.myassets")}}</p></div>
       </div>
     </div>
     <!-- <div class="language"  @click="changeLocale()">{{$t("message.changeLocale")}}</div> -->
@@ -42,12 +43,12 @@ export default {
       screenwidth: document.documentElement.clientWidth,
       buymsg: this.$store.state.buymsg,
       alertmsg: this.$store.state.alertmsg,
+      selectlan: false,
       
     }
   },
   methods: {
     changeLocale: function (lan) {
-      console.log(this.$i18n.locale,this.$store.state.locale);
       this.$store.dispatch("change",{"lan":lan});
       console.log(this.$i18n.locale,this.$store.state.locale);
     },
@@ -70,10 +71,12 @@ export default {
     },
     myassets: function () {
       this.service.myassets();
+    },
+    openlanbox: function () {
+      this.selectlan = this.selectlan?false:true;
     }
   },
   mounted:function(){
-    
     //缩放浏览器时改变头部top
     const _this = this; 
     window.addEventListener("resize",function(){
@@ -121,6 +124,20 @@ export default {
     mytitlename () {
       return this.$store.state.username
     }, 
+    selectlan_en () {
+      if(this.$store.state.locale == "en"){
+        return true
+      }else if(this.$store.state.locale == "zh-ch"){
+        return false
+      }
+    },
+    selectlan_zh () {
+      if(this.$store.state.locale == "en"){
+        return false
+      }else if(this.$store.state.locale == "zh-ch"){
+        return true
+      }
+    }
   }
 }
 </script>
@@ -157,39 +174,70 @@ export default {
     height: 9%;
     float: right;
     text-align: center;
-    padding-top: 2.2%;
   }
   .language:hover{
     cursor: pointer;
   }
   .topright{
     width: 16.75%;
-    min-width: 156px;
+    min-width: 230px;
     height: 5.1%;
+    min-height: 26px;
     float: right;
-    background:url("../../assets/moresetting.png") center center no-repeat;
-    background-size: 100%;
     margin-top: 4%;
     margin-right: 9%;
+    font-weight: 600;
   }
-  .topright>div:nth-child(1){
-    width: 31%;
+  .topright>ul{
+    width: 26%;
     height: 100%;
     float: left;
+    background:url("../../assets/arrow.png") 80% center no-repeat;
+    background-size: contain;
+    background-color: rgba(19,31,51,.7);
+    border-radius: 10px;
+    position: relative;
+    z-index: 12;
   }
-  .topright>div:nth-child(1)>.col-50{
-    height: 100%;
+  .topright>ul.open{
+    border-radius: 0;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
   }
-  .topright>div:nth-child(1)>.col-50:hover{
+  .topright>ul>li{
+    height: 80%;
+    background-color: rgba(19,31,51,.7);
+  }
+  .topright>ul>li:hover{
     cursor: pointer;
   }
+  .topright>ul>li:nth-child(1){
+    margin-top: 60%;
+  }
+  .topright>ul>li:nth-child(2){
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+  }
+  .topright .en{
+    margin-top: 6%;
+    background:url("../../assets/USA.png") center center no-repeat;
+    background-size: 100% 130%; 
+    background-color: rgba(19,31,51,.7);
+  }
+  .topright .zh{
+    background:url("../../assets/CHINA.png") center center no-repeat;
+    background-size: 100% 130%; 
+    background-color: rgba(19,31,51,.7);
+  }
   .topright>div:nth-child(2){
-    width: 66%;
+    width: 70%;
     min-width: 126px;
     height:100%;
     padding: 0 5%;
     box-sizing: border-box;
     margin-left: 33%;
+    background:rgba(19,31,51,.7);
+    border-radius: 10px;
   }
   .topright>div:nth-child(2)>div:hover{
     cursor: pointer;
@@ -197,24 +245,27 @@ export default {
   .topright>div>div>p{
     width: 100%;
     font-size: 13px;
-    color: rgb(149,139,114);
+    color: rgb(255,245,153);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
   }
-  @media all and (min-width: 1200px){
-    .topright>div>div>p{
-      font-size: 14px;
-    }
+  .topright>div>div:nth-child(1)>p{
+    color: #fff;
   }
-  @media all and (min-width: 1600px){
+  @media all and (min-width: 1200px){
     .topright>div>div>p{
       font-size: 15px;
     }
   }
-  @media all and (min-width: 1800px){
+  @media all and (min-width: 1600px){
     .topright>div>div>p{
       font-size: 16px;
+    }
+  }
+  @media all and (min-width: 1800px){
+    .topright>div>div>p{
+      font-size: 17px;
     }
   }
   .startbtn{
