@@ -57,7 +57,7 @@ export default {
   	window.removeEventListener("beforeunload");
   	sessionStorage.setItem("F5",false);
   	this.$store.state.username = "Login";
-
+    
   },
   computed: {
     showheader () {

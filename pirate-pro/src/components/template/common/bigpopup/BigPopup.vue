@@ -7,30 +7,30 @@
 		  	<div class="name"><p class="colorb">{{bigpopupBuymsg.buycard?((bigpopupBuymsg.player == 1)?$t('message.name1'):((bigpopupBuymsg.player == 2)?$t('message.name2'):$t('message.name3'))):""}}</p></div>
 		  	<div class="moredetail colorb">{{bigpopupBuymsg.buycard?((bigpopupBuymsg.player == 1)?$t('message.detail1'):((bigpopupBuymsg.player == 2)?$t('message.detail2'):$t('message.detail3'))):""}}</div>
 		  	<div class="ability">
-		  		<div class="row"><div class="col-70">{{$t("message.attack")}}</div><div class="col-30">{{bigpopupBuymsg.buycard?$store.state.captain[bigpopupBuymsg.player - 1].attack:""}}</div></div>
-		  		<div class="row"><div class="col-70">{{$t("message.defense")}}</div><div class="col-30">{{bigpopupBuymsg.buycard?$store.state.captain[bigpopupBuymsg.player - 1].defense:""}}</div></div>
+		  		<div class="row"><div class="col-30">{{$t("message.attack")}}</div><div class="col-30 colorw">{{bigpopupBuymsg.buycard?($store.state.captain[bigpopupBuymsg.player - 1].attack1+"-"+$store.state.captain[bigpopupBuymsg.player - 1].attack2):""}}</div></div>
+		  		<div class="row"><div class="col-30">{{$t("message.defense")}}</div><div class="col-30 colorw">{{bigpopupBuymsg.buycard?$store.state.captain[bigpopupBuymsg.player - 1].defense:""}}</div></div>
 		  	</div>
-		  	<div class="btn" @click="buycard"><div>{{bigpopupBuymsg.buycard?$store.state.captain[bigpopupBuymsg.player - 1].price:""}}ETH</div></div>
+		  	<div class="btn bold" @click="buycard" v-bind:class="{'disabled':disabledbtn}"><div>{{bigpopupBuymsg.buycard?$store.state.captain[bigpopupBuymsg.player - 1].price:""}} ETH</div></div>
 		</div>
   	</div>
 	<div v-show="bigpopupBuymsg.confirmbuycard" class="confirmbuycard">
 		<div class="confirmtitle"><div class="ghost"></div><div>{{$t("message.game_title_confirmpurchase")}}</div></div>
 		<div class="known">{{bigpopupBuymsg.player == 1?$t("message.confirm1"):(bigpopupBuymsg.player == 2?$t("message.confirm2"):$t("message.confirm3"))}}<br/>{{$t("message.confirmbuy")}}</div>
 		<div class="price"><div>{{confirm_price}}ETH</div></div>
-		<div class="cancelbtn" @click="closepopup"><p>{{$t("message.cancel")}}</p></div>
-		<div class="nextbtn" @click="buycard"><p>{{$t("message.ok")}}</p></div>
+		<div class="cancelbtn bold" @click="closepopup"><p>{{$t("message.cancel")}}</p></div>
+		<div class="nextbtn bold" @click="buycard"><p>{{$t("message.ok")}}</p></div>
 	</div>
 	<div v-show="bigpopupBuymsg.myassets" class="myassets">
 		<div class="myassetstitle"><div class="ghost"></div><div>{{$t("message.game_title_myassets")}}</div></div>
-		<div class="captain1" v-bind:class="{'hidemycard':!mycaptain1.length}"><div><div>{{mycaptain1.length}}</div></div></div>
-		<div class="captain2" v-bind:class="{'hidemycard':!mycaptain2.length}"><div><div>{{mycaptain2.length}}</div></div></div>
-		<div class="captain3" v-bind:class="{'hidemycard':!mycaptain3.length}"><div><div>{{mycaptain3.length}}</div></div></div>
+		<div class="captain1 bold" v-bind:class="{'hidemycard':!mycaptain1.length}"><div><div>{{$t("message.game_title_owned")}}{{mycaptain1.length}}</div></div></div>
+		<div class="captain2 bold" v-bind:class="{'hidemycard':!mycaptain2.length}"><div><div>{{$t("message.game_title_owned")}}{{mycaptain2.length}}</div></div></div>
+		<div class="captain3 bold" v-bind:class="{'hidemycard':!mycaptain3.length}"><div><div>{{$t("message.game_title_owned")}}{{mycaptain3.length}}</div></div></div>
 	</div>
 	<div v-show="bigpopupBuymsg.setnickname" class="setnickname">
 		<div class="setnicktitle"><div class="ghost"></div><div>{{$t("message.game_text_setname")}}</div></div>
 		<input class="inputname" type="text" maxlength="16" v-bind:placeholder="alertplaceholder" ref="inputname" @focus="clearplace"/>
-		<div class="cancelbtn" @click="closepopup"><p>{{$t("message.cancel")}}</p></div>
-		<div class="nextbtn" @click="changenickname"><p>{{$t("message.ok")}}</p></div>
+		<div class="cancelbtn bold" @click="closepopup"><p>{{$t("message.cancel")}}</p></div>
+		<div class="nextbtn bold" @click="changenickname"><p>{{$t("message.ok")}}</p></div>
 	</div>	  	
   </div>
 </template>
@@ -59,6 +59,9 @@ export default {
   	},
   	buycard: function () {
   		var i = this.bigpopupBuymsg.player;
+  		if(this.$store.state.disabledbtn[i-1]){
+  			return;
+  		}
   		this.service.buycard(i);
   		this.$store.dispatch("closebigpopup");
   		this.$store.dispatch("clearbigpopup");
@@ -155,6 +158,11 @@ export default {
     		return false
     	}
     },
+    disabledbtn () {
+    	if(this.$store.state.disabledbtn[this.bigpopupBuymsg.player-1]){
+    		return true;
+    	}
+    },
   },
   destroyed () {
   	window.removeEventListener("resize");
@@ -223,94 +231,132 @@ export default {
 		position: absolute;
 		left: 20%;
 	}
+	.name>p{
+		margin-top: -1%;
+		margin-left: 2%;
+	}
 	.moredetail{
 		width: 100%;
 		height: 4em;
-		font-size:1em;
+		font-size:12px;
 		position: absolute;
 		top: 8.5%;
 		padding: 0 13.7%;
 		box-sizing: border-box;
 		overflow: hidden;
 		word-break: break-all;
-		line-height: 1em;
+		line-height: 12px;
 	}
 	.moredetail::after{
 		content: "...";
 		color: rgb(76,38,2);
 		position: absolute;
     	bottom: 0;
-    	right: 10%;
+    	right: 8%;
 	}
 	
 	@media all and (min-width: 1080px){
 		.moredetail{
-			height: 3.4em;
-			font-size:0.9em;
-			line-height: 0.9em;
+			height: 52px;
+			font-size:13px;
+			line-height: 13px;
 		}
 		.moredetail::after{
-	    	bottom: 2%;
+	    	right: 10%;
+		}
+		.name>p{
+			font-size: 14px;
 		}
 	}
 	@media all and (min-width: 1150px){
 		.moredetail{
-			height: 3.75em;
-			font-size:0.95em;
-			line-height: 0.95em;
+			height: 56px;
+			font-size:14px;
+			line-height: 14px;
 		}
 		.moredetail::after{
-	    	bottom: 2%;
+	    	right: 9%;
+		}
+		.name>p{
+			font-size: 16px;
 		}
 	}
 	@media all and (min-width: 1270px){
 		.moredetail{
-			height: 4em;
-			font-size:1em;
-			line-height: 1em;
+			height: 60px;
+			font-size:15px;
+			line-height: 15px;
 		}
 		.moredetail::after{
-	    	bottom: 2%;
+	    	right: 9%;
+		}
+		.name>p{
+			font-size: 18px;
 		}
 	}
 	@media all and (min-width: 1350px){
 		.moredetail{
-			height: 4.4em;
-			font-size:1.1em;
-			line-height: 1.1em;
+			height: 64px;
+			font-size:16px;
+			line-height: 16px;
 		}
 		.moredetail::after{
 	    	bottom: 2%;
 		}
+		.name>p{
+			font-size: 20px;
+		}
 	}
 	@media all and (min-width: 1400px){
 		.moredetail{
-			height: 4.4em;
-			font-size:1.1em;
-			line-height: 1.1em;
+			height: 68px;
+			font-size:17px;
+			line-height: 17px;
 		}
 		.moredetail::after{
-	    	bottom: 1%;
+	    	right: 9%;
+		}
+		.name>p{
+			font-size: 22px;
 		}
 	}
 	@media all and (min-width: 1520px){
 		.moredetail{
-			height: 4.6em;
-			font-size:1.15em;
-			line-height: 1.15em;
+			height: 72px;
+			font-size:18px;
+			line-height: 18px;
 		}
 		.moredetail::after{
-	    	bottom: 1%;
+	    	right: 9%;
+		}
+		.name>p{
+			font-size: 24px;
 		}
 	}
 	@media all and (min-width: 1660px){
 		.moredetail{
-			height: 4.8em;
-			font-size:1.2em;
-			line-height: 1.2em;
+			height: 76px;
+			font-size:19px;
+			line-height: 19px;
 		}
 		.moredetail::after{
-	    	bottom: 1%;
+	    	right: 9%;
+		}
+		.name>p{
+			font-size: 26px;
+		}
+	}
+	@media all and (min-width: 1750px){
+		.moredetail{
+			height: 80px;
+			font-size:20px;
+			line-height: 20px;
+		}
+		.moredetail::after{
+	    	right: 11%;
+		}
+		.name>p{
+			font-size: 28px;
 		}
 	}
 	.ability{
@@ -326,32 +372,32 @@ export default {
 		left: 26%;
 	}
 	.ability>.row:nth-child(1){
-		height: 14.6%;
 		margin-top: 5%;
 	}
 	.ability>.row:nth-child(2){
-		height: 15.9%;
-	}
-	.ability>.row>.col-30,.ability>.row>.col-70{
-		width: auto;
-		height: 80%;
-		overflow-x: visible;
+		margin-top: 0;
 	}
 	.ability>.row>.col-30{
+		overflow-x: visible;
+		font-size: 12px;
+		line-height: 16px;
+		padding: 2% 0;
 		width: auto;
-		position: relative;
-		padding: 0 10px;
+	}
+	.ability>.row>.col-30:nth-child(2){
 		background-color: rgb(107,62,19);
 		border-radius: 5px;
-		color: #fff;
+		padding: 0.5% 5%;
+		width: 40%;
+		justify-content: center;
 	}
 	.btn{
-		width: 60.3%;
+		width: 53%;
 		height: 18%;
 		position: absolute;
 		top: 61%;
 		left: 14.1%;
-		font-size: 24px;
+		font-size: 12px;
 	    color: rgb(135,45,0);
 	    text-align: center;
 	    display: table;
@@ -363,9 +409,87 @@ export default {
 		background: url("../../../../assets/okbtn_click.png") center center no-repeat;
 	    background-size: contain;
 	}
+	.btn.disabled{
+		background: url("../../../../assets/cancelbtn.png") center center no-repeat;
+	    background-size: contain;
+	    color: #fff;
+	}
 	.btn>div{
 		display: table-cell;
 		vertical-align: middle;
+	}
+	@media all and (min-width: 1000px){
+		.btn{
+			font-size:14px;
+		}
+		.ability>.row:nth-child(1){
+			margin-top: 6%;
+		}
+	}
+	@media all and (min-width: 1100px){
+		.btn{
+			font-size:16px;
+		}
+		.ability>.row:nth-child(2){
+			margin-top: 0.5%;
+		}
+	}
+	@media all and (min-width: 1150px){
+		.ability>.row:nth-child(2){
+			margin-top: 1%;
+		}
+	}
+	@media all and (min-width: 1200px){
+		.btn{
+			font-size:18px;
+		}
+		.ability>.row>.col-30{
+			font-size:13px;
+		}
+		.ability>.row:nth-child(2){
+			margin-top: 1.6%;
+		}
+	}
+	@media all and (min-width: 1300px){
+		.btn{
+			font-size:20px;
+		}
+		.ability>.row:nth-child(2){
+			margin-top: 2%;
+		}
+	}
+	@media all and (min-width: 1400px){
+		.ability>.row:nth-child(2){
+			margin-top: 2.6%;
+		}
+	}
+	@media all and (min-width: 1500px){
+		.btn{
+			font-size:22px;
+		}
+		.ability>.row>.col-30{
+			font-size:14px;
+		}
+		.ability>.row:nth-child(1){
+			margin-top: 6.5%;
+		}
+		.ability>.row:nth-child(2){
+			margin-top: 3%;
+		}
+	}
+	@media all and (min-width: 1700px){
+		.btn{
+			font-size:24px;
+		}
+		.ability>.row>.col-30{
+			font-size:16px;
+		}
+		.ability>.row:nth-child(1){
+			margin-top: 7%;
+		}
+		.ability>.row:nth-child(2){
+			margin-top: 4%;
+		}
 	}
 	/*确认购买卡牌弹窗样式*/
 	.confirmbuycard{
@@ -374,16 +498,16 @@ export default {
 		background: url("../../../../assets/bigpopup2.png") center center no-repeat;
 		background-size: 100% 100%;
 	}
-
 	.confirmtitle{
 		width: 100%;
 		height: 26px;
-		font-size: 26px;
+		font-size: 12px;
 		color: rgb(76,38,2);
     	position: relative;
     	top: 13%;
     	display: flex;
     	justify-content: center;
+    	align-items: center;
 	}
 	.ghost{
 		width: 5%;
@@ -397,13 +521,19 @@ export default {
 		float: left;
 		display: flex;
 	}
+	.ghost,.ghost+div{
+		position: relative;
+		left: -2%;
+	}
 	.known{
 		width: 100%;
 		height: 27.4%;
 		position: relative;
 		top: 20%;
-		padding: 4% 16% 6% 14%;
+		padding: 0 16% 0 14%;
 		box-sizing: border-box;
+		font-size: 12px;
+		line-height: 1.3;
 	}
 	.price{
 		width: 21.7%;
@@ -419,7 +549,7 @@ export default {
 		width: 100%;
 		height: 100%;
 		display: table-cell;
-		font-size: 26px;
+		font-size: 12px;
 		color: #fff;
 		text-align: center;
 		vertical-align: middle;
@@ -429,11 +559,89 @@ export default {
 		height: 9.7%;
 		float: left;
 		position: relative;
-		top: 37.4%;
-		font-size:20px;
+		top: 33%;
+		font-size:14px;
 		color: #fff;
 		text-align: center;
 		display: table;
+	}
+	@media all and (min-width: 1000px){
+		.cancelbtn,.nextbtn{
+			font-size: 14px;
+		}
+		.price>div{
+			font-size: 14px;
+		}
+		.known{
+			font-size: 13px;
+		}
+		.confirmtitle{
+			font-size: 16px;
+		}
+	}
+	@media all and (min-width: 1100px){
+		.cancelbtn,.nextbtn{
+			font-size: 16px;
+		}
+		.price>div{
+			font-size: 16px;
+		}
+		.known{
+			font-size: 14px;
+		}
+		.confirmtitle{
+			font-size: 18px;
+		}
+	}
+	@media all and (min-width: 1200px){
+		.cancelbtn,.nextbtn{
+			font-size: 18px;
+		}
+		.price>div{
+			font-size: 18px;
+		}
+		.known{
+			font-size: 15px;
+		}
+		.confirmtitle{
+			font-size: 20px;
+		}
+	}
+	@media all and (min-width: 1400px){
+		.cancelbtn,.nextbtn{
+			font-size: 20px;
+		}
+		.price>div{
+			font-size: 20px;
+		}
+		.known{
+			font-size: 16px;
+		}
+		.confirmtitle{
+			font-size: 22px;
+		}
+	}
+	@media all and (min-width: 1600px){
+		.price>div{
+			font-size: 23px;
+		}
+		.known{
+			font-size: 17px;
+		}
+		.confirmtitle{
+			font-size: 24px;
+		}
+	}
+	@media all and (min-width: 1800px){
+		.price>div{
+			font-size: 26px;
+		}
+		.known{
+			font-size: 18px;
+		}
+		.confirmtitle{
+			font-size: 26px;
+		}
 	}
 	.cancelbtn>p,.nextbtn>p{
 		display: table-cell;
@@ -507,8 +715,23 @@ export default {
 		diaplay:table-cell;
 		vertical-align: middle;
 		text-align: center;
-		font-size: 16px;
+		font-size: 12px;
 		color: rgb(119,93,71);
+	}
+	@media all and (min-width: 1250px){
+		.captain1>div>div,.captain2>div>div,.captain3>div>div{
+			font-size: 14px;
+		}
+	}
+	@media all and (min-width: 1350px){
+		.captain1>div>div,.captain2>div>div,.captain3>div>div{
+			font-size: 15px;
+		}
+	}
+	@media all and (min-width: 1450px){
+		.captain1>div>div,.captain2>div>div,.captain3>div>div{
+			font-size: 16px;
+		}
 	}
 	/*设置昵称弹窗样式*/
 	.setnickname{

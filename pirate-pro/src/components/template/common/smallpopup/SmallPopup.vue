@@ -2,7 +2,7 @@
   <div :style="{'height':popupheight,'top':popuptop}" class="smallpopup">
   	<div class="close" @click="enable?closepopup():''"></div>
   	<div class="popup-content">
-		<div class="alert-login" v-show="smallpopupMsg.alert"><p class="colorb">{{smallpopupMsg.alert?smallpopupMsg.alert:""}}</p></div>
+		  <div class="alert-login" v-show="smallpopupMsg.alert"><p class="colorb">{{smallpopupMsg.alert?smallpopupMsg.alert:""}}</p></div>
   	</div>	  	
   </div>
 </template>
@@ -97,9 +97,9 @@ export default {
 		width: 100%;
 		height: 37%;
 		position: relative;
-    	top: 63%;
-    	padding: 7% 10%;
-    	box-sizing: border-box;
+  	top: 55%;
+  	padding: 7% 10%;
+  	box-sizing: border-box;
 	}
 	.colorb {
     text-align: center;

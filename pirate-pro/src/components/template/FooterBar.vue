@@ -56,7 +56,7 @@ export default {
     var _this = this;
     window.addEventListener("resize",function(){
       var val = document.documentElement.clientWidth;
-      console.log("footerHeight",val/1920*145);
+      // console.log("footerHeight",val/1920*145);
       _this.footerHeight = val / 1920 * 145 + "px";
     })
 

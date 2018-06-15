@@ -52,5 +52,7 @@ module.exports = {
 		game_title_confirmpurchase: "确认购买",
 		game_text_setname: "设置你的昵称",
 		game_title_myassets: "我的背包",
+		game_title_owned: "拥有： ",
+		game_text_soldout: "已售罄",
 	}
 }

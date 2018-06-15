@@ -52,5 +52,8 @@ module.exports = {
 		game_title_confirmpurchase: "CONFIRM TO PURCHASE",
 		game_text_setname: "SET YOUR DISPLAY NAME",
 		game_title_myassets: "My Assets",
+		game_title_owned: "Owned: ",
+		game_text_soldout: "SOLD OUT",
+		faq: ""
 	}
 }

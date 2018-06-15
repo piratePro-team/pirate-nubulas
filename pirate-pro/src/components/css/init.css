@@ -232,6 +232,9 @@ template {
 .colorb{
   color: rgb(76,38,2);
 }
+.colorw{
+  color: #fff;
+}
 .shadow{
   width: 100%;
   background: rgba(0,0,0,.2);
@@ -240,4 +243,10 @@ template {
 }
 .width100{
   width: 100%;
+}
+.f-25{
+  font-size: 25px;
+}
+.bold{
+  font-weight: bold;
 }

@@ -3,8 +3,9 @@
     <div class="shadow" :style="{'height':topheight}" v-show="showshadow || showsmallpopup"></div>
     <div class="topright">
       <ul class="language" v-bind:class="{'open':selectlan}" @click="openlanbox">
-        <li class="en" @click="changeLocale('en')" v-show="selectlan"></li>
-        <li class="zh" @click="changeLocale('zh-ch')" v-show="selectlan"></li>
+        <li></li>
+        <li class="en" @click="changeLocale('en')" v-show="selectlan&&!lan_en"></li>
+        <li class="zh" @click="changeLocale('zh-ch')" v-show="selectlan&&!lan_zh"></li>
       </ul>
       <div class="row">
         <div class="col-50" @click="login"><p class="text-center" v-bind:title="mytitlename">{{username.username}}</p></div>
@@ -124,14 +125,14 @@ export default {
     mytitlename () {
       return this.$store.state.username
     }, 
-    selectlan_en () {
+    lan_en () {
       if(this.$store.state.locale == "en"){
         return true
       }else if(this.$store.state.locale == "zh-ch"){
         return false
       }
     },
-    selectlan_zh () {
+    lan_zh () {
       if(this.$store.state.locale == "en"){
         return false
       }else if(this.$store.state.locale == "zh-ch"){
@@ -190,7 +191,9 @@ export default {
   }
   .topright>ul{
     width: 26%;
+    min-width: 60px;
     height: 100%;
+    min-height: 35px;
     float: left;
     background:url("../../assets/arrow.png") 80% center no-repeat;
     background-size: contain;
@@ -208,18 +211,26 @@ export default {
     height: 80%;
     background-color: rgba(19,31,51,.7);
   }
+  .topright>ul>li:nth-child(1){
+    height: 100%;
+    background-color: transparent;
+  }
+  .enapp .topright>ul>li:nth-child(1){
+    background:url("../../assets/USA.png") center center no-repeat;
+    background-size: 100% 110%; 
+  }
+  .zhapp .topright>ul>li:nth-child(1){
+    background:url("../../assets/CHINA.png") center center no-repeat;
+    background-size: 100% 110%; 
+  }
   .topright>ul>li:hover{
     cursor: pointer;
   }
-  .topright>ul>li:nth-child(1){
-    margin-top: 60%;
-  }
-  .topright>ul>li:nth-child(2){
+  .topright>ul>li{
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
   }
   .topright .en{
-    margin-top: 6%;
     background:url("../../assets/USA.png") center center no-repeat;
     background-size: 100% 130%; 
     background-color: rgba(19,31,51,.7);
@@ -233,6 +244,7 @@ export default {
     width: 70%;
     min-width: 126px;
     height:100%;
+    min-height: 35px;
     padding: 0 5%;
     box-sizing: border-box;
     margin-left: 33%;

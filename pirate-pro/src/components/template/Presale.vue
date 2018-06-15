@@ -21,7 +21,7 @@
           </li>
         </ul>
         <ul class="prebtn" :style="{'height':btnheight}">
-          <li v-for="(btnitem,index) in btnitems"><div @click="confirmbuycard(index + 1)" :style="{'height':divheight}" v-bind:class="{'clickbg':clicked[index]}" @mousedown="btndown(index)"><div>{{btnitem.price}} ETH</div></div></li>
+          <li v-for="(btnitem,index) in btnitems"><div @click="confirmbuycard(index + 1)" :style="{'height':divheight}" v-bind:class="{'clickbg':clicked[index],'disablebtn':disabledbtn[index]}" @mousedown="btndown(index)"><div v-show="!disabledbtn[index]">{{btnitem.price}} ETH</div><div v-show="disabledbtn[index]">{{$t("message.game_text_soldout")}}</div></div></li>
         </ul>
         <div class="sale" v-show="showbigpopup">
           <bigPopup :bigpopup-buymsg="buymsg"></bigPopup>
@@ -96,11 +96,17 @@ export default {
       div.getElementsByTagName("div")[0].classList.remove("light");
     },
     confirmbuycard: function (i) {
+      if(this.$store.state.disabledbtn[i-1]){
+        return;
+      }
       this.$store.dispatch("showbigpopup",{confirmbuycard:true,player:i});
       this.$store.state.buymsg.confirmbuycard = true;
       this.$store.state.buymsg.player = i;
     },
     btndown: function (i) {
+      if(this.$store.state.disabledbtn[i-1]){
+        return;
+      }
       this.$store.state.btnclicked[0] = false;
       this.$store.state.btnclicked[1] = false;
       this.$store.state.btnclicked[2] = false;
@@ -190,6 +196,9 @@ export default {
     },
     showshadow () {
       return this.$store.state.showshadow
+    },
+    disabledbtn () {
+      return this.$store.state.disabledbtn
     },
   },
   destroyed () {
@@ -303,22 +312,44 @@ export default {
   background-size: 100% 100%; 
 }
 .preplayer li div.level{
-  width: 10%;
+  width: 100%;
   height: 10%;
   margin: 0;
   position: relative;
-  top: -86.7%;
-  left: 41%;
+  top: -94.5%;
+  left: -18.5%;
 }
-.preplayer li:nth-child(2) div.level{
-  left: 39%;
-}
-.preplayer li:nth-child(3) div.level{
-  left: 39%;
+.preplayer li:nth-child(2) div.level,.preplayer li:nth-child(3) div.level{
+  left: -20.5%;
 }
 .preplayer li div.level.level1{
-  background:url("../../assets/level1.png") center center no-repeat;
-  background-size: 70% 70%; 
+  background:url("../../assets/level1.png") right center no-repeat;
+  background-size: 7% 70%; 
+}
+@media all and (min-width: 900px){
+  .preplayer li div.level{
+    top: -93.8%;
+  }
+}
+@media all and (min-width: 1000px){
+  .preplayer li div.level{
+    top: -93%;
+  }
+}
+@media all and (min-width: 1100px){
+  .preplayer li div.level{
+    top: -92.5%;
+  }
+}
+@media all and (min-width: 1200px){
+  .preplayer li div.level{
+    top: -91.5%;
+  }
+}
+@media all and (min-width: 1600px){
+  .preplayer li div.level{
+    top: -91%;
+  }
 }
 .prebtn{
   height: 14.5%;
@@ -353,6 +384,11 @@ export default {
   background:url("../../assets/player1b.png");
   background-size: 100% 100%; 
 }
+.prebtn li>div.disablebtn{
+  background:url("../../assets/player1b_gray.png");
+  background-size: 100% 100%;
+  color: #fff;
+}
 .prebtn li>div.clickbg{
   background:url("../../assets/player1b_afterclick.png");
   background-size: 100% 100%; 
@@ -360,7 +396,7 @@ export default {
 .preplayer li div{
   width: 80%;
   height: 83%;
-  font-size: 13px;
+  font-size: 12px;
   margin: 5% 7%;
   position: relative;
   top: -2.7%;
@@ -436,7 +472,7 @@ export default {
     font-size: 15px;
   }
   .prebtn>li>div{
-    font-size: 18px;
+    font-size: 17px;
   }
 }
 @media all and (max-width: 1000px){
@@ -444,19 +480,26 @@ export default {
     font-size: 14px;
   }
   .prebtn>li>div{
-    font-size: 17px;
+    font-size: 15px;
   }
 }
 .preplayer li div.attack,.preplayer li div.defense{
   width: 16%;
   height: 4.3%;
+  min-width: 55px;
+  min-height: 19px;
   margin: 0;
   left: 23%;
   float: left;
   color: rgb(222,178,94);
+  font-family: Microsoft Yahei;
+}
+.preplayer li div.attack{
+  width: 20%;
 }
 .preplayer li div.defense{
-  left:52%;
+  left:42%;
+  min-width: 40px;
 }
 .preplayer li:nth-child(1) div.attack,.preplayer li:nth-child(1) div.defense{
   top: -16.6%;
@@ -465,7 +508,7 @@ export default {
   top: -16.5%;
 }
 .preplayer li:nth-child(2) div.defense{
-  left: 51%;
+  left: 40%;
 }
 .preplayer li:nth-child(3) div.attack,.preplayer li:nth-child(3) div.defense{
   top: -16.7%;
@@ -474,7 +517,7 @@ export default {
   left: 22%;
 }
 .preplayer li:nth-child(3) div.defense{
-  left: 50%;
+  left: 40%;
 }
 @media all and (min-width: 1100px){
   .preplayer li div{
@@ -484,19 +527,48 @@ export default {
   .preplayer li:nth-child(3) div.attack,.preplayer li:nth-child(3) div.defense{
     top: -16.1%;
   }
+  .preplayer li div.defense{
+    left:45%;
+  }
+  .preplayer li:nth-child(2) div.defense{
+    left:43%;
+  }
+  .preplayer li:nth-child(3) div.defense{
+    left:42%;
+  }
+}
+@media all and (min-width: 1250px){
+  .preplayer li div.defense{
+    left:47%;
+  }
+  .preplayer li:nth-child(2) div.defense{
+    left:45%;
+  }
+  .preplayer li:nth-child(3) div.defense{
+    left:44%;
+  }
 }
 @media all and (min-width: 1400px){
   .preplayer li:nth-child(1) div.attack{
     top: -16%;
   }
   .preplayer li:nth-child(1) div.defense{
-    top:-15.5%;
+    top:-15.9%;
   }
   .preplayer li:nth-child(2) div.attack,.preplayer li:nth-child(2) div.defense{
     top: -15.8%;
   }
   .preplayer li:nth-child(3) div.attack,.preplayer li:nth-child(3) div.defense{
-    top: -15.6%;
+    top: -15.9%;
+  }
+  .preplayer li div.defense{
+    left:49%;
+  }
+  .preplayer li:nth-child(2) div.defense{
+    left:48%;
+  }
+  .preplayer li:nth-child(3) div.defense{
+    left:47%;
   }
 }
 @media all and (min-width: 1800px){
@@ -677,6 +749,7 @@ export default {
 .maptext{
   width: 100%;
   height: 38%;
+  font-size: 12px;
 }
 .maptext1,.maptext2,.maptext3{
   width: 17.5%;
@@ -699,13 +772,14 @@ export default {
 .mapbottom{
   width: 100%;
   height: 7.7%;
+  font-size: 12px;
 }
 .mapbottom1,.mapbottom2,.mapbottom3{
   width: 17.5%;
   height: 100%;
   float: left;
   text-align: center;
-  padding-top: 1%;
+  padding-top: 0.9%;
   box-sizing: border-box;
 }
 .mapbottom1{
