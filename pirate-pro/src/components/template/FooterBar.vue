@@ -1,7 +1,6 @@
 <template>
   <div class="footer-bar" :style="{'height':footerHeight}">
     <div class="shadow" :style="{'height':footerHeight}" v-show="showshadow || showsmallpopup"></div>
-    <div class="faqpopup" v-show="showFAQ" @click="closefaq"></div>
     <!-- <div class="topfooter">
       <ul class="list1">
         <li></li>
@@ -46,11 +45,10 @@ export default {
       
     },
     showfaq: function () {
-      this.showFAQ = true;
+      this.$store.dispatch("showfaq");
+      this.$store.dispatch("showshadow");
     },
-    closefaq: function () {
-      this.showFAQ = false;
-    }
+    
   },
   mounted:function(){
     var _this = this;
@@ -265,6 +263,24 @@ ul>li>a{
   color: rgb(81,86,96);
   margin-left: 46.5%;
   margin-top: 1.2%;
+}
+@media all and (max-width: 1350px){
+  .faq{
+    margin-left: 46%;
+    margin-top: 1.2%;
+  }
+}
+@media all and (max-width: 1150px){
+  .faq{
+    margin-left: 45.5%;
+    margin-top: 1.1%;
+  }
+}
+@media all and (max-width: 1050px){
+  .faq{
+    margin-left: 45%;
+    margin-top: 1%;
+  }
 }
 .twitter,.facebook,.bitguild{
   width: 1.3%;

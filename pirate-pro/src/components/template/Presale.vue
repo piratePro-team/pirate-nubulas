@@ -11,10 +11,10 @@
         </div> -->
         <div class="pretitle hide" :style="{'height':titleheight}"></div>
         <div class="pretitle2"></div>
-        <div class="pretitle3">{{$t("message.notmiss")}}</div>
+        <div class="pretitle3">{{$t("message.home_title_presalehint")}}</div>
         <ul class="preplayer" :style="{'height':playerheight}">
           <li v-for="(carditem,index) in carditems">
-            <div class="soldamount">{{$t("message.left")}} : {{carditem.soldamount}}/{{carditem.totalamount}}</div>
+            <div class="soldamount">{{$t("message.game_text_sold")}} : {{carditem.soldamount}}/{{carditem.totalamount}}</div>
             <div @mouseenter="light($event)" @mouseleave="none($event)" @click="detail(index + 1)"><div></div></div>
             <div class="attack">{{$store.state.captain[index].attack}}</div><div class="defense">{{$store.state.captain[index].defense}}</div>
             <div class="level" v-bind:class="{'level1':carditem.level == 1}"></div>
@@ -34,32 +34,23 @@
       <div class="introduce-pots" :style="{'height':potsheight}">
         <div class="shadow" :style="{'height':potsheight}" v-show="showshadow"></div>
         <div class="pots-title"></div>
-        <div class="pot1">{{$t("message.pot1")}}</div>
-        <div class="pot2">{{$t("message.pot2")}}</div>
-        <div class="pot3">{{$t("message.pot3")}}</div>
+        <div class="pot1">{{$t("message.home_text_pots1")}}</div>
+        <div class="pot2">{{$t("message.home_text_pots2")}}</div>
+        <div class="pot3">{{$t("message.home_text_pots3")}}</div>
       </div>
       <div class="roadmap" :style="{'height':mapheight}">
+        <div class="roadmapl"></div>
         <div class="shadow" :style="{'height':mapheight}" v-show="showshadow"></div>
         <div class="maptitle"></div>
-        <div class="width100"><div class="date1">{{$t("message.date1")}}</div><div class="date2">{{$t("message.date2")}}</div><div class="date3">{{$t("message.date3")}}</div></div>
-        <div class="maptop"><div class="maptop1">{{$t("message.plan1")}}</div><div class="maptop2">{{$t("message.plan2")}}</div><div class="maptop3">{{$t("message.plan3")}}</div></div>
+        <div class="width100"><div class="date1">{{$t("message.home_title_roadmapdate1")}}</div><div class="date2">{{$t("message.home_title_roadmapdate2")}}</div><div class="date3">{{$t("message.home_title_roadmapdate3")}}</div></div>
+        <div class="maptop"><div class="maptop1">{{$t("message.home_title_planname1")}}</div><div class="maptop2">{{$t("message.home_title_planname2")}}</div><div class="maptop3">{{$t("message.home_title_planname3")}}</div></div>
         <div class="maptext">
-          <div class="maptext1">{{$t("message.plancontext1")}}</div>
-          <div class="maptext2">
-            {{$t("message.plancontext2line1")}}<br/>
-            {{$t("message.plancontext2line2")}}<br/>
-            {{$t("message.plancontext2line3")}}<br/>
-            {{$t("message.plancontext2line4")}}<br/>
-          </div>
-          <div class="maptext3">
-            {{$t("message.plancontext3line1")}}<br/>
-            {{$t("message.plancontext3line2")}}<br/>
-            {{$t("message.plancontext3line3")}}<br/>
-            {{$t("message.plancontext3line4")}}<br/>
-            {{$t("message.plancontext3line5")}}<br/>
+          <div class="maptext1">{{$t("message.home_text_plancontext1")}}</div>
+          <div class="maptext2" v-html='$t("message.home_text_plancontext2")'></div>
+          <div class="maptext3" v-html='$t("message.home_text_plancontext3")'>
           </div>
         </div>
-        <div class="mapbottom"><div class="mapbottom1">{{$t("message.live")}}</div><div class="mapbottom2">{{$t("message.next")}}</div><div class="mapbottom3">{{$t("message.next")}}</div></div>
+        <div class="mapbottom"><div class="mapbottom1">{{$t("message.home_text_roadmapstatus1")}}</div><div class="mapbottom2">{{$t("message.home_text_roadmapstatus2")}}</div><div class="mapbottom3">{{$t("message.home_text_roadmapstatus2")}}</div></div>
       </div>
     </div>
 </template>
@@ -519,6 +510,24 @@ export default {
 .preplayer li:nth-child(3) div.defense{
   left: 40%;
 }
+@media all and (min-width: 800px){
+  .preplayer li div{
+    font-size: 12px;
+  }
+  .preplayer li:nth-child(1) div.attack,.preplayer li:nth-child(1) div.defense,.preplayer li:nth-child(2) div.attack,.preplayer li:nth-child(2) div.defense,
+  .preplayer li:nth-child(3) div.attack,.preplayer li:nth-child(3) div.defense{
+    top: -16.6%;
+  }
+  .preplayer li div.defense{
+    left:40%;
+  }
+  .preplayer li:nth-child(2) div.defense{
+    left:38%;
+  }
+  .preplayer li:nth-child(3) div.defense{
+    left:36%;
+  }
+}
 @media all and (min-width: 1100px){
   .preplayer li div{
     font-size: 13px;
@@ -587,7 +596,7 @@ export default {
 .pots-title{
   width: 100%;
   height: 23.3%;
-  margin: 0 auto;
+  margin: 0 auto 0 1.5%;
 }
 .enapp .pots-title{
   background: url("../../assets/potstitle_en.png") center center no-repeat;
@@ -663,7 +672,7 @@ export default {
 .pretitle2{
   width: 100%;
   height: 9.44%;
-  margin: 0 auto;
+  margin: 0 auto 0 1.5%;
 }
 .zhapp .pretitle2{
   background:url("../../assets/presaletitle_zh.png") center center no-repeat;
@@ -678,19 +687,34 @@ export default {
   height: auto;
   color: rgb(211,193,135);
   font-size: 15px;
+  font-weight: 600;
   margin: 0 auto;
   padding-left: 0;
   padding-bottom: 1%;
   text-align: center;
 }
+.roadmapl{
+  width: 2%;
+  height: 100%;
+  float: left;
+  background:url("../../assets/titleleft.png") left top no-repeat;
+  background-size: 100% 100%;
+  position: relative;
+  left: -2%;
+}
 .roadmap{
   width: 100%;
   background:url("../../assets/roadmap.png") center center no-repeat;
   background-size: 100% 100%; 
+  margin-left: 2%;
 }
 .roadmap .maptitle{
   width: 100%;
   height: 21.7%;
+  margin: 0 auto;
+}
+.enapp .roadmap .maptitle{
+  margin: 0 auto 0 -2%;
 }
 .enapp .maptitle{
   background:url("../../assets/maptitle_en.png") center center no-repeat;
@@ -711,10 +735,11 @@ export default {
   float: left;
   box-sizing: border-box;
   padding-top: 1%;
+  text-align: center;
 }
 .date1{
   color: rgb(175,100,0);
-  margin-left: 27%;
+  margin-left: 18.6%;
 }
 .date2,.date3{
   color: rgb(10,106,132);
@@ -737,7 +762,7 @@ export default {
   min-width: 150px;
 }
 .maptop1{
-  margin-left: 20.3%;
+  margin-left: 18.3%;
   background:url("../../assets/maptop1.png") center center no-repeat;
   background-size: 100%; 
 }
@@ -761,7 +786,7 @@ export default {
   box-sizing: border-box;
 }
 .maptext1{
-  margin-left: 20.5%;
+  margin-left: 18.5%;
 }
 .maptext2{
   margin-left: 1%;
@@ -783,7 +808,7 @@ export default {
   box-sizing: border-box;
 }
 .mapbottom1{
-  margin-left: 20.5%;
+  margin-left: 18.5%;
   background:url("../../assets/mapbottom1.png") center center no-repeat;
   background-size: 100%; 
 }

@@ -1,7 +1,6 @@
 import CaptainSell from '../util/contracts/CaptainSell'
 import CaptainToken from '../util/contracts/CaptainToken'
 import CaptainGameConfig from '../util/contracts/CaptainGameConfig'
-// import i18n from '../i18n/index.js'
 
 
 const state = {
@@ -68,6 +67,7 @@ const state = {
 	mycaptain2: [],
 	mycaptain3: [],
 	confirm_price: "-",
+	showFAQ: false,
 	//合约参数
 	CaptainGameConfig_abiarray: CaptainGameConfig.abi,
 	CaptainGameConfig_address4: "0xff48deaf17b23842f91c204dca547e2107f2c751",

@@ -17,7 +17,6 @@ if(!localStorage.getItem("j")){
 var arrhash = [];
 
 
-
 service.init = function(){
 	
 	console.log("初始化海盗网站==cookie:",document.cookie);
@@ -161,6 +160,7 @@ service.init = function(){
 }
 
 service.confirmlogin = function(){
+	console.log("11")
     //判断用户是否已经登录过
 	if(localStorage.getItem("昵称")){
 		console.log("用户已经登录过",localStorage.getItem("昵称"));
@@ -175,23 +175,22 @@ service.confirmlogin = function(){
 			}
 			console.log("强制刷新",sessionStorage.getItem("F5"));
 		}else{
+			console.log("11")
 			if(sessionStorage.getItem("F5") != "f"){
 				var arr = JSON.parse(localStorage.getItem("昵称"));
 				var ethaccount = sessionStorage.getItem("我的以太坊账户");
-
 				for(var i=0;i<arr.length;i++){
 					if(arr[i].meta == ethaccount){
 						store.state.username = arr[i].name;
 						console.log("F5刷新：",sessionStorage.getItem("F5"));
 					}else{
-						store.state.username = ethaccount;
+						store.state.username = ethaccount?ethaccount:"Login";
 					}
 				}
 			}else{
 				store.state.username = "Login";
 				console.log("网页刷新",sessionStorage.getItem("F5"));
 			}
-			
 		}
 		
 	}else{
@@ -200,21 +199,24 @@ service.confirmlogin = function(){
 			var j = localStorage.getItem("j");
 			if(j==1){
 				store.dispatch("showsmallpopup",{enable:true});
-				store.state.alertmsg.alert = i18n.messages[i18n.locale].message.loggedin;
+				store.state.alertmsg.alert = i18n.messages[i18n.locale].message.general_hint_logged;
 				service.login();
 				localStorage.setItem("j","2");
 			}
-		}else if(sessionStorage.getItem("我的以太坊账户")){
-			store.state.username = sessionStorage.getItem("我的以太坊账户");
-			var j = localStorage.getItem("j");
-			if(j==1){
-				store.dispatch("showsmallpopup",{enable:true});
-				store.state.alertmsg.alert = i18n.messages[i18n.locale].message.loggedin;
-				service.login();
-				localStorage.setItem("j","2");
-			}
-			
-		}
+		}else{
+			if(sessionStorage.getItem("我的以太坊账户")){
+				store.state.username = sessionStorage.getItem("我的以太坊账户");
+				var j = localStorage.getItem("j");
+				if(j==1){
+					store.dispatch("showsmallpopup",{enable:true});
+					store.state.alertmsg.alert = i18n.messages[i18n.locale].message.general_hint_logged;
+					service.login();
+					localStorage.setItem("j","2");
+				}
+		   }else{
+		   		store.state.username = "Login";
+		   }
+		} 
 	}
 }
 
@@ -227,7 +229,7 @@ service.login = function(){
 	//判断是否在支持metamask的google浏览器上运行
     if(typeof web3 == 'undefined'){
 		store.dispatch("showsmallpopup",{enable:true});
-		store.state.alertmsg.alert = i18n.messages[i18n.locale].message.logmetamask;
+		store.state.alertmsg.alert = i18n.messages[i18n.locale].message.general_hint_walletlogout;
 		return;
 	}
 	//获取以太账户
@@ -265,7 +267,7 @@ service.login = function(){
 				console.log("用户名是：",store.state.username);
 			}else{
 				store.dispatch("showsmallpopup");
-				store.state.alertmsg.alert = i18n.messages[i18n.locale].message.loggedin;
+				store.state.alertmsg.alert = i18n.messages[i18n.locale].message.general_hint_logged;
 				store.state.username = result.data.data.name;
 				console.log("我的昵称是：",result.data.data.name);
 			}
@@ -295,7 +297,7 @@ service.login = function(){
 		})
 	}else{
 		store.dispatch("showsmallpopup");
-		store.state.alertmsg.alert = i18n.messages[i18n.locale].message.logmetamask;
+		store.state.alertmsg.alert = i18n.messages[i18n.locale].message.general_hint_walletlogout;
 		store.state.username = "Login";
 		sessionStorage.setItem("F5","f");
 	}
@@ -313,7 +315,7 @@ service.buycard = function(i){
 	//判断是否在支持metamask的google浏览器上运行
     if(typeof web3 == 'undefined'){
 		store.dispatch("showsmallpopup",{enable:true});
-		store.state.alertmsg.alert = i18n.messages[i18n.locale].message.logmetamask;
+		store.state.alertmsg.alert = i18n.messages[i18n.locale].message.general_hint_walletlogout;
 	}
 	
 	
@@ -324,7 +326,7 @@ service.buycard = function(i){
 
 	if(!store.state.myaccount){
 		store.dispatch("showsmallpopup");
-		store.state.alertmsg.alert = i18n.messages[i18n.locale].message.logmetamask;
+		store.state.alertmsg.alert = i18n.messages[i18n.locale].message.general_hint_walletlogout;
 		store.state.username = "Login";
 		sessionStorage.setItem("F5","f");
 	}else{
@@ -344,7 +346,7 @@ service.buycard = function(i){
 				++j;
 				localStorage.setItem("j",j);
 				store.dispatch("showsmallpopup");
-				store.state.alertmsg.alert = i18n.messages[i18n.locale].message.loggedin;
+				store.state.alertmsg.alert = i18n.messages[i18n.locale].message.general_hint_logged;
 				return;
 			}
 		}
@@ -382,7 +384,7 @@ service.buycard = function(i){
 				localStorage.setItem("购买哈希",JSON.stringify(arrhash));
 				console.log("购买哈希",localStorage.getItem("购买哈希"));
 				store.dispatch("showsmallpopup");
-				store.state.alertmsg.alert = i18n.messages[i18n.locale].message.waitbuy;
+				store.state.alertmsg.alert = i18n.messages[i18n.locale].message.general_hint_tradeprocessing;
 			}else{
 				console.log(error);
 			}
@@ -391,6 +393,29 @@ service.buycard = function(i){
 		CaptainSellInstance.BuyToken(store.state.myaccount).watch(function(error,result){
 			if(!error){
 				console.log("购买成功后返回的结果是：",result);
+				var id = result.args.tokenId.toString();
+				console.log("id",id);
+				//刷新卡牌卖出数量
+				CaptainSellInstance.getCaptainCount(id,function(error,result){
+					if(!error){
+						console.log("售出该种卡牌数量：",result,id);
+						if(id == 3){
+							id = 0;
+						}else if(id == 5){
+							id = 1;
+						}else{
+							id = 2;
+						}
+						store.state.cardarr[id].soldamount = store.state.cardarr[id].totalamount - result.toString();
+						//判断是否可以购买
+						if(store.state.cardarr[id].soldamount == 0){
+							store.state.disabledbtn[id] = true;
+						}
+					}else{
+						console.log(error);
+					}
+				})
+				
 				if(localStorage.getItem("购买哈希")){
 					if(localStorage.getItem("购买哈希").indexOf(result.transactionHash) == -1 ){
 						return;
@@ -401,20 +426,8 @@ service.buycard = function(i){
 						localStorage.setItem("购买哈希",JSON.stringify(newarrhash));
 						console.log("购买成功，存储日志！",localStorage.getItem("购买哈希"));
 						store.dispatch("showsmallpopup");
-						store.state.alertmsg.alert = i18n.messages[i18n.locale].message.successbuy;
-						//刷新卡牌卖出数量
-						if(i==3){
-							store.state.cardarr[0].soldamount -= 1;
-						}else if(i==5){
-							store.state.cardarr[1].soldamount -= 1;
-						}else if(i==6){
-							store.state.cardarr[2].soldamount -= 1;
-						}
-						for(var n=0;n<store.state.cardarr.length;n++){
-							if(store.state.cardarr[n].soldamount == 0){
-								store.state.disabledbtn[n] = true;
-							}
-						}
+						store.state.alertmsg.alert = i18n.messages[i18n.locale].message.general_hint_tradedone;
+						
 						//重新获取我的卡牌列表
 						service.getmycards();
 						//存储玩家购买卡牌日志
@@ -439,24 +452,6 @@ service.buycard = function(i){
 					}
 				}
 				
-				//判断是否可以购买
-				CaptainSellInstance.getCaptainCount(i,function(error,result){
-					if(!error){
-						console.log("售出结果ii",result);
-						if(i==3){
-							i=1;
-						}else if(i==5){
-							i=2;
-						}else if(i==6){
-							i=3;
-						}
-						if(store.state.cardarr[i-1].totalcount == result.toString()){
-							store.state.disabledbtn[i-1] = true;
-						}
-					}else{
-						console.log(error);
-					}
-				})
 			}else{
 				console.log(error);
 			}
@@ -477,20 +472,20 @@ service.myassets = function(){
 	//判断是否在支持metamask的google浏览器上运行
     if(typeof web3 == 'undefined'){
 		store.dispatch("showsmallpopup",{enable:true});
-		store.state.alertmsg.alert = i18n.messages[i18n.locale].message.logmetamask;
+		store.state.alertmsg.alert = i18n.messages[i18n.locale].message.general_hint_walletlogout;
 		return;
 	}
 
 	if(store.state.username.indexOf("Login")>-1){
 		if(!web3.eth.accounts[0]){
 			store.dispatch("showsmallpopup");
-			store.state.alertmsg.alert = i18n.messages[i18n.locale].message.logmetamask;
+			store.state.alertmsg.alert = i18n.messages[i18n.locale].message.general_hint_walletlogout;
 			store.state.username = "Login";
 			sessionStorage.setItem("F5","f");
 			return;
 		}else{
 			// store.dispatch("showsmallpopup");
-			// store.state.alertmsg.alert = i18n.messages[i18n.locale].message.beforelog;
+			// store.state.alertmsg.alert = i18n.messages[i18n.locale].message.general_hint_login;
 			var arr = JSON.parse(localStorage.getItem("昵称"));
 			for(var i=0;i<arr.length;i++){
 				if(arr[i].meta == web3.eth.accounts[0]){
@@ -501,7 +496,7 @@ service.myassets = function(){
 	}else{
 		if(!web3.eth.accounts[0]){
 			store.dispatch("showsmallpopup");
-			store.state.alertmsg.alert = i18n.messages[i18n.locale].message.logmetamask;
+			store.state.alertmsg.alert = i18n.messages[i18n.locale].message.general_hint_walletlogout;
 			store.state.username = "Login";
 			sessionStorage.setItem("F5","f");
 			return;
@@ -510,6 +505,8 @@ service.myassets = function(){
 			for(var i=0;i<namearr.length;i++){
 				if(namearr[i].meta == web3.eth.accounts[0]){
 					store.state.username = namearr[i].name;
+				}else{
+					store.state.username = web3.eth.accounts[0];
 				}
 			}
 		}
@@ -579,7 +576,7 @@ service.setnickname = function(){
 	store.state.myaccount = web3.eth.accounts[0];
 	if(!store.state.myaccount){
 		store.dispatch("showsmallpopup");
-		store.state.alertmsg.alert = i18n.messages[i18n.locale].message.logmetamask;
+		store.state.alertmsg.alert = i18n.messages[i18n.locale].message.general_hint_walletlogout;
 		store.state.username = "Login";
 		sessionStorage.setItem("F5","f");
 		return;
@@ -641,10 +638,10 @@ service.changenickname = function(nameObj){
 				store.state.alertmsg.alert = i18n.messages[i18n.locale].message.nametoolong;
 			}else if(response.data.state == 10004){
 				store.dispatch("showsmallpopup");
-				store.state.alertmsg.alert = i18n.messages[i18n.locale].message.nameexisted;
+				store.state.alertmsg.alert = i18n.messages[i18n.locale].message.game_hint_nameexist;
 			}else if(response.data.state == 500){
 				store.dispatch("showsmallpopup");
-				store.state.alertmsg.alert = i18n.messages[i18n.locale].message.servererror;
+				store.state.alertmsg.alert = i18n.messages[i18n.locale].message.game_hint_nameerror;
 			}
 			
 		  }).catch(function (error) {

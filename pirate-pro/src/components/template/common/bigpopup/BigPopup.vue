@@ -4,21 +4,21 @@
   	<div v-show="bigpopupBuymsg.buycard" class="buycard">
 			<div class="role" :class="{'role1':role1,'role2':role2,'role3':role3}"></div>
 		<div class="introduce">
-		  	<div class="name"><p class="colorb">{{bigpopupBuymsg.buycard?((bigpopupBuymsg.player == 1)?$t('message.name1'):((bigpopupBuymsg.player == 2)?$t('message.name2'):$t('message.name3'))):""}}</p></div>
-		  	<div class="moredetail colorb">{{bigpopupBuymsg.buycard?((bigpopupBuymsg.player == 1)?$t('message.detail1'):((bigpopupBuymsg.player == 2)?$t('message.detail2'):$t('message.detail3'))):""}}</div>
+		  	<div class="name"><p class="colorb">{{bigpopupBuymsg.buycard?((bigpopupBuymsg.player == 1)?$store.state.captain[0].name:((bigpopupBuymsg.player == 2)?$store.state.captain[1].name:$store.state.captain[2].name)):""}}</p></div>
+		  	<div class="moredetail colorb">{{bigpopupBuymsg.buycard?((bigpopupBuymsg.player == 1)?$t('message.game_text_story3'):((bigpopupBuymsg.player == 2)?$t('message.game_text_story5'):$t('message.game_text_story6'))):""}}</div>
 		  	<div class="ability">
-		  		<div class="row"><div class="col-30">{{$t("message.attack")}}</div><div class="col-30 colorw">{{bigpopupBuymsg.buycard?($store.state.captain[bigpopupBuymsg.player - 1].attack1+"-"+$store.state.captain[bigpopupBuymsg.player - 1].attack2):""}}</div></div>
-		  		<div class="row"><div class="col-30">{{$t("message.defense")}}</div><div class="col-30 colorw">{{bigpopupBuymsg.buycard?$store.state.captain[bigpopupBuymsg.player - 1].defense:""}}</div></div>
+		  		<div class="row"><div class="col-30">{{$t("message.game_text_attack")}}</div><div class="col-30 colorw">{{bigpopupBuymsg.buycard?($store.state.captain[bigpopupBuymsg.player - 1].attack1+" - "+$store.state.captain[bigpopupBuymsg.player - 1].attack2):""}}</div></div>
+		  		<div class="row"><div class="col-30">{{$t("message.game_text_defense")}}</div><div class="col-30 colorw">{{bigpopupBuymsg.buycard?$store.state.captain[bigpopupBuymsg.player - 1].defense:""}}</div></div>
 		  	</div>
 		  	<div class="btn bold" @click="buycard" v-bind:class="{'disabled':disabledbtn}"><div>{{bigpopupBuymsg.buycard?$store.state.captain[bigpopupBuymsg.player - 1].price:""}} ETH</div></div>
 		</div>
   	</div>
 	<div v-show="bigpopupBuymsg.confirmbuycard" class="confirmbuycard">
 		<div class="confirmtitle"><div class="ghost"></div><div>{{$t("message.game_title_confirmpurchase")}}</div></div>
-		<div class="known">{{bigpopupBuymsg.player == 1?$t("message.confirm1"):(bigpopupBuymsg.player == 2?$t("message.confirm2"):$t("message.confirm3"))}}<br/>{{$t("message.confirmbuy")}}</div>
-		<div class="price"><div>{{confirm_price}}ETH</div></div>
-		<div class="cancelbtn bold" @click="closepopup"><p>{{$t("message.cancel")}}</p></div>
-		<div class="nextbtn bold" @click="buycard"><p>{{$t("message.ok")}}</p></div>
+		<div class="known">{{$t("message.game_text_confirmpurchase")}}"CAPTAIN {{bigpopupBuymsg.player == 1?$store.state.captain[0].name:(bigpopupBuymsg.player == 2?$store.state.captain[1].name:$store.state.captain[2].name)}}"<br/>{{$t("message.game_hint_blockchain")}}</div>
+		<div class="price"><div>{{confirm_price}} ETH</div></div>
+		<div class="cancelbtn bold" @click="closepopup"><p>{{$t("message.general_button_cancel")}}</p></div>
+		<div class="nextbtn bold" @click="buycard"><p>{{$t("message.general_button_ok")}}</p></div>
 	</div>
 	<div v-show="bigpopupBuymsg.myassets" class="myassets">
 		<div class="myassetstitle"><div class="ghost"></div><div>{{$t("message.game_title_myassets")}}</div></div>
@@ -29,8 +29,8 @@
 	<div v-show="bigpopupBuymsg.setnickname" class="setnickname">
 		<div class="setnicktitle"><div class="ghost"></div><div>{{$t("message.game_text_setname")}}</div></div>
 		<input class="inputname" type="text" maxlength="16" v-bind:placeholder="alertplaceholder" ref="inputname" @focus="clearplace"/>
-		<div class="cancelbtn bold" @click="closepopup"><p>{{$t("message.cancel")}}</p></div>
-		<div class="nextbtn bold" @click="changenickname"><p>{{$t("message.ok")}}</p></div>
+		<div class="cancelbtn bold" @click="closepopup"><p>{{$t("message.general_button_cancel")}}</p></div>
+		<div class="nextbtn bold" @click="changenickname"><p>{{$t("message.general_button_ok")}}</p></div>
 	</div>	  	
   </div>
 </template>
@@ -178,6 +178,8 @@ export default {
 	}
 	.bigpopup{
 		width: 42%;
+		/*min-width: 440px;
+		min-height: 343px;*/
 		margin: 0 29%;
 		color: rgb(76,38,2);
 		position: absolute;
@@ -228,7 +230,7 @@ export default {
 	.name{
 		width: 67.5%;
 		height: 8.5%;
-		position: absolute;
+		position: relative;
 		left: 20%;
 	}
 	.name>p{
@@ -237,58 +239,25 @@ export default {
 	}
 	.moredetail{
 		width: 100%;
-		height: 4em;
 		font-size:12px;
-		position: absolute;
-		top: 8.5%;
-		padding: 0 13.7%;
+		position: relative;
+		top: 2.5%;
+		padding: 0 7%;
 		box-sizing: border-box;
-		overflow: hidden;
-		word-break: break-all;
-		line-height: 12px;
 	}
-	.moredetail::after{
-		content: "...";
-		color: rgb(76,38,2);
-		position: absolute;
-    	bottom: 0;
-    	right: 8%;
-	}
-	
 	@media all and (min-width: 1080px){
-		.moredetail{
-			height: 52px;
-			font-size:13px;
-			line-height: 13px;
-		}
-		.moredetail::after{
-	    	right: 10%;
-		}
 		.name>p{
 			font-size: 14px;
 		}
 	}
 	@media all and (min-width: 1150px){
-		.moredetail{
-			height: 56px;
-			font-size:14px;
-			line-height: 14px;
-		}
-		.moredetail::after{
-	    	right: 9%;
-		}
 		.name>p{
 			font-size: 16px;
 		}
 	}
 	@media all and (min-width: 1270px){
 		.moredetail{
-			height: 60px;
-			font-size:15px;
-			line-height: 15px;
-		}
-		.moredetail::after{
-	    	right: 9%;
+			font-size:13px;
 		}
 		.name>p{
 			font-size: 18px;
@@ -296,64 +265,33 @@ export default {
 	}
 	@media all and (min-width: 1350px){
 		.moredetail{
-			height: 64px;
-			font-size:16px;
-			line-height: 16px;
-		}
-		.moredetail::after{
-	    	bottom: 2%;
+			font-size:14px;
 		}
 		.name>p{
 			font-size: 20px;
 		}
 	}
 	@media all and (min-width: 1400px){
-		.moredetail{
-			height: 68px;
-			font-size:17px;
-			line-height: 17px;
-		}
-		.moredetail::after{
-	    	right: 9%;
-		}
 		.name>p{
 			font-size: 22px;
 		}
 	}
 	@media all and (min-width: 1520px){
 		.moredetail{
-			height: 72px;
-			font-size:18px;
-			line-height: 18px;
-		}
-		.moredetail::after{
-	    	right: 9%;
+			font-size:15px;
 		}
 		.name>p{
 			font-size: 24px;
 		}
 	}
 	@media all and (min-width: 1660px){
-		.moredetail{
-			height: 76px;
-			font-size:19px;
-			line-height: 19px;
-		}
-		.moredetail::after{
-	    	right: 9%;
-		}
 		.name>p{
 			font-size: 26px;
 		}
 	}
 	@media all and (min-width: 1750px){
 		.moredetail{
-			height: 80px;
 			font-size:20px;
-			line-height: 20px;
-		}
-		.moredetail::after{
-	    	right: 11%;
 		}
 		.name>p{
 			font-size: 28px;
@@ -361,15 +299,17 @@ export default {
 	}
 	.ability{
 		width: 100%;
-		height: 51%;
-		position: absolute;
-		top: 29.8%;
+		padding: 0 7%;
+		position: relative;
+    	top: 2%;
+    	background: url("../../../../assets/ability.png") 21% 20% no-repeat;
+    	background-size: 70% 140%;
 	}
 	.ability>.row{
 		align-items: center;
 		width: 60%;
 		position: relative;
-		left: 26%;
+		left: 12%;
 	}
 	.ability>.row:nth-child(1){
 		margin-top: 5%;
@@ -381,22 +321,25 @@ export default {
 		overflow-x: visible;
 		font-size: 12px;
 		line-height: 16px;
-		padding: 2% 0;
+		padding: 2.5% 0;
 		width: auto;
+		min-width: 48px;
 	}
 	.ability>.row>.col-30:nth-child(2){
 		background-color: rgb(107,62,19);
 		border-radius: 5px;
-		padding: 0.5% 5%;
+		padding: 1% 5%;
 		width: 40%;
+		min-width: 61px;
 		justify-content: center;
+		margin-left: 2%;
 	}
 	.btn{
 		width: 53%;
 		height: 18%;
-		position: absolute;
-		top: 61%;
-		left: 14.1%;
+		position: relative;
+		top: 4%;
+		left: 11%;
 		font-size: 12px;
 	    color: rgb(135,45,0);
 	    text-align: center;
@@ -501,7 +444,7 @@ export default {
 	.confirmtitle{
 		width: 100%;
 		height: 26px;
-		font-size: 12px;
+		font-size: 15px;
 		color: rgb(76,38,2);
     	position: relative;
     	top: 13%;
@@ -690,7 +633,7 @@ export default {
 		background-color: red;
 		position: relative;
 		top: 20%;
-		left: 5%;
+		left: 5.6%;
 		background: url("../../../../assets/myplayer1.png") center 0 no-repeat;
 		background-size: 100% 100%;
 	}

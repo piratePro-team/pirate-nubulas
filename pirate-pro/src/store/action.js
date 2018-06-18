@@ -41,6 +41,12 @@ const actions = {
 	clearmycaptain(context){
 		context.commit("clearmycaptain");
 	},
+	showfaq(context){
+		context.commit("showfaq");
+	},
+	hidefaq(context){
+		context.commit("hidefaq");
+	}
 }
 
 export default actions

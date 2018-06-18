@@ -9,7 +9,7 @@
       </ul>
       <div class="row">
         <div class="col-50" @click="login"><p class="text-center" v-bind:title="mytitlename">{{username.username}}</p></div>
-        <div class="col-50"><p class="text-center"  @click="myassets">{{$t("message.myassets")}}</p></div>
+        <div class="col-50"><p class="text-center"  @click="myassets">{{$t("message.game_title_myassets")}}</p></div>
       </div>
     </div>
     <!-- <div class="language"  @click="changeLocale()">{{$t("message.changeLocale")}}</div> -->
@@ -30,6 +30,79 @@
     <div class="alert" v-show="showsmallpopup">
       <smallPopup :smallpopup-msg="alertmsg"></smallPopup>
     </div>
+    <div class="faq" v-show="showfaq" :style="{'top':faqtop,'left':faqleft,'height':faqheight}">
+      <div class="closefaq" @click="closeFAQ"></div>
+      <h1>{{$t("message.home_title_faq1")}}</h1>
+      <h2>{{$t("message.home_title_question1")}}</h2>
+      <p>{{$t("message.home_text_answer1")}}</p>
+
+      <h2>{{$t("message.home_title_faq2")}}</h2>
+      <h3>{{$t("message.home_title_question2")}}</h3>
+      <p>{{$t("message.home_text_answer2")}}</p>
+      <h3>{{$t("message.home_title_question3")}}</h3>
+      <p>{{$t("message.home_text_answer3")}}</p>
+      <h4>{{$t("message.home_title_question4")}}</h4>
+      <p v-html='$t("message.home_text_answer4")'></p>
+      <br/><img class="step1" :src="imgarr[0]"/><br/>
+      <p v-html='$t("message.home_text_answer5")'></p>
+      <br/><img class="step2" :src="imgarr[1]"/><br/>
+      <h4>{{$t("message.home_title_question6")}}</h4>
+      <p>{{$t("message.home_text_answer6")}}</p>
+      <br/><img class="step3" :src="imgarr[2]"/><br/>
+      <h4>{{$t("message.home_title_question7")}}</h4>
+      <p>{{$t("message.home_text_answer7")}}</p>
+      <br/><img class="step4" :src="imgarr[3]"/><br/>
+      <h4>{{$t("message.home_title_question8")}}</h4>
+      <p>{{$t("message.home_text_answer8")}}</p>
+      <br/><img class="step5" :src="imgarr[4]"/><br/>
+      <h4>{{$t("message.home_title_question9")}}</h4>
+      <p>{{$t("message.home_text_answer9")}}</p>
+      <br/><img class="step6" :src="imgarr[5]"/><br/>
+
+      <h2>{{$t("message.home_title_faq3")}}</h2>
+      <h3>{{$t("message.home_title_question10")}}</h3>
+      <p>{{$t("message.home_text_answer10")}}</p>
+      <h3>{{$t("message.home_title_question11")}}</h3>
+      <p>{{$t("message.home_text_answer11")}}</p>
+      <h3>{{$t("message.home_title_question12")}}</h3>
+      <p>{{$t("message.home_text_answer12")}}</p>
+      <h3>{{$t("message.home_title_question13")}}</h3>
+      <p>{{$t("message.home_text_answer13")}}</p>
+
+      <h2>{{$t("message.home_title_faq4")}}</h2>
+      <h3>{{$t("message.home_title_question14")}}</h3>
+      <p>{{$t("message.home_text_answer14")}}</p>
+      <h3>{{$t("message.home_title_question15")}}</h3>
+      <p>{{$t("message.home_text_answer15")}}</p>
+      <h3>{{$t("message.home_title_question16")}}</h3>
+      <p>{{$t("message.home_text_answer16")}}</p>
+      <h3>{{$t("message.home_title_question17")}}</h3>
+      <p>{{$t("message.home_text_answer17")}}</p>
+
+      <h2>{{$t("message.home_title_faq5")}}</h2>
+      <h3>{{$t("message.home_title_question18")}}</h3>
+      <p>{{$t("message.home_text_answer18")}}</p>
+      <h3>{{$t("message.home_title_question19")}}</h3>
+      <p>{{$t("message.home_text_answer19")}}</p>
+      <h3>{{$t("message.home_title_question20")}}</h3>
+      <p>{{$t("message.home_text_answer20")}}</p>
+      <h3>{{$t("message.home_title_question21")}}</h3>
+      <p>{{$t("message.home_text_answer21")}}</p>
+
+      <h2>{{$t("message.home_title_faq6")}}</h2>
+      <h3>{{$t("message.home_title_question22")}}</h3>
+      <p>{{$t("message.home_text_answer22")}}</p>
+      <h3>{{$t("message.home_title_question23")}}</h3>
+      <p>{{$t("message.home_text_answer23")}}</p>
+      
+      <h2>{{$t("message.home_title_faq7")}}</h2>
+      <h3>{{$t("message.home_title_question24")}}</h3>
+      <p>{{$t("message.home_text_answer24")}}</p>
+      <h3>{{$t("message.home_title_question25")}}</h3>
+      <p>{{$t("message.home_text_answer25")}}</p>
+      <h3>{{$t("message.home_title_question26")}}</h3>
+      <p>{{$t("message.home_text_answer26")}}</p>
+    </div>
   </div>
 </template>
 
@@ -45,7 +118,11 @@ export default {
       buymsg: this.$store.state.buymsg,
       alertmsg: this.$store.state.alertmsg,
       selectlan: false,
-      
+      imgarr: [require("../../assets/step1.png"),require("../../assets/step2.png"),require("../../assets/step3.png"),require("../../assets/step4.png"),require("../../assets/step5.png"),require("../../assets/step6.png")],
+      faqtop: "",
+      faqleft: "",
+      faqheight: "",
+
     }
   },
   methods: {
@@ -75,17 +152,37 @@ export default {
     },
     openlanbox: function () {
       this.selectlan = this.selectlan?false:true;
+    },
+    closeFAQ: function () {
+      this.$store.dispatch("hidefaq");
+      this.$store.dispatch("hideshadow");
     }
   },
   mounted:function(){
-    //缩放浏览器时改变头部top
+    //缩放浏览器时改变头部top,faq位置
+    var screenheight = document.documentElement.clientHeight;
+    var screenwidth = document.documentElement.clientWidth;
+    this.faqheight = screenheight/10 * 8 + "px";
+    this.faqtop = screenheight/10 * 1 -17 + "px";
+    this.faqleft = (screenwidth )/10 * 1 - 10 -17 + "px";
+
     const _this = this; 
     window.addEventListener("resize",function(){
       var val = document.documentElement.clientWidth;
+      var screenheight = document.documentElement.clientHeight;
       _this.topheight = parseInt(val) / 1920 * 975 + "px";
       _this.topnavheight = parseInt(val) / 1920 * 118 + "px";
+      _this.faqheight = screenheight/10 * 8 + "px";
     })
-    
+    window.onscroll = function(){
+      var scrolltop = document.documentElement.scrollTop;
+      var scrollleft = document.documentElement.scrollLeft;
+      var screenheight = document.documentElement.clientHeight;
+      var screenwidth = document.documentElement.clientWidth;
+      _this.faqheight = screenheight/10 * 8 + "px";
+      _this.faqtop = screenheight/10 * 1 -17 + scrolltop + "px";
+      _this.faqleft = (screenwidth )/10 * 1 - 10 -17 + scrollleft + "px";
+    }
   },
   destroyed () {
     window.removeEventListener("resize");
@@ -138,6 +235,9 @@ export default {
       }else if(this.$store.state.locale == "zh-ch"){
         return true
       }
+    },
+    showfaq () {
+        return this.$store.state.showFAQ
     }
   }
 }
@@ -181,7 +281,7 @@ export default {
   }
   .topright{
     width: 16.75%;
-    min-width: 230px;
+    min-width: 205px;
     height: 5.1%;
     min-height: 26px;
     float: right;
@@ -242,7 +342,6 @@ export default {
   }
   .topright>div:nth-child(2){
     width: 70%;
-    min-width: 126px;
     height:100%;
     min-height: 35px;
     padding: 0 5%;
@@ -388,5 +487,60 @@ export default {
     height: 100%;
     display: block;
   }
-  
+  .faq{
+    width: 80%;
+    height: 80vh;
+    background-color: #fff;
+    overflow-y: scroll;
+    position: absolute;
+    left: 10%;
+    top: 10vh;
+    z-index: 12;
+    text-align: center;
+    padding: 20px 30px;
+    line-height: 1.5;
+    font-size: 14px;
+    background: rgba(151,199,228);
+  }
+  .faq>p{
+    color: #000;
+  }
+  .faq>.step1,.faq>.step2,.faq>.step3,.faq>.step4,.faq>.step5,.faq>.step6{
+    width: 60%;
+    height: auto;
+  }
+  ::-webkit-scrollbar-track-piece {
+    width: 10px;
+    height: 100%;  
+    background-color:rgb(31,45,64);  
+    border-left:0;
+    border-radius: 7px;   
+  }  
+  ::-webkit-scrollbar {  
+      width:10px;  
+      height:5px;
+      border-radius: 7px;
+  }  
+  ::-webkit-scrollbar-thumb {  
+      background-color:rgb(61,98,165);  
+      background-clip:padding-box;  
+      border:0;  
+      min-height:28px;
+      border-radius: 7px;  
+  }  
+  ::-webkit-scrollbar-thumb:hover {  
+      border:0;  
+      background-color:rgb(61,98,165);  
+  } 
+  .closefaq{
+    width: 20px;
+    height: 20px;
+    background:rgb(61,98,165);
+    position: fixed;
+    top: 10%;
+    left: 10%; 
+  }
+  .closefaq:hover{
+    cursor: pointer;
+  }
 </style>
