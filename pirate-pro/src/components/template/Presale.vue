@@ -10,7 +10,7 @@
           </div>
         </div> -->
         <div class="pretitle hide" :style="{'height':titleheight}"></div>
-        <div class="pretitle2"></div>
+        <div class="pretitle2"><img class="prelogo" src="../../assets/pre_logo.png"/><div>{{$t("message.home_title_presale")}}</div></div>
         <div class="pretitle3">{{$t("message.home_title_presalehint")}}</div>
         <ul class="preplayer" :style="{'height':playerheight}">
           <li v-for="(carditem,index) in carditems">
@@ -52,6 +52,24 @@
         </div>
         <div class="mapbottom"><div class="mapbottom1">{{$t("message.home_text_roadmapstatus1")}}</div><div class="mapbottom2">{{$t("message.home_text_roadmapstatus2")}}</div><div class="mapbottom3">{{$t("message.home_text_roadmapstatus2")}}</div></div>
       </div>
+      <div class="chests" :style="{'height':chestsheight}">
+        
+      </div>
+      <div class="crafting" :style="{'height':craftingheight}">
+        
+      </div>
+      <div class="boat" :style="{'height':boatheight}">
+        
+      </div>
+      <div class="king" :style="{'height':kingheight}">
+        
+      </div>
+      <div class="battles" :style="{'height':battlesheight}">
+        
+      </div>
+      <div class="ALLIANCES" :style="{'height':ALLIANCESheight}">
+        
+      </div>
     </div>
 </template>
 
@@ -75,6 +93,12 @@ export default {
       clicked: this.$store.state.btnclicked,
       potsheight: "",
       mapheight: "",
+      chestsheight: "",
+      craftingheight: "",
+      boatheight: "",
+      kingheight: "",
+      battlesheight: "",
+      ALLIANCESheight: "",
     }
   },
   methods: {
@@ -134,8 +158,14 @@ export default {
     }else{*/
       this.addheight = ((document.documentElement.clientHeight) - (document.documentElement.clientWidth)/ 1920 * 800)/2 + "px";
       this.playersheight = (document.documentElement.clientWidth)/ 1920 * 825 + "px";
-      this.potsheight = (document.documentElement.clientWidth) /1920 * 860 + "px";
+      this.potsheight = (document.documentElement.clientWidth) /1920 * 875 + "px";
       this.mapheight = (document.documentElement.clientWidth) /1920 * 715 + "px";
+      this.chestsheight = (document.documentElement.clientWidth) /1920 * 860 + "px";
+      this.craftingheight = (document.documentElement.clientWidth) /1920 * 860 + "px";
+      this.boatheight = (document.documentElement.clientWidth) /1920 * 860 + "px";
+      this.kingheight = (document.documentElement.clientWidth) /1920 * 860 + "px";
+      this.battlesheight = (document.documentElement.clientWidth) /1920 * 860 + "px";
+      this.ALLIANCESheight = (document.documentElement.clientWidth) /1920 * 860 + "px";
     // }
 
     var _this = this;
@@ -151,14 +181,20 @@ export default {
           _this.btnheight = "12%";
           _this.divheight = "76%";
         }else{*/
-          _this.addheight = ((document.documentElement.clientHeight) - (document.documentElement.clientWidth)/ 1920 * 800)/2 + "px";
-          _this.playersheight = (document.documentElement.clientWidth)/ 1920 * 825 + "px";
+          _this.addheight = ((val2) - (val)/ 1920 * 800)/2 + "px";
+          _this.playersheight = (val)/ 1920 * 825 + "px";
           _this.titleheight = "9.44%";
           _this.playerheight = "70%";
           _this.btnheight = "14.5%";
           _this.divheight = "60%";
-          _this.potsheight = document.documentElement.clientWidth /1920 * 860 + "px";
-          _this.mapheight = (document.documentElement.clientWidth) /1920 * 715 + "px";
+          _this.potsheight = val /1920 * 875 + "px";
+          _this.mapheight = (val) /1920 * 715 + "px";
+          _this.chestsheight = (val) /1920 * 860 + "px";
+          _this.craftingheight = (val) /1920 * 860 + "px";
+          _this.boatheight = (val) /1920 * 860 + "px";
+          _this.kingheight = (val) /1920 * 860 + "px";
+          _this.battlesheight = (val) /1920 * 860 + "px";
+          _this.ALLIANCESheight = (val) /1920 * 860 + "px";
         // }
         
     })
@@ -591,7 +627,7 @@ export default {
 .introduce-pots{
   width: 100%;
   background:url("../../assets/pots.png") center center no-repeat;
-  background-size: 100% 100%;
+  background-size: auto;
 }
 .pots-title{
   width: 100%;
@@ -617,8 +653,8 @@ export default {
   height: 20.8%;
   font-size: 12px;
   color: rgb(120,107,99);
-  top: 54%;
-  left: 21.8%;
+  top: 63%;
+  left: 17.8%;
 }
 .pot2{
   width: 18.2%;
@@ -633,8 +669,8 @@ export default {
   height: 23.3%;
   font-size: 12px;
   color: rgb(114,48,39);
-  top: 23%;
-  left: 60.5%;
+  top: 29%;
+  left: 62.5%;
 }
 @media all and (min-width:900px){
   .pot2{
@@ -653,7 +689,7 @@ export default {
 }
 @media all and (min-width:1300px){
   .pot2{
-    top:-16%;
+    top:-24%;
   }
   .pot1,.pot2,.pot3{
     font-size: 13px;
@@ -672,15 +708,17 @@ export default {
 .pretitle2{
   width: 100%;
   height: 9.44%;
-  margin: 0 auto 0 1.5%;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-.zhapp .pretitle2{
-  background:url("../../assets/presaletitle_zh.png") center center no-repeat;
-  background-size: 100%; 
+.pretitle2>.prelogo{
+  height: 250%;
+  display: flex;
 }
-.enapp .pretitle2{
-  background:url("../../assets/presaletitle_en.png") center center no-repeat;
-  background-size: 100%; 
+.pretitle2>div:nth-child(2){
+  display: flex;
 }
 .pretitle3{
   width: 80%;
@@ -900,5 +938,38 @@ export default {
   .mapbottom1,.mapbottom2,.mapbottom3{
     font-size: 18px;
   }
+}
+.chests{
+  width: 100%;
+  background:url("../../assets/chests.png") center center no-repeat; 
+  background-size: 100% 100%;
+  margin-top: -1px;
+}
+.crafting{
+  width: 100%;
+  background:url("../../assets/crafting.png") center center no-repeat; 
+  background-size: 100% 100%;
+}
+.boat{
+  width: 100%;
+  background:url("../../assets/boat.png") center center no-repeat; 
+  background-size: 100% 100%;
+}
+.king{
+  width: 100%;
+  background:url("../../assets/king.png") center center no-repeat; 
+  background-size: 100% 100%;
+}
+.battles{
+  width: 100%;
+  background:url("../../assets/battles.png") center center no-repeat; 
+  background-size: 100% 100%;
+  margin-top: -1px;
+}
+.ALLIANCES{
+  width: 100%;
+  background:url("../../assets/ALLIANCES.png") center center no-repeat; 
+  background-size: 100% 100%;
+  margin-top: -1px;
 }
 </style>
