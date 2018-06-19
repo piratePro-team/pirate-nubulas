@@ -2,9 +2,9 @@
   <div :style="{'height':popupheight,'top':popuptop}" class="bigpopup">
   	<div class="close" @click="closepopup"></div>
   	<div v-show="bigpopupBuymsg.buycard" class="buycard">
-			<div class="role" :class="{'role1':role1,'role2':role2,'role3':role3}"></div>
+		<div class="role" :class="{'role1':role1,'role2':role2,'role3':role3}"></div>
 		<div class="introduce">
-		  	<div class="name"><p class="colorb">{{bigpopupBuymsg.buycard?((bigpopupBuymsg.player == 1)?$store.state.captain[0].name:((bigpopupBuymsg.player == 2)?$store.state.captain[1].name:$store.state.captain[2].name)):""}}</p></div>
+		  	<div class="name"><p class="colorb">{{bigpopupBuymsg.buycard?((bigpopupBuymsg.player == 1)?$t("message.game_text_piratename3"):((bigpopupBuymsg.player == 2)?$t("message.game_text_piratename5"):$t("message.game_text_piratename6"))):""}}</p></div>
 		  	<div class="moredetail colorb">{{bigpopupBuymsg.buycard?((bigpopupBuymsg.player == 1)?$t('message.game_text_story3'):((bigpopupBuymsg.player == 2)?$t('message.game_text_story5'):$t('message.game_text_story6'))):""}}</div>
 		  	<div class="ability">
 		  		<div class="row"><div class="col-30">{{$t("message.game_text_attack")}}</div><div class="col-30 colorw">{{bigpopupBuymsg.buycard?($store.state.captain[bigpopupBuymsg.player - 1].attack1+" - "+$store.state.captain[bigpopupBuymsg.player - 1].attack2):""}}</div></div>
@@ -15,7 +15,7 @@
   	</div>
 	<div v-show="bigpopupBuymsg.confirmbuycard" class="confirmbuycard">
 		<div class="confirmtitle"><div class="ghost"></div><div>{{$t("message.game_title_confirmpurchase")}}</div></div>
-		<div class="known">{{$t("message.game_text_confirmpurchase")}}"CAPTAIN {{bigpopupBuymsg.player == 1?$store.state.captain[0].name:(bigpopupBuymsg.player == 2?$store.state.captain[1].name:$store.state.captain[2].name)}}"<br/>{{$t("message.game_hint_blockchain")}}</div>
+		<div class="known">{{$t("message.game_text_confirmpurchase")}}"CAPTAIN {{bigpopupBuymsg.player == 1?$t("message.game_text_piratename3"):(bigpopupBuymsg.player == 2?$t("message.game_text_piratename5"):$t("message.game_text_piratename6"))}}"<br/>{{$t("message.game_hint_blockchain")}}</div>
 		<div class="price"><div>{{confirm_price}} ETH</div></div>
 		<div class="cancelbtn bold" @click="closepopup"><p>{{$t("message.general_button_cancel")}}</p></div>
 		<div class="nextbtn bold" @click="buycard"><p>{{$t("message.general_button_ok")}}</p></div>

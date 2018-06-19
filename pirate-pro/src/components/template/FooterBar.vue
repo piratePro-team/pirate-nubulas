@@ -19,9 +19,12 @@
     </div>
     <div class="botfooter"></div> -->
     <p class="faq" @click="showfaq">FAQ</p>
-    <a class="twitter" v-bind:href="items3[1].href" target="_Blank"></a>
-    <a class="facebook" v-bind:href="items3[0].href" target="_Blank"></a>
-    <a class="bitguild"></a>
+    <a class="twitter" href="https://twitter.com/pirateconquest" target="_Blank"></a>
+    <a class="facebook" href="https://www.facebook.com/pirateconquest" target="_Blank"></a>
+    <a class="discord" href="https://discord.gg/PPaBZ9c" target="_Blank"></a>
+    <a class="telegram" href="https://t.me/pirateconquest" target="_Blank"></a>
+    <div class="wechat" @mouseover="showwechatimg" @mouseout="hidewechatimg"><div class="wechatimg" v-show="showwechat"></div></div>
+    <div class="qq" @mouseover="showqqimg" @mouseout="hideqqimg"><div class="qqtext" v-show="showqq">795659428</div></div>
     <p class="copyright">All rights reserved. 2018 Pirate Conquest</p>
   </div>
 </template>
@@ -37,7 +40,9 @@ export default {
       items1: [{title:"Home",href:this.configData.foot_ul1.foot_ul1_1},{title:"How it works",href:this.configData.foot_ul1.foot_ul1_2},{title:"FAQ",href:this.configData.foot_ul1.foot_ul1_3},{title:"TOS",href:this.configData.foot_ul1.foot_ul1_4},{title:"Pravacy Policy",href:this.configData.foot_ul1.foot_ul1_5}],
       items2: [{title:"Marketplace",href:this.configData.foot_ul2.foot_ul2_1},{title:"My Contacts",href:this.configData.foot_ul2.foot_ul2_2}],
       items3: [{title:"FACEBOOK",href:this.configData.foot_ul3.foot_ul3_1},{title:"TWITTER",href:this.configData.foot_ul3.foot_ul3_2}],
-      items4: [{title:"METAMASK",href:this.configData.foot_ul4.foot_ul4_1},{title:"ETHERRUM",href:this.configData.foot_ul4.foot_ul4_2},{title:"BITGUILD",href:this.configData.foot_ul4.foot_ul4_3}]
+      items4: [{title:"METAMASK",href:this.configData.foot_ul4.foot_ul4_1},{title:"ETHERRUM",href:this.configData.foot_ul4.foot_ul4_2},{title:"BITGUILD",href:this.configData.foot_ul4.foot_ul4_3}],
+      showwechat: false,
+      showqq: false,
     }
   },
   methods: {
@@ -48,6 +53,18 @@ export default {
       this.$store.dispatch("showfaq");
       this.$store.dispatch("showshadow");
     },
+    showwechatimg: function () {
+      this.showwechat = true;
+    },
+    hidewechatimg: function () {
+      this.showwechat = false;
+    },
+    showqqimg: function () {
+      this.showqq = true;
+    },
+    hideqqimg: function () {
+      this.showqq = false;
+    }
     
   },
   mounted:function(){
@@ -249,19 +266,19 @@ ul>li>a{
   background:url("../../assets/footer5.png") center center no-repeat;
   background-size: contain; 
 }
-.faq,.twitter,.facebook,.bitguild{
+.faq,.twitter,.facebook,.discord,.telegram,.wechat,.qq{
   display: block;
   float: left;
   margin-top: 1%;
 }
-.faq:hover,.twitter:hover,.facebook:hover,.bitguild:hover{
+.faq:hover,.twitter:hover,.facebook:hover,.discord:hover,.telegram:hover,.wechat:hover,.qq:hover{
   cursor: pointer;
 }
 .faq{
   font-size: 13px;
   font-weight: 700;
   color: rgb(81,86,96);
-  margin-left: 46.5%;
+  margin-left: 43.3%;
   margin-top: 1.2%;
 }
 @media all and (max-width: 1350px){
@@ -282,16 +299,39 @@ ul>li>a{
     margin-top: 1%;
   }
 }
-.twitter,.facebook,.bitguild{
-  width: 1.3%;
-  height: 16.5%;
-  margin-left: .8%;
+.twitter,.facebook,.discord,.telegram,.wechat,.qq{
+  width: 1.5%;
+  height: 17.5%;
+  margin-left: 0.6%;
+}
+.twitter{
+  background:url("../../assets/twitter.png") center center no-repeat; 
+  background-size: 100%;
 }
 .facebook{
-  margin-left: 0.7%;
-}
-.bitguild{
   margin-left: 0.5%;
+  background:url("../../assets/facebook.png") center center no-repeat; 
+  background-size: 100%;
+}
+.discord{
+  margin-left: 0.4%;
+  background:url("../../assets/discord.png") center center no-repeat; 
+  background-size: 100%;
+}
+.telegram{
+  margin-left: 0.4%;
+  background:url("../../assets/discord.png") center center no-repeat; 
+  background-size: 100%;
+}
+.wechat{
+  margin-left: 0.4%;
+  background:url("../../assets/discord.png") center center no-repeat; 
+  background-size: 100%;
+}
+.qq{
+  margin-left: 0.4%;
+  background:url("../../assets/discord.png") center center no-repeat; 
+  background-size: 100%;
 }
 .copyright{
   width: 100%;
@@ -301,4 +341,30 @@ ul>li>a{
   text-align: center;
   margin-top: 3%;
 }
+.wechatimg{
+  width: 400%;
+  height: 460%;
+  background:transparent; 
+  position: relative;
+  z-index: 10;
+  top: -450%;
+  left: 15%;
+  background:url("../../assets/wechatimg.png") left top no-repeat; 
+  background-size:100%;
+}
+.wechatimg:hover{
+  cursor: default;
+}
+.qqtext{
+  width: 420%;
+  height: 100%;
+  position: relative;
+  left: 100%; 
+  text-align: center;
+  color: #fff;
+}
+.qqtext:hover{
+  cursor: text;
+}
+
 </style>

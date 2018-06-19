@@ -270,6 +270,12 @@ export default {
     position: relative;
     top: 43%; 
   }
+  .zhapp .logo{
+    width: 40%;
+    background:url("../../assets/logo_zh.png") center center no-repeat;
+    background-size: contain;
+    top: 39%;
+  }
   .language{
     width: 15.89%;
     height: 9%;
@@ -513,8 +519,7 @@ export default {
     width: 10px;
     height: 100%;  
     background-color:rgb(31,45,64);  
-    border-left:0;
-    border-radius: 7px;   
+    border-left:0; 
   }  
   ::-webkit-scrollbar {  
       width:10px;  
