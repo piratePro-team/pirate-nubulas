@@ -54,10 +54,11 @@ const mutations = {
 	closebigpopup (state) {
 		state.showbigpopup = false;
 		state.buymsg.myassets = "";
-		state.buymsg.setnickname = "";
 		state.buymsg.confirmbuycard = "";
 		state.buymsg.player = "";
 		state.buymsg.buycard = "";
+		state.buymsg.verifyemail = "";
+		state.buymsg.invite = "";
 		state.btnclicked[0] = false;
 		state.btnclicked[1] = false;
 		state.btnclicked[2] = false;
@@ -86,6 +87,7 @@ const mutations = {
 	},
 	hidefaq (state) {
 		state.showFAQ = false;
-	}
+	},
+
 }
 export default mutations

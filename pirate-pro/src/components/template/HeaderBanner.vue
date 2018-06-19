@@ -12,6 +12,7 @@
         <div class="col-50"><p class="text-center"  @click="myassets">{{$t("message.game_title_myassets")}}</p></div>
       </div>
     </div>
+    <div class="invite" @click="showinvite"></div>
     <!-- <div class="language"  @click="changeLocale()">{{$t("message.changeLocale")}}</div> -->
     <div class="startbtn hide">
       <div class="btnanimation"></div>
@@ -156,6 +157,10 @@ export default {
     closeFAQ: function () {
       this.$store.dispatch("hidefaq");
       this.$store.dispatch("hideshadow");
+    },
+    showinvite: function () {
+      this.$store.dispatch("showbigpopup",{invite:true});
+      this.$store.state.buymsg.invite = true;
     }
   },
   mounted:function(){
@@ -385,6 +390,16 @@ export default {
       font-size: 17px;
     }
   }
+  .invite{
+    width: 11%;
+    height: 5.8%;
+    float: right;
+    position: relative;
+    top: 14%;
+    left: 17.3%;
+    background:url("../../assets/invite.png") center center no-repeat;
+    background-size: 100% 100%; 
+  }
   .startbtn{
     width: 13.54%;
     height: 9.67%;
@@ -515,28 +530,6 @@ export default {
     width: 60%;
     height: auto;
   }
-  ::-webkit-scrollbar-track-piece {
-    width: 10px;
-    height: 100%;  
-    background-color:rgb(31,45,64);  
-    border-left:0; 
-  }  
-  ::-webkit-scrollbar {  
-      width:10px;  
-      height:5px;
-      border-radius: 7px;
-  }  
-  ::-webkit-scrollbar-thumb {  
-      background-color:rgb(61,98,165);  
-      background-clip:padding-box;  
-      border:0;  
-      min-height:28px;
-      border-radius: 7px;  
-  }  
-  ::-webkit-scrollbar-thumb:hover {  
-      border:0;  
-      background-color:rgb(61,98,165);  
-  } 
   .closefaq{
     width: 20px;
     height: 20px;

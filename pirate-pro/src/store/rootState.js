@@ -20,10 +20,11 @@ const state = {
 	cardarr: [{soldamount:"-",totalamount:"-",level:"1"},{soldamount:"-",totalamount:"-",level:"1"},{soldamount:"-",totalamount:"-",level:"1"}],
 	buymsg: {
 		myassets: "",
-		setnickname: "",
 		confirmbuycard: "",
 		player: "",
 		buycard: "",
+		verifyemail: "",
+		invite: "",
 	},
 	alertmsg: {
 		alert: ""

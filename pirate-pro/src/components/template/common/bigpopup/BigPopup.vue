@@ -26,16 +26,28 @@
 		<div class="captain2 bold" v-bind:class="{'hidemycard':!mycaptain2.length}"><div><div>{{$t("message.game_title_owned")}}{{mycaptain2.length}}</div></div></div>
 		<div class="captain3 bold" v-bind:class="{'hidemycard':!mycaptain3.length}"><div><div>{{$t("message.game_title_owned")}}{{mycaptain3.length}}</div></div></div>
 	</div>
-	<div v-show="bigpopupBuymsg.setnickname" class="setnickname">
-		<div class="setnicktitle"><div class="ghost"></div><div>{{$t("message.game_text_setname")}}</div></div>
-		<input class="inputname" type="text" maxlength="16" v-bind:placeholder="alertplaceholder" ref="inputname" @focus="clearplace"/>
-		<div class="cancelbtn bold" @click="closepopup"><p>{{$t("message.general_button_cancel")}}</p></div>
-		<div class="nextbtn bold" @click="changenickname"><p>{{$t("message.general_button_ok")}}</p></div>
+	<div v-show="bigpopupBuymsg.invite" class="invite">
+		<div class="invitetitle"><div class="ghost"></div><div>{{$t("message.home_button_invite")}}</div></div>
+		<p>{{$t("message.home_text_getChests")}}</p>
+		<input type="text" v-model="inviteurl" readonly="readonly" />
+		<div class="invitebtn" @click="copyid"></div>
+		<p class="mybox">{{$t("message.home_text_countofchest")}} {{boxamount}}</p>
+	</div>
+	<div v-show="bigpopupBuymsg.verifyemail" class="verifyemail">
+		<div class="setnicktitle"><div class="ghost"></div><div>{{$t("message.home_text_userinfo")}}</div></div>
+		<input type="text" maxlength="20" v-model="inputnickname" class="inputnickname" v-bind:placeholder="alertplaceholder" @focus="clearplace"/><br/>
+		<input type="text" v-model="inputethaccount" class="inputethaccount" readonly="readonly"/><br/>
+		<input type="text" v-model="inputmail" class="inputemail" v-bind:placeholder="mailplaceholder" @focus="clearplace"/><div class="verifybtn" @click="verifyEmail"><p>{{$t("message.home_button_verify")}}</p></div>
+		<p v-show="notverify">{{$t("message.home_text_verifyhint")}}</p>
+		<p v-show="!notverify">{{$t("message.home_hint_emailexists")}}</p>
+		<div class="savebtn" @click="changenickname"><p>{{$t("message.general_button_ok")}}</p></div>
 	</div>	  	
   </div>
 </template>
 
 <script>
+import configdata from "../../../../util/configData.js"
+
 export default {
   name: 'bigPopup',
   props:["bigpopupBuymsg"],
@@ -46,13 +58,22 @@ export default {
       showbuypopup: "",
       showconfirmpopup: "",
       alertplaceholder: "",
-      
+      mailplaceholder: "",
+      inputnickname: "",
+      inputmail: "",
+      notverify: true,
+      boxamount: "-",
+      inviteurl: "",
+
     }
   },
   methods: {
   	closepopup: function () {
-  		this.$refs.inputname.value = "";
+  		this.inputnickname = "";
   		this.alertplaceholder = "";
+  		this.mailplaceholder = "";
+  		this.inputmail = "";
+  		this.notverify = true;
   		this.$store.dispatch("closebigpopup");
   		this.$store.dispatch("clearbigpopup");
   		
@@ -68,18 +89,51 @@ export default {
   		
   	},
   	changenickname: function () {
-  		var name = this.$refs.inputname.value;
+  		var name = this.inputnickname;
   		console.log("设置新昵称名是：",name);
   		if(name){
   			var data = {name:name}
 	  		this.service.changenickname(data);
 	  		this.closepopup();
   		}else{
-  			this.alertplaceholder = "请输入新的昵称";
+  			this.alertplaceholder = this.$t("message.game_text_setname");
   		}
   	},
   	clearplace: function () {
   		this.alertplaceholder = "";
+  		this.mailplaceholder = "";
+  	},
+  	verifyEmail: function () {
+  		if(!this.inputnickname){
+  			this.alertplaceholder = this.$t("message.game_text_setname");
+  			return;
+  		}
+  		var myaccount = this.inputethaccount;
+  		var mail = this.inputmail;
+  		var reg = new RegExp("^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$");
+  		if(mail && myaccount){
+  			if(localStorage.getItem("验证邮箱") == mail){
+				this.notverify = false;
+				return;
+			}
+			if(!reg.test(mail)){
+				this.inputmail = "";
+				this.mailplaceholder = this.$t("message.home_hint_incorrectemail");
+				return;
+			}
+  			this.service.verifyEmail(mail,myaccount);
+  			this.closepopup();
+  		}else{
+  			if(!myaccount){
+
+  			}else if(!mail){
+  				this.mailplaceholder = this.$t("message.home_hint_incorrectemail");
+  			}
+  		}
+  	},
+  	copyid: function () {
+  		localStorage.setItem("邀请地址",this.inviteurl);
+  		this.closepopup();
   	}
   },
   created () {
@@ -117,6 +171,17 @@ export default {
       this.popupheight = ((val)/ 1920 * 1080)* 0.58 + "px";
       this.popuptop = (val2 - parseInt(this.popupheight) )/2 + scrolltop + "px";
     // }
+    //邀请地址
+    var cookie = document.cookie;
+    var arr = cookie.split(";");
+    for(var i=0;i<arr.length;i++){
+    	if(arr[i].indexOf("invite")>-1){
+    		this.id = arr[i].split("=")[1];
+    	}
+    }
+    console.log('cookie',localStorage.getItem("邀请地址"));
+    this.inviteurl = configdata.base_url + "?"+this.id ;
+
   },
   computed: {
     confirm_price () {
@@ -163,6 +228,14 @@ export default {
     		return true;
     	}
     },
+    inputethaccount () {
+    	if(this.$store.state.myaccount){
+    		return this.$store.state.myaccount
+    	}else{
+    		return ""
+    	}
+    },
+    
   },
   destroyed () {
   	window.removeEventListener("resize");
@@ -712,6 +785,128 @@ export default {
 		position: relative;
 		top: 60%;
 	}
+	.verifyemail{
+		width: 100%;
+		height: 100%;
+		background: url("../../../../assets/bigpopup2.png") center center no-repeat;
+		background-size: 100% 100%;
+		border-top: 1px solid transparent;
+		text-align: center;
+	}
+	.verifyemail input{
+		width: 51%;
+		height: 8%;
+		display: block;
+		margin: 0 auto;
+		position: relative;
+		top: 10px;
+		outline: none;
+		border: 0;
+		padding-left: 5.1%;
+    	box-sizing: border-box;
+    	font-size: 13px;
+	}
+	.verifyemail .inputnickname{
+		margin-top: 20%;
+		background:url("../../../../assets/input1.png") center center no-repeat; 
+		background-size: 100% 100%;
+	}
+	.verifyemail .inputethaccount{
+		background:url("../../../../assets/input2.png") center center no-repeat; 
+		background-size: 100% 100%;
+	}
+	.verifyemail .inputemail{
+		background:url("../../../../assets/input3.png") center center no-repeat; 
+		background-size: 100% 100%;
 
+	}
+	.verifybtn{
+		width: 15%;
+		height: 8%;
+		position: relative;
+		top:-6%;
+    	left: 60%;
+    	color: #fff;
+    	display: table;
+	}
+	.verifybtn:hover{
+		cursor: pointer;
+	}
+	.verifybtn>p{
+		display: table-cell;
+		vertical-align: middle;
+	}
+	.verifyemail>p{
+		color: rgb(223,89,0);
+	}
+	.verifyemail>.savebtn{
+		width: 24.4%;
+		height: 10.6%;
+		margin: 3% auto;
+		background:url("../../../../assets/savebtn.png") center center no-repeat; 
+		background-size: 100% 100%;
+		display: table;
+	}
+	.verifyemail>.savebtn:hover{
+		cursor: pointer;
+	}
+	.savebtn>p{
+		display: table-cell;
+		vertical-align: middle;
+		color: rgb(135,45,0);
+		font-size: 22px;
+	}
+	.invite{
+		width: 100%;
+		height: 100%;
+		background: url("../../../../assets/bigpopup2.png") center center no-repeat;
+		background-size: 100% 100%;
+		border-top: 1px solid transparent;
+		text-align: center;
+	}
+	.invitetitle{
+		width: 100%;
+		height: 26px;
+		font-size: 26px;
+		color: rgb(76,38,2);
+    	position: relative;
+    	top: 13%;
+    	display: flex;
+    	justify-content: center;
+	}
+	.invite p{
+		width: 80%;
+		margin: 15% auto 0 auto;
+		font-size: 15px;
+		color: rgb(76,38,2);
+	}
+	.invite input{
+		width: 51%;
+		height: 8%;
+		display: block;
+		margin: 5% auto;
+		background:url("../../../../assets/invite_input.png") center center no-repeat; 
+		background-size: 100% 100%;
+		outline: none;
+		border: 0;
+		padding-left: 1%;
+		font-size: 15px;
+	}
+	.invite .invitebtn{
+		width: 11%;
+	    height: 8%;
+	    float: right;
+	    position: relative;
+	    top: -15%;
+	    left: -25%;
+	}
+	.invite .invitebtn:hover{
+		cursor: pointer;
+	}
+	.invite p.mybox{
+		margin:5% auto 0 auto;
+		text-align: left;
+		padding-left: 5%;
+	}
 </style>
 

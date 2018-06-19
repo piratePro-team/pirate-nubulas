@@ -14,7 +14,7 @@
         <div class="pretitle3">{{$t("message.home_title_presalehint")}}</div>
         <ul class="preplayer" :style="{'height':playerheight}">
           <li v-for="(carditem,index) in carditems">
-            <div class="soldamount">{{$t("message.game_text_sold")}} : {{carditem.soldamount}}/{{carditem.totalamount}}</div>
+            <div class="soldamount">{{$t("message.game_text_sold")}}{{carditem.soldamount}}/{{carditem.totalamount}}</div>
             <div @mouseenter="light($event)" @mouseleave="none($event)" @click="detail(index + 1)"><div></div></div>
             <div class="attack">{{$store.state.captain[index].attack}}</div><div class="defense">{{$store.state.captain[index].defense}}</div>
             <div class="level" v-bind:class="{'level1':carditem.level == 1}"></div>

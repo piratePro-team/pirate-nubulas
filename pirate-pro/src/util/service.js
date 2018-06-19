@@ -583,7 +583,7 @@ service.setnickname = function(){
 	}
 	//设置新的用户昵称
 	store.dispatch("showbigpopup");
-    store.state.buymsg.setnickname = true;
+    store.state.buymsg.verifyemail = true;
 }
 
 service.changenickname = function(nameObj){
@@ -652,7 +652,48 @@ service.changenickname = function(nameObj){
 }
 
 
+service.verifyEmail = function(m,a){
 
+	var emailaddress = m;
+	var account = a;
+	var postData = {
+		email: emailaddress,
+		token: account,
+		signature: ""
+	};
+	localStorage.setItem("验证邮箱",emailaddress);
+	var url = configData.base_url + configData.verifyemail;
+	web3.currentProvider.sendAsync({
+		id: 1,
+		method: 'personal_sign',
+		params: [
+		account,
+			web3.toHex('pirate_verify_email:' + emailaddress)
+		]
+	}, function(err, result) {
+		if(!result.error){
+		  let postData = {email: emailaddress,token: account,signature:result.result};
+
+		  console.info(postData);
+		  axios.post(url,postData).then(function(response){
+		  	console.log("验证邮箱：",response);
+		  	if(response.data.state == 200){
+		  		alert("验证成功")
+		  		localStorage.setItem("验证邮箱",emailaddress);
+		  	}else if(response.data.state == 10010){
+		  		alert("该邮箱已经验证过")
+		  	}else if(response.data.state == 10011){
+		  		alert("验证请求太过频繁")
+		  	}else if(response.data.state == 500){
+		  		alert("服务器错误")
+		  	}
+		  }).catch(function(error){
+		  	console.log("验证邮箱失败：",error);
+		  })
+		}
+	})
+
+}
 
 
 export default service
