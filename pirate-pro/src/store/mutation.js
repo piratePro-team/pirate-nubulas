@@ -58,6 +58,7 @@ const mutations = {
 		state.buymsg.player = "";
 		state.buymsg.buycard = "";
 		state.buymsg.verifyemail = "";
+		state.buymsg.claimKitties = "";
 		state.buymsg.invite = "";
 		state.btnclicked[0] = false;
 		state.btnclicked[1] = false;
@@ -76,6 +77,7 @@ const mutations = {
 		state.buymsg.confirmbuycard = "";
 		state.buymsg.buycard = "";
 		state.buymsg.player = "";
+		state.buymsg.claimKitties = "";
 	},
 	clearmycaptain (state) {
 		state.mycaptain1 = [];

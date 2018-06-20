@@ -1,6 +1,9 @@
 import CaptainSell from '../util/contracts/CaptainSell'
 import CaptainToken from '../util/contracts/CaptainToken'
 import CaptainGameConfig from '../util/contracts/CaptainGameConfig'
+//add by Anna
+import CaptainKitty from '../util/contracts/CaptainKitty'
+import KittyCore from '../util/contracts/KittyCore'
 
 
 const state = {
@@ -25,6 +28,7 @@ const state = {
 		buycard: "",
 		verifyemail: "",
 		invite: "",
+		claimKitties: ""
 	},
 	alertmsg: {
 		alert: ""
@@ -76,6 +80,17 @@ const state = {
 	CaptainSell_address4: "0xc1d7ccd7b13218d1bb3b3ee5a01f11215b1cfbd6",
 	CaptainToken_abiarray: CaptainToken.abi,
 	CaptainToken_address4: "0x1753a67ad313e149ca25daafc393b182f8c67a2c",
+	//add by Anna
+	KittyCore_abiarray: KittyCore.abi,
+	KittyCore_address4: "0x1513a3319992a46e724f0926c31bba9751a15740",
+	CaptainKitty_abiarray: CaptainKitty.abi,
+	CaptainKitty_address4: "0xf6052acf2d8ee25269da62fc721fd6e90772e328",
+	KittyCoreInstance: "",
+	CaptainKittyInstance: "",
+	isGetKitty: false,
+	KittyCount: 0,			//kitty猫
+	CaptainKittyCount: 0,	//海盗猫
+	network: 0
 }
 
 export default state

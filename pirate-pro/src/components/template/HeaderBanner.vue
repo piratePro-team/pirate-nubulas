@@ -10,6 +10,7 @@
       <div class="row">
         <div class="col-50" @click="login"><p class="text-center" v-bind:title="mytitlename">{{username.username}}</p></div>
         <div class="col-50"><p class="text-center"  @click="myassets">{{$t("message.game_title_myassets")}}</p></div>
+        <span @click="claimKitties">claim kitties</span>
       </div>
     </div>
     <div class="invite" @click="showinvite"></div>
@@ -161,6 +162,10 @@ export default {
     showinvite: function () {
       this.$store.dispatch("showbigpopup",{invite:true});
       this.$store.state.buymsg.invite = true;
+    },
+    claimKitties: function(){
+      this.$store.dispatch("showbigpopup");
+      this.$store.state.buymsg.claimKitties = true;
     }
   },
   mounted:function(){

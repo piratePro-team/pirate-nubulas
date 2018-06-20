@@ -375,6 +375,11 @@ module.exports = {
 		,
 		home_title_introduction:"INTRODUCTION"
 		,
+		home_text_piratekitties: "Pirate Kitties"
+		,
+		home_text_youcanclaim: "You can claim："
+		,
+		general_hint_getkittysuccess: "Claim Successfully"
 		
 	}
 }

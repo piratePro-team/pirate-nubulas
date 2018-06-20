@@ -40,19 +40,32 @@ service.init = function(){
 
 	//判断以太坊的网络线路
 	var version = web3.version.network;
+	store.state.network = version;
 	
 	var CaptainGameConfig = web3.eth.contract(store.state.CaptainGameConfig_abiarray);
 	var CaptainGameConfigInstance = "";
 	//获取当前各种卡牌已卖出的数量
 	var CaptainSell = web3.eth.contract(store.state.CaptainSell_abiarray);
 	var CaptainSellInstance = "";
+
+	//add by Anna @2018/6/20
+	var KittyCore = web3.eth.contract(store.state.KittyCore_abiarray);
+	var KittyCoreInstance = "";
+	var CaptainKitty = web3.eth.contract(store.state.CaptainKitty_abiarray);
+	var CaptainKittyInstance = "";
 	
 	if(version == 4){
 		CaptainGameConfigInstance = CaptainGameConfig.at(store.state.CaptainGameConfig_address4);
 		CaptainSellInstance = CaptainSell.at(store.state.CaptainSell_address4);
+		//add by Anna @2018/6/20
+		store.state.KittyCoreInstance = KittyCore.at(store.state.KittyCore_address4);
+		store.state.CaptainKittyInstance = CaptainKitty.at(store.state.CaptainKitty_address4);
 	}else{
 		CaptainGameConfigInstance = CaptainGameConfig.at(store.state.CaptainGameConfig_address4);
 		CaptainSellInstance = CaptainSell.at(store.state.CaptainSell_address4);
+		//add by Anna @2018/6/20
+		store.state.KittyCoreInstance = KittyCore.at(store.state.KittyCore_address4);
+		store.state.CaptainKittyInstance = CaptainKitty.at(store.state.CaptainKitty_address4);
 	}
 	console.log("以太坊初始化后metamask账户：",web3.eth.accounts[0]);
 	if(web3.eth.accounts[0]){
@@ -157,6 +170,9 @@ service.init = function(){
 
 	//如果登录了metamask就获取用户卡牌数量
 	service.getmycards();
+
+	//add by Anna @2018/6/20
+	service.getKitties();
 }
 
 service.confirmlogin = function(){
@@ -165,7 +181,7 @@ service.confirmlogin = function(){
 	if(localStorage.getItem("昵称")){
 		console.log("用户已经登录过",localStorage.getItem("昵称"));
 		if(web3.eth.accounts[0]){
-			var arr = JSON.parse(localStorage.getItem("昵称"));
+			var arr = localStorage.getItem("昵称");
 			for(var i=0;i<arr.length;i++){
 				if(arr[i].meta.indexOf(web3.eth.accounts[0]) >-1){
 					store.state.username = arr[i].name;
@@ -177,7 +193,7 @@ service.confirmlogin = function(){
 		}else{
 			console.log("11")
 			if(sessionStorage.getItem("F5") != "f"){
-				var arr = JSON.parse(localStorage.getItem("昵称"));
+				var arr = localStorage.getItem("昵称");
 				var ethaccount = sessionStorage.getItem("我的以太坊账户");
 				for(var i=0;i<arr.length;i++){
 					if(arr[i].meta == ethaccount){
@@ -486,7 +502,7 @@ service.myassets = function(){
 		}else{
 			// store.dispatch("showsmallpopup");
 			// store.state.alertmsg.alert = i18n.messages[i18n.locale].message.general_hint_login;
-			var arr = JSON.parse(localStorage.getItem("昵称"));
+			var arr = localStorage.getItem("昵称");
 			for(var i=0;i<arr.length;i++){
 				if(arr[i].meta == web3.eth.accounts[0]){
 					store.state.username = arr[i].name;
@@ -693,6 +709,102 @@ service.verifyEmail = function(m,a){
 		}
 	})
 
+}
+
+service.getKitties = function () {
+	//add by Anna @2018/6/20
+	var KittyCore = web3.eth.contract(store.state.KittyCore_abiarray);
+	var KittyCoreInstance = "";
+	var CaptainKitty = web3.eth.contract(store.state.CaptainKitty_abiarray);
+	var CaptainKittyInstance = "";
+
+	if(store.state.network == 4){
+		console.log("network", store.state.network);
+		KittyCoreInstance = KittyCore.at(store.state.KittyCore_address4);
+		CaptainKittyInstance = CaptainKitty.at(store.state.CaptainKitty_address4);
+	}else{
+		KittyCoreInstance = KittyCore.at(store.state.KittyCore_address4);
+		CaptainKittyInstance = CaptainKitty.at(store.state.CaptainKitty_address4);
+	}
+	
+	
+	if(web3.eth.accounts[0]){
+		store.state.myaccount = web3.eth.accounts[0];
+	}else{
+		if(sessionStorage.getItem("我的以太坊账户")){
+			store.state.myaccount = sessionStorage.getItem("我的以太坊账户");
+		}else{
+			store.state.myaccount = sessionStorage.getItem("我的以太坊账户");
+		}
+	}
+
+
+	function getKitties () {   //获取本海盗网站上的kitties数量
+		
+		CaptainKittyInstance.getKitties({from: store.state.myaccount},function(error, result){
+			if(!error){
+				store.state.KittyCount = parseInt(result[0].toString());
+				store.state.CaptainKittyCount = parseInt(result[1].toString());
+				store.state.isGetKitty = result[2];  //是否领取过海盗猫
+				console.log("getKitties", result);
+			}else{
+				console.log("error");
+			}
+		});
+	}
+
+	getKitties();
+
+}
+
+service.createKitties = function () {   //领取海盗猫
+	//add by Anna @2018/6/20
+	var KittyCore = web3.eth.contract(store.state.KittyCore_abiarray);
+	var KittyCoreInstance = "";
+	var CaptainKitty = web3.eth.contract(store.state.CaptainKitty_abiarray);
+	var CaptainKittyInstance = "";
+
+	if(store.state.network == 4){
+		console.log("network", store.state.network);
+		KittyCoreInstance = KittyCore.at(store.state.KittyCore_address4);
+		CaptainKittyInstance = CaptainKitty.at(store.state.CaptainKitty_address4);
+	}else{
+		KittyCoreInstance = KittyCore.at(store.state.KittyCore_address4);
+		CaptainKittyInstance = CaptainKitty.at(store.state.CaptainKitty_address4);
+	}
+	
+	
+	if(web3.eth.accounts[0]){
+		store.state.myaccount = web3.eth.accounts[0];
+	}else{
+		if(sessionStorage.getItem("我的以太坊账户")){
+			store.state.myaccount = sessionStorage.getItem("我的以太坊账户");
+		}else{
+			store.state.myaccount = sessionStorage.getItem("我的以太坊账户");
+		}
+	}
+
+	CaptainKittyInstance.createKitties(function(error, result){
+		if (!error) {
+			console.log(result);
+			store.dispatch("showsmallpopup");
+			store.state.alertmsg.alert = i18n.messages[i18n.locale].message.general_hint_tradeprocessing;
+			createKittiesEvent();  //监听领取成功事件
+		} else {
+			
+		}
+	});
+
+	function createKittiesEvent () {
+		CaptainKittyInstance.CreateKitty(store.state.KittyCount, store.state.myaccount).watch(function(error, result){
+			if (!error) {
+				console.log(result);
+				store.dispatch("showsmallpopup");
+				store.state.alertmsg.alert = i18n.messages[i18n.locale].message.general_hint_getkittysuccess;
+				service.getKitties();
+			} 
+		});
+	}
 }
 
 

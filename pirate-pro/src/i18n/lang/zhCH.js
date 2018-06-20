@@ -375,5 +375,11 @@ module.exports = {
         ,
         home_title_introduction:"玩法介绍"
         ,
-	}
+        home_text_piratekitties: "海盗猫"
+        ,
+        home_text_youcanclaim: "你可以认领： "
+        ,
+        general_hint_getkittysuccess: "认领成功。"
+        
+    }
 }

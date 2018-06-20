@@ -41,7 +41,15 @@
 		<p v-show="notverify">{{$t("message.home_text_verifyhint")}}</p>
 		<p v-show="!notverify">{{$t("message.home_hint_emailexists")}}</p>
 		<div class="savebtn" @click="changenickname"><p>{{$t("message.general_button_ok")}}</p></div>
-	</div>	  	
+	</div>	
+	<!--add by Anna @2018/6/20-->
+	<div v-show="bigpopupBuymsg.claimKitties" class="confirmbuycard">
+		<div class="confirmtitle"><div class="ghost"></div><div>{{$t("message.home_text_piratekitties")}}</div></div>
+		<div class="known">{{$t('message.home_text_answer21')}}</div>
+		<div class="youcanclaim known">{{$t('message.home_text_youcanclaim')}} {{$store.state.KittyCount}}</div><!-- -->
+		<!-- <div class="cancelbtn bold" @click="closepopup"><p>{{$t("message.general_button_cancel")}}</p></div> -->
+		<div class="nextbtn bold btn-center" @click="createKitty"><p>{{$t("message.general_button_ok")}}</p></div>
+	</div>
   </div>
 </template>
 
@@ -134,6 +142,12 @@ export default {
   	copyid: function () {
   		localStorage.setItem("邀请地址",this.inviteurl);
   		this.closepopup();
+  	},
+  	createKitty: function () {
+  		if(!this.$store.state.isGetKitty && this.$store.state.KittyCount > 0) {  //拥有的kitty数量大于0，且未领取过
+  			this.service.createKitties();
+  		}
+  		
   	}
   },
   created () {
@@ -923,5 +937,41 @@ export default {
 		text-align: left;
 		padding-left: 5%;
 	}
+	.known.youcanclaim{
+		width: 100%;
+	    position: relative;
+	    top: 28%;
+	    padding: 0 16% 0 14%;
+	    box-sizing: border-box;
+	    height: 10%;
+	    line-height: 1.3;
+	    text-align: center;
+	}
+	@media (min-width: 1000px){
+		.known.youcanclaim {
+		    top: 36%;
+		}
+	}
+	@media all and (min-width: 1250px){
+		.known.youcanclaim {
+			top: 34%;
+		}
+	}
+	@media all and (min-width: 1350px){
+		.known.youcanclaim {
+			top: 32%;
+		}
+	}
+	@media all and (min-width: 1450px){
+		.known.youcanclaim {
+			top: 30%;
+		}
+	}
+	.btn-center.nextbtn {
+		transform: translateX(-50%);
+    	left: 50%;
+	}
+
+		
 </style>
 
