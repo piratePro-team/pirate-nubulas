@@ -4,7 +4,7 @@
   	<div v-show="bigpopupBuymsg.buycard" class="buycard">
 		<div class="role" :class="{'role1':role1,'role2':role2,'role3':role3}"></div>
 		<div class="introduce">
-		  	<div class="name"><p class="colorb">{{bigpopupBuymsg.buycard?((bigpopupBuymsg.player == 1)?$t("message.game_text_piratename3"):((bigpopupBuymsg.player == 2)?$t("message.game_text_piratename5"):$t("message.game_text_piratename6"))):""}}</p></div>
+		  	<div class="name"><div class="ghost"></div><p class="colorb">{{bigpopupBuymsg.buycard?((bigpopupBuymsg.player == 1)?$t("message.game_text_piratename3"):((bigpopupBuymsg.player == 2)?$t("message.game_text_piratename5"):$t("message.game_text_piratename6"))):""}} {{$t("message.game_text_level")}}1</p></div>
 		  	<div class="moredetail colorb">{{bigpopupBuymsg.buycard?((bigpopupBuymsg.player == 1)?$t('message.game_text_story3'):((bigpopupBuymsg.player == 2)?$t('message.game_text_story5'):$t('message.game_text_story6'))):""}}</div>
 		  	<div class="ability">
 		  		<div class="row"><div class="col-30">{{$t("message.game_text_attack")}}</div><div class="col-30 colorw">{{bigpopupBuymsg.buycard?($store.state.captain[bigpopupBuymsg.player - 1].attack1+" - "+$store.state.captain[bigpopupBuymsg.player - 1].attack2):""}}</div></div>
@@ -15,7 +15,7 @@
   	</div>
 	<div v-show="bigpopupBuymsg.confirmbuycard" class="confirmbuycard">
 		<div class="confirmtitle"><div class="ghost"></div><div>{{$t("message.game_title_confirmpurchase")}}</div></div>
-		<div class="known">{{$t("message.game_text_confirmpurchase")}}"CAPTAIN {{bigpopupBuymsg.player == 1?$t("message.game_text_piratename3"):(bigpopupBuymsg.player == 2?$t("message.game_text_piratename5"):$t("message.game_text_piratename6"))}}"<br/>{{$t("message.game_hint_blockchain")}}</div>
+		<div class="known">{{$t("message.game_text_confirmpurchase")}}"{{bigpopupBuymsg.player == 1?$t("message.game_text_piratename3"):(bigpopupBuymsg.player == 2?$t("message.game_text_piratename5"):$t("message.game_text_piratename6"))}}"<br/>{{$t("message.game_hint_blockchain")}}</div>
 		<div class="price"><div>{{confirm_price}} ETH</div></div>
 		<div class="cancelbtn bold" @click="closepopup"><p>{{$t("message.general_button_cancel")}}</p></div>
 		<div class="nextbtn bold" @click="buycard"><p>{{$t("message.general_button_ok")}}</p></div>
@@ -146,6 +146,9 @@ export default {
         // console.log("缩放")
         var val = document.documentElement.clientWidth;
         var val2 = document.documentElement.clientHeight;
+        if(val<1000){
+        	val=1000;
+        }
         // if(val > 1680){
           // _this.popupheight = "58%";
           // _this.popuptop = "21%";
@@ -251,12 +254,14 @@ export default {
 	}
 	.bigpopup{
 		width: 42%;
-		/*min-width: 440px;
-		min-height: 343px;*/
+		min-width: 420px;
+		min-height: 343px;
 		margin: 0 29%;
 		color: rgb(76,38,2);
 		position: absolute;
+		z-index: 30;
 	}
+	
 	.close{
 		position: absolute;
 		right: 0;
@@ -271,7 +276,7 @@ export default {
 	.buycard{
 		width: 100%;
 		height: 100%;
-		background: url("../../../../assets/bigpopup.png") center center no-repeat;
+		background: url("../../../../assets/bigpopup2.png") center center no-repeat;
 		background-size: 100% 100%;
 	}
 	.role{
@@ -306,9 +311,19 @@ export default {
 		position: relative;
 		left: 20%;
 	}
+	.name .ghost{
+		width: 10%;
+		height: 80%;
+		background:url("../../../../assets/ghost.png") center center no-repeat;
+		background-size: 100%; 
+		position: relative;
+		left: -20%;
+	}
 	.name>p{
 		margin-top: -1%;
 		margin-left: 2%;
+		position: relative;
+		left: -19%;
 	}
 	.moredetail{
 		width: 100%;

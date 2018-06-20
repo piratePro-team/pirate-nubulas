@@ -30,6 +30,9 @@ export default {
   },
   mounted () {
     var val = document.documentElement.clientWidth;
+    if(val<1000){
+      val=1000;
+    }
     var val2 = document.documentElement.clientHeight;
     var scrolltop = document.documentElement.scrollTop || document.body.scrollTop;
     /*if(val > 1680){
@@ -43,6 +46,7 @@ export default {
     window.addEventListener("resize",function(){
         // console.log("缩放")
         var val = document.documentElement.clientWidth;
+        val = val<1000?1000:val;
         var val2 = document.documentElement.clientHeight;
         /*if(val > 1680){
           _this.popupheight = "25%";
@@ -75,6 +79,8 @@ export default {
 <style scoped>
 	.smallpopup{
 		width: 19%;
+    min-width: 250px;
+    min-height: 190px;
 		margin: 0 40%;
 		color: white;
 		position: relative;

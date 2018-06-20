@@ -1,14 +1,9 @@
 <template>
     <div class="tab-presale">
+      <asidebar></asidebar>
       <div class="addbox" v-show="!showheader.showheader" :style="{'height':addheight}"></div>
       <div class="players" :style="{'height':playersheight}">
-        <div class="shadow" :style="{'height':playersheight}" v-show="showshadow || showsmallpopup"></div>
-        <!-- <div class="topright">
-          <div class="row">
-            <div class="col-40" @click="login"><p class="text-left">{{username.username}}</p></div>
-            <div class="col-60"><p class="text-right" @click="myassets">My Assets</p></div>
-          </div>
-        </div> -->
+        <div class="shadow" :style="{'height':'100%'}" v-show="showshadow || showsmallpopup"></div>
         <div class="pretitle hide" :style="{'height':titleheight}"></div>
         <div class="pretitle2"><img class="prelogo" src="../../assets/pre_logo.png"/><div>{{$t("message.home_title_presale")}}</div></div>
         <div class="pretitle3">{{$t("message.home_title_presalehint")}}</div>
@@ -33,42 +28,46 @@
       <div class="addbox" v-show="!showfooter.showfooter" :style="{'height':addheight}"></div>
       <div class="introduce-pots" :style="{'height':potsheight}">
         <div class="shadow" :style="{'height':potsheight}" v-show="showshadow"></div>
-        <div class="pots-title"></div>
+        <div class="pots-title"><div class="ghostlogo"></div><p>{{$t("message.home_title_pots")}}</p></div>
         <div class="pot1">{{$t("message.home_text_pots1")}}</div>
         <div class="pot2">{{$t("message.home_text_pots2")}}</div>
         <div class="pot3">{{$t("message.home_text_pots3")}}</div>
       </div>
       <div class="roadmap" :style="{'height':mapheight}">
-        <div class="roadmapl"></div>
         <div class="shadow" :style="{'height':mapheight}" v-show="showshadow"></div>
-        <div class="maptitle"></div>
+        <div class="maptitle"><div class="ghostlogo"></div><p>{{$t("message.home_title_roadmap")}}</p></div>
         <div class="width100"><div class="date1">{{$t("message.home_title_roadmapdate1")}}</div><div class="date2">{{$t("message.home_title_roadmapdate2")}}</div><div class="date3">{{$t("message.home_title_roadmapdate3")}}</div></div>
         <div class="maptop"><div class="maptop1">{{$t("message.home_title_planname1")}}</div><div class="maptop2">{{$t("message.home_title_planname2")}}</div><div class="maptop3">{{$t("message.home_title_planname3")}}</div></div>
         <div class="maptext">
-          <div class="maptext1">{{$t("message.home_text_plancontext1")}}</div>
-          <div class="maptext2" v-html='$t("message.home_text_plancontext2")'></div>
-          <div class="maptext3" v-html='$t("message.home_text_plancontext3")'>
-          </div>
+          <div class="mapbox1"><div class="maptext1">{{$t("message.home_text_plancontext1")}}</div></div>
+          <div class="mapbox2"><div class="maptext2" v-html='$t("message.home_text_plancontext2")'></div></div>
+          <div class="mapbox3"><div class="maptext3" v-html='$t("message.home_text_plancontext3")'></div></div>
         </div>
         <div class="mapbottom"><div class="mapbottom1">{{$t("message.home_text_roadmapstatus1")}}</div><div class="mapbottom2">{{$t("message.home_text_roadmapstatus2")}}</div><div class="mapbottom3">{{$t("message.home_text_roadmapstatus2")}}</div></div>
       </div>
       <div class="chests" :style="{'height':chestsheight}">
-        
+        <div class="cheststitle"><div class="ghostlogo"></div><p>{{$t("message.home_title_chests")}}</p></div>
+        <p class="chestsp">{{$t("message.home_text_chestsintro")}}</p>
       </div>
       <div class="crafting" :style="{'height':craftingheight}">
-        
+        <div class="craftingtitle"><div class="ghostlogo"></div><p>{{$t("message.home_title_crafting")}}</p></div>
+        <p class="craftingp">{{$t("message.home_text_craftingintro")}}</p>
       </div>
       <div class="boat" :style="{'height':boatheight}">
-        
+        <div class="boattitle"><div class="ghostlogo"></div><p>{{$t("message.home_title_pirateboat")}}</p></div>
+        <p class="boatp">{{$t("message.home_text_pirateboatintro")}}</p>
       </div>
       <div class="king" :style="{'height':kingheight}">
-        
+        <div class="kingtitle"><div class="ghostlogo"></div><p>{{$t("message.home_title_kingofpirates")}}</p></div>
+        <p class="kingp">{{$t("message.home_text_kingofpirates")}}</p>
       </div>
       <div class="battles" :style="{'height':battlesheight}">
-        
+        <div class="battlestitle"><div class="ghostlogo"></div><p>{{$t("message.home_title_battles")}}</p></div>
+        <p class="battlesp">{{$t("message.home_text_battles")}}</p>
       </div>
       <div class="ALLIANCES" :style="{'height':ALLIANCESheight}">
-        
+        <div class="ALLIANCEStitle"><div class="ghostlogo"></div><p>{{$t("message.home_title_alliances")}}</p></div>
+        <p class="ALLIANCESp">{{$t("message.home_text_alliances")}}</p>
       </div>
     </div>
 </template>
@@ -173,6 +172,9 @@ export default {
         // console.log("缩放");
         var val = document.documentElement.clientWidth;
         var val2 = document.documentElement.clientHeight;
+        if(val<1000){
+          val=1000;
+        }
         /*if(document.documentElement.clientWidth > 1680){
           _this.addheight = 0;
           _this.playersheight = "100%";
@@ -332,6 +334,8 @@ export default {
   width: 33%;
   background:url("../../assets/player2.png") center center no-repeat;
   background-size: 100% 100%; 
+  position: relative;
+  left: 0.4%;
 }
 .preplayer li:nth-child(3){
   width: 33%;
@@ -423,7 +427,7 @@ export default {
 .preplayer li div{
   width: 80%;
   height: 83%;
-  font-size: 12px;
+  font-size: 0.8em;
   margin: 5% 7%;
   position: relative;
   top: -2.7%;
@@ -464,7 +468,7 @@ export default {
   margin: 0 9%;
   top: -2%;
   text-align: center;
-  font-size:19px;
+  font-size:1.05em;
   font-weight: 700;
   color: rgb(255,230,17);
   padding-top: 5%;
@@ -627,20 +631,27 @@ export default {
 .introduce-pots{
   width: 100%;
   background:url("../../assets/pots.png") center center no-repeat;
-  background-size: auto;
+  background-size: 100% 100%;
 }
 .pots-title{
   width: 100%;
   height: 23.3%;
-  margin: 0 auto 0 1.5%;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-.enapp .pots-title{
-  background: url("../../assets/potstitle_en.png") center center no-repeat;
+.pots-title .ghostlogo{
+  width: 3.6%;
+  height: 30%;
+  background:url("../../assets/potslogo.png") center center no-repeat; 
   background-size: 100%;
+  display: flex;
 }
-.zhapp .pots-title{
-  background: url("../../assets/potstitle_zh.png") center center no-repeat;
-  background-size: 100%;
+.pots-title>p{
+  display: flex;
+  font-size: 2em;
+  font-weight: 600;
 }
 .pot1,.pot2,.pot3{
   position: relative;
@@ -650,27 +661,30 @@ export default {
 }
 .pot1{
   width: 13%;
+  min-width: 150px;
   height: 20.8%;
-  font-size: 12px;
+  font-size: 0.9em;
   color: rgb(120,107,99);
-  top: 63%;
-  left: 17.8%;
+  top: 60%;
+  left: 23%;
 }
 .pot2{
   width: 18.2%;
+  min-width: 230px;
   height: 11.6%;
-  font-size:12px;
+  font-size:0.9em;
   color: rgb(69,102,120);
   top: -26%;
-  left: 39%;
+  left: 37.7%;
 }
 .pot3{
   width: 15.9%;
+  min-width: 230px;
   height: 23.3%;
-  font-size: 12px;
+  font-size: 0.9em;
   color: rgb(114,48,39);
-  top: 29%;
-  left: 62.5%;
+  top: 27%;
+  left: 55.5%;
 }
 @media all and (min-width:900px){
   .pot2{
@@ -679,30 +693,32 @@ export default {
 }
 @media all and (min-width:1000px){
   .pot2{
-    top:-20%;
+    top:-23%;
   }
 }
 @media all and (min-width:1100px){
   .pot2{
-    top:-18%;
+    top:-22%;
+    left: 39%;
+  }
+  .pot3{
+    left: 57%;
   }
 }
 @media all and (min-width:1300px){
   .pot2{
-    top:-24%;
+    top:-21%;
   }
   .pot1,.pot2,.pot3{
-    font-size: 13px;
+    font-size: 0.9em;
+  }
+  .pot3{
+    left: 58%;
   }
 }
 @media all and (min-width:1500px){
   .pot1,.pot2,.pot3{
-    font-size: 14px;
-  }
-}
-@media all and (min-width:1700px){
-  .pot1,.pot2,.pot3{
-    font-size: 16px;
+    font-size: 1em;
   }
 }
 .pretitle2{
@@ -712,9 +728,11 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
+  font-size: 2em;
+  font-weight: 600;
 }
 .pretitle2>.prelogo{
-  height: 250%;
+  height: 220%;
   display: flex;
 }
 .pretitle2>div:nth-child(2){
@@ -723,44 +741,41 @@ export default {
 .pretitle3{
   width: 80%;
   height: auto;
-  color: rgb(211,193,135);
-  font-size: 15px;
+  /*color: rgb(211,193,135);*/
+  color: #fff;
+  font-size: 1em;
   font-weight: 600;
   margin: 0 auto;
   padding-left: 0;
-  padding-bottom: 1%;
+  padding: 1% 0 1% 1%;
   text-align: center;
-}
-.roadmapl{
-  width: 2%;
-  height: 100%;
-  float: left;
-  background:url("../../assets/titleleft.png") left top no-repeat;
-  background-size: 100% 100%;
-  position: relative;
-  left: -2%;
 }
 .roadmap{
   width: 100%;
   background:url("../../assets/roadmap.png") center center no-repeat;
   background-size: 100% 100%; 
-  margin-left: 2%;
 }
 .roadmap .maptitle{
-  width: 100%;
+  width: 80%;
   height: 21.7%;
+  position: relative;
+  left: -2%;
   margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-.enapp .roadmap .maptitle{
-  margin: 0 auto 0 -2%;
+.roadmap .maptitle .ghostlogo{
+  width: 4.5%;
+  height: 100%;
+  background:url("../../assets/potslogo.png") center center no-repeat; 
+  background-size: 100%;
+  display: flex;
 }
-.enapp .maptitle{
-  background:url("../../assets/maptitle_en.png") center center no-repeat;
-  background-size: 100%; 
-}
-.zhapp .maptitle{
-  background:url("../../assets/maptitle_zh.png") center center no-repeat;
-  background-size: 100%; 
+.roadmap .maptitle>p{
+  display: flex;
+  font-size: 2em;
+  font-weight: 600;
 }
 .width100{
   height: 11.6%;
@@ -768,20 +783,23 @@ export default {
 .date1,.date2,.date3{
   width: 17.34%;
   height: 100%;
-  font-size: 16px;
   font-weight: 900;
   float: left;
   box-sizing: border-box;
   padding-top: 1%;
   text-align: center;
+  min-width: 250px;
 }
 .date1{
   color: rgb(175,100,0);
-  margin-left: 18.6%;
+  margin-left: 22%;
 }
 .date2,.date3{
   color: rgb(10,106,132);
   margin-left: 1%;
+}
+.roadmap{
+  min-height: 532px;
 }
 .maptop{
   width: 100%;
@@ -789,18 +807,19 @@ export default {
 }
 .maptop1,.maptop2,.maptop3{
   color: #fff;
-  font-size: 12px;
   font-weight: 600;
   width: 17.5%;
+  min-width: 250px;
   height: 100%;
   float: left;
   text-align: center;
   padding-top: .5%;
   box-sizing: border-box;
-  min-width: 150px;
+  position: relative;
+  z-index: 3;
 }
 .maptop1{
-  margin-left: 18.3%;
+  margin-left: 22%;
   background:url("../../assets/maptop1.png") center center no-repeat;
   background-size: 100%; 
 }
@@ -812,30 +831,40 @@ export default {
 .maptext{
   width: 100%;
   height: 38%;
-  font-size: 12px;
+}
+.mapbox1,.mapbox2,.mapbox3{
+  width: 17.5%;
+  min-width: 250px;
+  height: 120%;
+  min-height: 245px;
+  float: left;
+  background:url("../../assets/roadmapbox.png") center center no-repeat; 
+  background-size: 100% 100%;
+  position: relative;
+  top: -11%;
+  z-index: 1;
 }
 .maptext1,.maptext2,.maptext3{
-  width: 17.5%;
+  width: 100%;
   height: 100%;
   float: left;
   text-align: center;
   line-height: 1.8;
-  padding-top: 1%;
+  padding-top: 10%;
   box-sizing: border-box;
 }
-.maptext1{
-  margin-left: 18.5%;
+.mapbox1{
+  margin-left: 22%;
 }
-.maptext2{
+.mapbox2{
   margin-left: 1%;
 }
-.maptext3{
+.mapbox3{
   margin-left: 1%;
 }
 .mapbottom{
   width: 100%;
   height: 7.7%;
-  font-size: 12px;
 }
 .mapbottom1,.mapbottom2,.mapbottom3{
   width: 17.5%;
@@ -844,9 +873,13 @@ export default {
   text-align: center;
   padding-top: 0.9%;
   box-sizing: border-box;
+  position: relative;
+  z-index: 3;
+  top: -110%;
+  min-width: 250px;
 }
 .mapbottom1{
-  margin-left: 18.5%;
+  margin-left: 22%;
   background:url("../../assets/mapbottom1.png") center center no-repeat;
   background-size: 100%; 
 }
@@ -855,32 +888,18 @@ export default {
   background:url("../../assets/mapbottom2.png") center center no-repeat;
   background-size: 100%;
 }
-@media all and (min-width:900px){
-  .date1,.date2,.date3{
-    font-size: 17px;
-  }
-  .maptop1,.maptop2,.maptop3{
-    font-size: 12px;
-  }
-  .maptext1,.maptext2,.maptext3{
-    font-size: 12px;
-  }
-  .mapbottom1,.mapbottom2,.mapbottom3{
-    font-size: 13px;
-  }
-}
 @media all and (min-width:1000px){
   .date1,.date2,.date3{
-    font-size: 18px;
+    font-size: 1.3em;
   }
   .maptop1,.maptop2,.maptop3{
-    font-size: 13px;
+    font-size: 1em;
   }
   .maptext1,.maptext2,.maptext3{
-    font-size: 13px;
+    font-size: 1em;
   }
   .mapbottom1,.mapbottom2,.mapbottom3{
-    font-size: 14px;
+    font-size: 1.1em;
   }
 }
 @media all and (min-width:1200px){
@@ -939,22 +958,120 @@ export default {
     font-size: 18px;
   }
 }
+@media all and (max-width: 1430px){
+  .maptop1{
+    margin-left: calc(50% - 393px);
+  }
+  .mapbox1{
+    margin-left: calc(50% - 393px);
+  }
+  .mapbottom1{
+    margin-left: calc(50% - 393px);
+  }
+  .date1{
+    margin-left: calc(50% - 393px);
+  }
+}
 .chests{
   width: 100%;
   background:url("../../assets/chests.png") center center no-repeat; 
   background-size: 100% 100%;
   margin-top: -1px;
 }
+.chests .cheststitle{
+  width: 80%;
+  height: 21.7%;
+  position: relative;
+  left: -2%;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.cheststitle>.ghostlogo{
+  width: 4.5%;
+  height: 100%;
+  background:url("../../assets/potslogo.png") center center no-repeat; 
+  background-size: 100%;
+  display: flex;
+}
+.cheststitle>p:nth-child(2){
+  display: flex;
+  font-size: 2em;
+  font-weight: 600;
+}
+.chestsp{
+  width: 500px;
+  margin: 0 auto;
+  font-size: 1.1em;
+  text-align: center;
+}
 .crafting{
   width: 100%;
   background:url("../../assets/crafting.png") center center no-repeat; 
   background-size: 100% 100%;
 }
+.crafting .craftingtitle{
+  width: 80%;
+  height: 21.7%;
+  position: relative;
+  left: -2%;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.crafting .craftingtitle>.ghostlogo{
+  width: 4.5%;
+  height: 100%;
+  background:url("../../assets/potslogo.png") center center no-repeat; 
+  background-size: 100%;
+  display: flex;
+}
+.craftingtitle>p:nth-child(2){
+  display: flex;
+  font-size: 2em;
+  font-weight: 600;
+}
+.craftingp{
+  width: 600px;
+  margin: 0 auto;
+  font-size: 1.1em;
+  text-align: center;
+} 
 .boat{
   width: 100%;
   background:url("../../assets/boat.png") center center no-repeat; 
   background-size: 100% 100%;
 }
+.boat .boattitle{
+  width: 80%;
+  height: 21.7%;
+  position: relative;
+  left: -2%;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.boat .boattitle>.ghostlogo{
+  width: 4.5%;
+  height: 100%;
+  background:url("../../assets/potslogo.png") center center no-repeat; 
+  background-size: 100%;
+  display: flex;
+}
+.boattitle>p:nth-child(2){
+  display: flex;
+  font-size: 2em;
+  font-weight: 600;
+}
+.boatp{
+  width: 600px;
+  margin: 0 auto;
+  font-size: 1.1em;
+  text-align: center;
+} 
 .king{
   width: 100%;
   background:url("../../assets/king.png") center center no-repeat; 
@@ -971,5 +1088,42 @@ export default {
   background:url("../../assets/ALLIANCES.png") center center no-repeat; 
   background-size: 100% 100%;
   margin-top: -1px;
+}
+.king .kingtitle,.battles .battlestitle,.ALLIANCES .ALLIANCEStitle{
+  width: 80%;
+  height: 21.7%;
+  position: relative;
+  left: -2%;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.king .kingtitle>.ghostlogo,.battles .battlestitle>.ghostlogo,.ALLIANCES .ALLIANCEStitle>.ghostlogo{
+  width: 4.5%;
+  height: 100%;
+  background:url("../../assets/potslogo.png") center center no-repeat; 
+  background-size: 100%;
+  display: flex;
+}
+.kingtitle>p,.battlestitle>p,.ALLIANCEStitle>p{
+  display: flex;
+  font-size: 2em;
+  font-weight: 600;
+}
+.kingp,.battlesp,.ALLIANCESp{
+  width: 600px;
+  margin: 0 auto;
+  font-size: 1em;
+  text-align: center;
+} 
+.ALLIANCESp{
+  position: relative;
+  top: -3%;
+}
+@media all and (min-width: 1100px){
+  .kingp,.battlesp,.ALLIANCESp{
+    font-size: 1.1em;
+  } 
 }
 </style>

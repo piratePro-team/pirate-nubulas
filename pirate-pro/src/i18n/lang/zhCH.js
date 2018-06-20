@@ -15,25 +15,9 @@ module.exports = {
         ,
         home_title_ahoy:"风暴来临"
         ,
-        home_title_presale:"卡牌预售现已启动"
+        home_title_presalestarts:"卡牌预售现已启动"
         ,
-        home_title_intro1:"完成航线赢取每日奖金"
-        ,
-        home_text_intro12:"以太猫帮你赶走烦人的老鼠，保护你的木材资源。"
-        ,
-        home_text_intro13:"开宝箱，合成装备！"
-        ,
-        home_text_intro21:"拥有9个海盗的人可以成为海盗之王，掠夺市场分成！"
-        ,
-        home_text_intro22:"小心，海盗随时被人偷走，只要他们付更高的价格。"
-        ,
-        home_text_intro23:"海盗等级会影响溢价，所以赶快战斗升级吧！"
-        ,
-        home_title_intro3:"贡献功勋获取联盟分成"
-        ,
-        home_text_intro32:"加入一个联盟，通过战斗或售卖炮弹贡献功勋！"
-        ,
-        home_title_presalehint:"这三个传说海盗仅在预售中出现，千万别错过！"
+        home_title_presalehint:"这三个神话级海盗仅在预售中出现，千万别错过！"
         ,
         game_text_sold:"剩余："
         ,
@@ -91,11 +75,11 @@ module.exports = {
         ,
         home_title_planname3:"风暴之眼"
         ,
-        home_text_plancontext1:"1. 预售：3种传说海盗"
+        home_text_plancontext1:"1. 预售：3种神话海盗"
         ,
-        home_text_plancontext2:"1. 装备系统<br/>2. 海盗船等级系统<br/>3. 装备合成系统<br/>4. 每日航行奖金<br/>"
+        home_text_plancontext2:"1. 装备系统<br>\n2. 海盗船等级系统<br>\n3. 装备合成系统<br>\n4. 每日航行奖金<br>"
         ,
-        home_text_plancontext3:"1. 水手市场<br/>2. 海盗之王<br/>3. 海洋竞技场<br/>4. 联盟功勋战<br/>5. 联盟幸运猜<br/>"
+        home_text_plancontext3:"1. 水手市场<br>\n2. 海盗之王<br>\n3. 海洋竞技场<br>\n4. 联盟功勋战<br>\n5. 联盟幸运猜<br>"
         ,
         home_text_roadmapstatus1:"已上线"
         ,
@@ -187,9 +171,9 @@ module.exports = {
         ,
         home_title_question4:"第一步：查找和下载"
         ,
-        home_text_answer4:"Metamask只限于在Firefox和Chrome这两种浏览器上使用！<br/><br/>Chrome：为了安装MetaMask, 请访问Chrome商店.<br/>点击 “添加到Chrome”，并同意加到您的Chrome浏览器。"
+        home_text_answer4:"Metamask只限于在Firefox和Chrome这两种浏览器上使用！\n\nChrome：为了安装MetaMask, 请访问Chrome商店.\n点击 “添加到Chrome”，并同意加到您的Chrome浏览器。"
         ,
-        home_text_answer5:"Firefox：为了安装MetaMask, 请访问Firefox商店. <br/>点击 “添加到Firefox”，并同意加到您的Firefox浏览器。"
+        home_text_answer5:"Firefox：为了安装MetaMask, 请访问Firefox商店. \n点击 “添加到Firefox”，并同意加到您的Firefox浏览器。"
         ,
         home_title_question6:"第二步：激活"
         ,
@@ -211,11 +195,11 @@ module.exports = {
         ,
         home_title_question10:"什么是海盗？"
         ,
-        home_text_answer10:"海盗是你在迷海征途中战斗时的必备要素。每次出战，都必须派出一个海盗来指挥船队。游戏中，总共有9种海盗，根据他们出现的稀有程度分为：普通、稀有、史诗、传说，传说级的海盗只有预售出现，每个卡牌只有30张。每个海盗都拥有2种属性——攻击和防御，其中攻击是一个范围值，属性随着等级有所提升。"
+        home_text_answer10:"海盗是你在迷海征途中战斗时的必备要素。每次出战，都必须派出一个海盗来指挥船队。游戏中，总共有9种海盗，根据他们出现的稀有程度分为：稀有、史诗、传说、神话，神话级的海盗只有预售出现，每个卡牌只有30张。每个海盗都拥有2种属性——攻击和防御，其中攻击是一个范围值，属性随着等级有所提升。"
         ,
         home_title_question11:"如何获得海盗？"
         ,
-        home_text_answer11:"传说级别的3名海盗只能通过预售购买，或者后期和其他拥有这些卡牌的玩家购买。其他6名海盗可以通过遗迹探险获得或和其他玩家购买。"
+        home_text_answer11:"神话级别的3名海盗只能通过预售购买，或者后期和其他拥有这些卡牌的玩家购买。其他6名海盗可以通过遗迹探险获得或和其他玩家购买。"
         ,
         home_title_question12:"如何升级海盗？"
         ,
@@ -287,29 +271,21 @@ module.exports = {
         ,
         home_title_nebulas:"安装Nebulas，您的数字钱包"
         ,
-        home_text_step1:"1) 打开网址：https://github.com/nebulasio/WebExtensionWallet"
+        home_text_step1:"1) 打开网址：https://chrome.google.com/webstore/detail/nasextwallet/gehjkhmhclgnkkhpfamakecfgakkfkco?hl=en-GB"
         ,
-        home_text_step2:"2) 点击绿色按钮“Clone or download”,选择“Download ZIP”"
+        home_text_step2:"2) 选择\"ADD TO CHROME\"."
         ,
-        home_text_step3:"3) 解压文件"
+        home_text_step7:"3）以下图标即为NasExtWallet"
         ,
-        home_text_step4:"4） 使用Chrome浏览器，选择“更多工具”中的“扩展程序”"
+        home_text_step8:"4）点击右上角的“English”和“简体中文”可以切换中英语言。"
         ,
-        home_text_step5:"5） 开启“开发者模式”"
+        home_text_step9:"5）点击“新建钱包”，输入密码，点击“新建钱包”，即会生成一个密码库文件。"
         ,
-        home_text_step6:"6）选择“加载已解压的扩展程序”，选择已解压的文件夹，点击确定。NasExtWallet出现在扩展程序中，操作完成。"
+        home_text_step10:"6）下载密码库文件。每次登录时都需要输入密码和导入密码库文件，所以这两个都非常的重要。"
         ,
-        home_text_step7:"7）以下图标即为NasExtWallet"
+        home_text_step11:"7）导入钱包。在“发送星云币”中导入密码库文件，输入密码，点击解锁。"
         ,
-        home_text_step8:"8）点击右上角的“English”和“简体中文”可以切换中英语言。"
-        ,
-        home_text_step9:"9）点击“新建钱包”，输入密码，点击“新建钱包”，即会生成一个密码库文件。"
-        ,
-        home_text_step10:"10）下载密码库文件。每次登录时都需要输入密码和导入密码库文件，所以这两个都非常的重要。"
-        ,
-        home_text_step11:"11）导入钱包。在“发送星云币”中导入密码库文件，输入密码，点击解锁。"
-        ,
-        home_text_step12:"12）成功导入的钱包可以看到钱包地址。"
+        home_text_step12:"8）成功导入的钱包可以看到钱包地址。"
         ,
         home_text_copyright:"版权 © 2018 迷海征途（Pirate Conquest），版权所有"
         ,
@@ -340,6 +316,64 @@ module.exports = {
         home_hint_verificationnotvalid:"该验证链接已失效，请重新申请新的验证链接。"
         ,
         home_text_userinfo:"用户信息"
-		,
+        ,
+        home_title_terms:"使用条款"
+        ,
+        home_title_privacypolicy:"隐私协议"
+        ,
+        game_title_comprehensive:"综合型"
+        ,
+        game_title_attack:"攻击型"
+        ,
+        game_title_defense:"防御型"
+        ,
+        home_title_intro1:"完成航线赢取每日奖金"
+        ,
+        home_text_intro12:"以太猫帮你赶走烦人的老鼠，保护你的木材资源。"
+        ,
+        home_text_intro13:"开宝箱，合成装备！"
+        ,
+        home_text_intro21:"拥有9个海盗的人可以成为海盗之王，掠夺市场分成！"
+        ,
+        home_text_intro22:"小心，海盗随时被人偷走，只要他们付更高的价格。"
+        ,
+        home_text_intro23:"海盗等级会影响溢价，所以赶快战斗升级吧！"
+        ,
+        home_title_intro3:"贡献功勋获取联盟分成"
+        ,
+        home_text_intro32:"加入一个联盟，通过战斗或售卖炮弹贡献功勋！"
+        ,
+        home_title_chests:"遗迹寻宝"
+        ,
+        home_text_chestsintro:"开启宝箱，寻找海盗和装备！它们有不同的概率，而且它们都是ERC-721的代币。"
+        ,
+        home_title_crafting:"合成装备"
+        ,
+        home_text_craftingintro:"装备总共有7个等级，分别是普通、稀有、罕见、史诗、传说和神话。同一种装备同一个等级可以合成一个更高等级的装备，一直合成到神话级。"
+        ,
+        home_title_pirateboat:"海盗船"
+        ,
+        home_text_pirateboatintro:"每个玩家都拥有一艘海盗船，可以通过收集木材升级你的木船。你的海盗猫可以帮助你提升你的升级速度。"
+        ,
+        home_title_kingofpirates:"海盗之王"
+        ,
+        home_text_kingofpirates:"只要同时拥有了9种海盗即可成为海盗之王，掠夺市场分成。但是要小心，海盗随时可能被人以更高的价格买走。"
+        ,
+        home_title_battles:"海洋竞技场"
+        ,
+        home_text_battles:"在海洋上选择一名玩家，为经验值和功勋值而战。"
+        ,
+        home_title_alliances:"联盟"
+        ,
+        home_text_alliances:"加入联盟，或者自己创建一个。联盟中的每一个人都可以贡献功勋值，帮助联盟赢得功勋大奖。你可以通过赢得海战或售卖军火的方式来贡献功勋值。"
+        ,
+        home_title_top:"回到顶部"
+        ,
+        home_title_presale:"预售卡牌"
+        ,
+        home_title_prizepool:"奖池介绍"
+        ,
+        home_title_introduction:"玩法介绍"
+        ,
 	}
 }

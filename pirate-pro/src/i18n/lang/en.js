@@ -15,25 +15,9 @@ module.exports = {
 		,
 		home_title_ahoy:"AHOY, MATEY!"
 		,
-		home_title_presale:"PRE-SALE STARTS NOW"
+		home_title_presalestarts:"PRE-SALE STARTS NOW"
 		,
-		home_title_intro1:"BOAT RACING FOR HUGE DAILY PRIZES!"
-		,
-		home_text_intro12:"Get a Crypto Kitty and protect the wood from annoying mice."
-		,
-		home_text_intro13:"Collect wood and upgrade your boat! Your level and your equipment affects your speed!"
-		,
-		home_text_intro21:"Whoever owns all 9 pirates can be the King of Pirates and he can plunder from the market!"
-		,
-		home_text_intro22:"Be careful, pirates can be stolen by others at anytime, for a higher price."
-		,
-		home_text_intro23:"The level of a pirates affects its price, so go into battle and level up your pirates!"
-		,
-		home_title_intro3:"GET DIVIDENDS FROM CONTRIBUTING TO YOUR ALLIANCE"
-		,
-		home_text_intro32:"Join an alliance, and contribute by winning battles or selling cannonballs!"
-		,
-		home_title_presalehint:"These 3 epic pirates will only be sold during Pre-Sale - don't miss out!"
+		home_title_presalehint:"These 3 mythic pirates will only be sold during Pre-Sale - don't miss out!"
 		,
 		game_text_sold:"Left:"
 		,
@@ -79,7 +63,7 @@ module.exports = {
 		,
 		home_title_roadmap:"ROADMAP"
 		,
-		home_title_roadmapdate1:"15-Jun"
+		home_title_roadmapdate1:"June 22"
 		,
 		home_title_roadmapdate2:"Late July"
 		,
@@ -91,11 +75,11 @@ module.exports = {
 		,
 		home_title_planname3:"Eye of the Storm"
 		,
-		home_text_plancontext1:"1. Pre-sale: 3 Epic Pirates"
+		home_text_plancontext1:"1. Pre-sale: 3 Mythic Pirates"
 		,
-		home_text_plancontext2:"1. Equipment sets<br/>2. Boat level system<br/>3. Craft system<br/>4. Daily sailing prize<br/>"
+		home_text_plancontext2:"1. Equipment sets<br>\n2. Boat level system<br>\n3. Crafting system<br>\n4. Daily sailing prize<br>"
 		,
-		home_text_plancontext3:"1. Market system<br/>2. King of Pirates<br/>3. Battle system<br/>4. Alliance system<br/>5. Alliance betting<br/>"
+		home_text_plancontext3:"1. Market system<br>\n2. King of Pirates<br>\n3. Battle system<br>\n4. Alliance system<br>\n5. Alliance betting<br>"
 		,
 		home_text_roadmapstatus1:"Live"
 		,
@@ -113,7 +97,7 @@ module.exports = {
 		,
 		general_hint_walletlock:"Please unlock MetaMask first."
 		,
-		game_text_setname:"SET YOUR DISPLAY NAME"
+		game_text_setname:"Set your display name"
 		,
 		game_hint_nameexist:"This name already exists, please choose another one."
 		,
@@ -187,9 +171,9 @@ module.exports = {
 		,
 		home_title_question4:"Step 1: Find And Download Plugin"
 		,
-		home_text_answer4:"Metamask is available on Chrome and Firefox only! <br/><br/>On Chrome: In order to install MetaMask, visit the Chrome Web Store. <br/>Click 'ADD TO CHROME' and agree to adding the extension to your Chrome browser."
+		home_text_answer4:"Metamask is available on Chrome and Firefox only! \n\nOn Chrome: In order to install MetaMask, visit the Chrome Web Store. \nClick 'ADD TO CHROME' and agree to adding the extension to your Chrome browser."
 		,
-		home_text_answer5:"On Firefox: In order to install MetaMask, visit the Firefox Add-ons Store. <br/>Click 'Add to Firefox' and agree to adding the extension to your Firefox browser."
+		home_text_answer5:"On Firefox: In order to install MetaMask, visit the Firefox Add-ons Store. \nClick 'Add to Firefox' and agree to adding the extension to your Firefox browser."
 		,
 		home_title_question6:"Step 2: Plugin Activation"
 		,
@@ -211,7 +195,7 @@ module.exports = {
 		,
 		home_title_question10:"What are Pirates?"
 		,
-		home_text_answer10:"Pirates are the essential cards you need to battle inside Pirate Conquest. One pirate is nesseccary when you start a battle. In the game there are 9 pirate characters, and they are devided by their rarities (Common, Rare, Epic, Legendary). The Legendary pirates are only sold in Pre-Sale, and there are only 30 of each. Each pirate has 2 attributes - attack and defense. Attack is a range of number. The stats raise as the level of pirates increases."
+		home_text_answer10:"Pirates are the essential cards you need to battle inside Pirate Conquest. You must have at least one pirate when you start a battle. In the game there are 9 pirate characters, and they are divided according to their rarities (Rare, Epic, Legendary, Mythic). The Mythic pirates are only sold in Pre-Sale, and there are only 30 of each of these. Each pirate has 2 attributes - attack and defense. The stats raise as the level of pirates increases."
 		,
 		home_title_question11:"How do I get a Pirate?"
 		,
@@ -287,29 +271,21 @@ module.exports = {
 		,
 		home_title_nebulas:"Installing Nebulas, your digital wallet"
 		,
-		home_text_step1:"1) Open website: https://github.com/nebulasio/WebExtensionWallet"
+		home_text_step1:"1) Open website: https://chrome.google.com/webstore/detail/nasextwallet/gehjkhmhclgnkkhpfamakecfgakkfkco?hl=en-GB"
 		,
-		home_text_step2:"2) Click the green button \"Clone or download\", and choose \"Download ZIP\"."
+		home_text_step2:"2) Choose \"ADD TO CHROME\"."
 		,
-		home_text_step3:"3) Unzip the file."
+		home_text_step7:"3) This is the icon of NasExtWallet"
 		,
-		home_text_step4:"4) Open Chrome and select \"Extensions\" from \"More tools\"."
+		home_text_step8:"4) Click top right to change language settings."
 		,
-		home_text_step5:"5) Turn on \"Developer mode\"."
+		home_text_step9:"5) Click \"New-Wallet\", enter password and click \"Create New Wallet\", it will generate a keystore file."
 		,
-		home_text_step6:"6) Choose ‘LOAD UNPACKED’ and then choose the unzipped file. NasExtWallet shows up on this page. Process finished."
+		home_text_step10:"6) Download the Keystore File. Everytime you log in, the keystore file and the password are both required. So they are both very important."
 		,
-		home_text_step7:"7) This is the icon of NasExtWallet"
+		home_text_step11:"7) Import Wallet. Click \"Send-TX\", import the keystore file and then enter password. Then click unlock."
 		,
-		home_text_step8:"8) Click top right to change language settings."
-		,
-		home_text_step9:"9) Click \"New-Wallet\", enter password and click \"Create New Wallet\", it will generate a keystore file."
-		,
-		home_text_step10:"10) Download the Keystore File. Everytime you log in, the keystore file and the password are both required. So they are both very important."
-		,
-		home_text_step11:"11) Import Wallet. Click \"Send-TX\", import the keystore file and then enter password. Then click unlock."
-		,
-		home_text_step12:"12) After importing, you will see your wallet address."
+		home_text_step12:"8) After importing, you will see your wallet address."
 		,
 		home_text_copyright:"Copyright © 2018 Pirate Conquest, All rights reserved"
 		,
@@ -319,7 +295,7 @@ module.exports = {
 		,
 		home_button_invite:"Invite Friends"
 		,
-		home_text_getChests:"Invite friends to Pirate Conquest, each of you can get one Chest for free after they verifying their email addresses, you can get at most 10 Chests! Pirates or equipments can be found from the Chests. Act now!"
+		home_text_getChests:"Invite friends to Pirate Conquest! Each of you can get one Chest for free - and after verifying your email addresses, you can get at most 10 Chests! These chests containt Pirates or equipment to power up your crew. So get recruiting!"
 		,
 		home_text_email:"Email"
 		,
@@ -333,13 +309,71 @@ module.exports = {
 		,
 		home_hint_verificationsent:"A verification link will be sent to your email. Please click on the link to verify your account within 24 hours."
 		,
-		home_text_countofchest:"Chests you owned:"
+		home_text_countofchest:"Chests you own:"
 		,
 		home_hint_verifysuccessfully:"Email verified successfully."
 		,
-		home_hint_verificationnotvalid:"This verification link is no longer valid. Please request a new link again."
+		home_hint_verificationnotvalid:"This verification link is no longer valid. Please request a new link."
 		,
 		home_text_userinfo:"User Information"
+		,
+		home_title_terms:"Term of Service"
+		,
+		home_title_privacypolicy:"Privacy Policy"
+		,
+		game_title_comprehensive:"Balanced"
+		,
+		game_title_attack:"Attack"
+		,
+		game_title_defense:"Defense"
+		,
+		home_title_intro1:"BOAT RACING FOR HUGE DAILY PRIZES!"
+		,
+		home_text_intro12:"Get a Crypto Kitty and protect the wood from annoying mice."
+		,
+		home_text_intro13:"Collect wood and upgrade your boat! Your level and your equipment affects your speed!"
+		,
+		home_text_intro21:"Whoever owns all 9 pirates can be the King of Pirates and he can plunder from the market!"
+		,
+		home_text_intro22:"Be careful, pirates can be stolen by others at anytime, for a higher price."
+		,
+		home_text_intro23:"The level of a pirates affects its price, so go into battle and level up your pirates!"
+		,
+		home_title_intro3:"GET DIVIDENDS FROM CONTRIBUTING TO YOUR ALLIANCE"
+		,
+		home_text_intro32:"Join an alliance, and contribute by winning battles or selling cannonballs!"
+		,
+		home_title_chests:"CHESTS"
+		,
+		home_text_chestsintro:"Open chests to find pirates and equipment! Each of them has different drop rates, and they are all ERC-721 tokens!"
+		,
+		home_title_crafting:"CRAFTING"
+		,
+		home_text_craftingintro:"There are 7 item levels in total (Common, Uncommon, Rare, Epic, Legendary, Mythic). Similar equipments of the same rarity can be crafted into the next level of rarity, up to Mythic."
+		,
+		home_title_pirateboat:"PIRATE BOAT"
+		,
+		home_text_pirateboatintro:"Every player owns one pirate boat, which can be upgraded up by collecting wood.\nYour pirate kitty can help you level up faster."
+		,
+		home_title_kingofpirates:"KING OF PIRATES"
+		,
+		home_text_kingofpirates:"Whoever owns all 9 pirates can be the King of Pirates, and they can plunder from the market! Be careful, pirates can be stolen by others at any time, for a higher price."
+		,
+		home_title_battles:"BATTLES"
+		,
+		home_text_battles:"Choose a player on the high seas and defeat them for EXP and Honor."
+		,
+		home_title_alliances:"ALLIANCES"
+		,
+		home_text_alliances:"Form an alliance or join one. Everyone in the alliance can contribute Honor to win the Honor Battle Prize. You can contribute Honor by winning battles or selling cannonballs."
+		,
+		home_title_top:"TOP"
+		,
+		home_title_presale:"PRE-SALE"
+		,
+		home_title_prizepool:"PRIZE POOL"
+		,
+		home_title_introduction:"INTRODUCTION"
 		,
 		
 	}

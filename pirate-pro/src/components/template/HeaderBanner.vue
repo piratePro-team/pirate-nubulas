@@ -174,6 +174,9 @@ export default {
     const _this = this; 
     window.addEventListener("resize",function(){
       var val = document.documentElement.clientWidth;
+      if(val<1000){
+        val=1000;
+      }
       var screenheight = document.documentElement.clientHeight;
       _this.topheight = parseInt(val) / 1920 * 975 + "px";
       _this.topnavheight = parseInt(val) / 1920 * 118 + "px";
@@ -292,7 +295,7 @@ export default {
   }
   .topright{
     width: 16.75%;
-    min-width: 205px;
+    min-width: 225px;
     height: 5.1%;
     min-height: 26px;
     float: right;

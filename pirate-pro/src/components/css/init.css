@@ -237,6 +237,7 @@ template {
 }
 .shadow{
   width: 100%;
+  min-width: 1000px;
   background: rgba(0,0,0,.2);
   position: absolute;
   z-index: 3;
