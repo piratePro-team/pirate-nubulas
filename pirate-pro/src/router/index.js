@@ -4,6 +4,7 @@ import Presale from '@/components/template/Presale'
 import Introduction from '@/components/template/Introduction'
 
 
+
 Vue.use(Router)
 
 export default new Router({

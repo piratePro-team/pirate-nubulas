@@ -17,6 +17,7 @@ import smallPopup from './components/template/common/smallPopup/index.js'
 
 
 
+
 Vue.prototype.configData = configData;
 Vue.prototype.service = service ;
 
