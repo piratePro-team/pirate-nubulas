@@ -18,6 +18,7 @@ const state = {
 	disabledbtn: [false,false,false],
 	pricearr: [{price:"-"},{price:"-"},{price:"-"}],
 	cardarr: [{soldamount:"-",totalamount:"-",level:"1"},{soldamount:"-",totalamount:"-",level:"1"},{soldamount:"-",totalamount:"-",level:"1"}],
+	CaptainKittyCount: "-",
 	buymsg: {
 		myassets: "",
 		confirmbuycard: "",

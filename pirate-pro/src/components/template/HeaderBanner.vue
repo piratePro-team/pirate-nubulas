@@ -113,7 +113,7 @@ export default {
   // props:['lang'],
   data () {
     return {
-      topheight: document.documentElement.clientWidth/1920*975 + "px",
+      topheight: "",
       topnavheight: document.documentElement.clientWidth/1920*118 + "px",
       screenwidth: document.documentElement.clientWidth,
       buymsg: this.$store.state.buymsg,
@@ -167,6 +167,8 @@ export default {
     //缩放浏览器时改变头部top,faq位置
     var screenheight = document.documentElement.clientHeight;
     var screenwidth = document.documentElement.clientWidth;
+    screenwidth = screenwidth<1000?1000:screenwidth;
+    this.topheight = screenwidth/1920*975 + "px";
     this.faqheight = screenheight/10 * 8 + "px";
     this.faqtop = screenheight/10 * 1 -17 + "px";
     this.faqleft = (screenwidth )/10 * 1 - 10 -17 + "px";
@@ -174,9 +176,7 @@ export default {
     const _this = this; 
     window.addEventListener("resize",function(){
       var val = document.documentElement.clientWidth;
-      if(val<1000){
-        val=1000;
-      }
+      val = val<1000?1000:val;
       var screenheight = document.documentElement.clientHeight;
       _this.topheight = parseInt(val) / 1920 * 975 + "px";
       _this.topnavheight = parseInt(val) / 1920 * 118 + "px";
@@ -187,6 +187,7 @@ export default {
       var scrollleft = document.documentElement.scrollLeft;
       var screenheight = document.documentElement.clientHeight;
       var screenwidth = document.documentElement.clientWidth;
+      screenwidth = screenwidth<1000?1000:screenwidth;
       _this.faqheight = screenheight/10 * 8 + "px";
       _this.faqtop = screenheight/10 * 1 -17 + scrolltop + "px";
       _this.faqleft = (screenwidth )/10 * 1 - 10 -17 + scrollleft + "px";

@@ -73,9 +73,13 @@
 </template>
 
 <script>
+import asidebar from './asidebar'
 
 export default {
   name: 'Presale',
+  components: {
+    asidebar
+  },
   data () {
     return {
       screenwidth: document.documentElement.clientWidth,
@@ -146,7 +150,8 @@ export default {
     console.log("预售栏目的高度是：",this.playersheight);
   },
   mounted:function(){
-
+    var screenwidth = document.documentElement.clientWidth;
+    screenwidth = screenwidth<1000?1000:screenwidth;
     /*if(document.documentElement.clientWidth > 1680){
       this.addheight = 0;
       this.playersheight = "100%";
@@ -155,16 +160,16 @@ export default {
       this.btnheight = "12%";
       this.divheight = "76%";
     }else{*/
-      this.addheight = ((document.documentElement.clientHeight) - (document.documentElement.clientWidth)/ 1920 * 800)/2 + "px";
-      this.playersheight = (document.documentElement.clientWidth)/ 1920 * 825 + "px";
-      this.potsheight = (document.documentElement.clientWidth) /1920 * 875 + "px";
-      this.mapheight = (document.documentElement.clientWidth) /1920 * 715 + "px";
-      this.chestsheight = (document.documentElement.clientWidth) /1920 * 860 + "px";
-      this.craftingheight = (document.documentElement.clientWidth) /1920 * 860 + "px";
-      this.boatheight = (document.documentElement.clientWidth) /1920 * 860 + "px";
-      this.kingheight = (document.documentElement.clientWidth) /1920 * 860 + "px";
-      this.battlesheight = (document.documentElement.clientWidth) /1920 * 860 + "px";
-      this.ALLIANCESheight = (document.documentElement.clientWidth) /1920 * 860 + "px";
+      this.addheight = ((document.documentElement.clientHeight) - (screenwidth)/ 1920 * 800)/2 + "px";
+      this.playersheight = (screenwidth)/ 1920 * 825 + "px";
+      this.potsheight = (screenwidth) /1920 * 875 + "px";
+      this.mapheight = (screenwidth) /1920 * 715 + "px";
+      this.chestsheight = (screenwidth) /1920 * 860 + "px";
+      this.craftingheight = (screenwidth) /1920 * 860 + "px";
+      this.boatheight = (screenwidth) /1920 * 860 + "px";
+      this.kingheight = (screenwidth) /1920 * 860 + "px";
+      this.battlesheight = (screenwidth) /1920 * 860 + "px";
+      this.ALLIANCESheight = (screenwidth) /1920 * 860 + "px";
     // }
 
     var _this = this;
@@ -172,9 +177,7 @@ export default {
         // console.log("缩放");
         var val = document.documentElement.clientWidth;
         var val2 = document.documentElement.clientHeight;
-        if(val<1000){
-          val=1000;
-        }
+        val = val<1000?1000:val;
         /*if(document.documentElement.clientWidth > 1680){
           _this.addheight = 0;
           _this.playersheight = "100%";

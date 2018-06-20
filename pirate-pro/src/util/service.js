@@ -19,6 +19,8 @@ var arrhash = [];
 
 service.init = function(){
 	
+    
+
 	console.log("初始化海盗网站==cookie:",document.cookie);
 	console.log("初始化海盗网站==昵称：",localStorage.getItem("昵称"));
 	console.log("初始化海盗网站==以太坊：",sessionStorage.getItem("我的以太坊账户"));
@@ -157,6 +159,49 @@ service.init = function(){
 
 	//如果登录了metamask就获取用户卡牌数量
 	service.getmycards();
+
+	//注册用户
+
+	if(document.cookie.indexOf("invite_uid") > -1){
+		console.log("本地已有cookie",document.cookie);
+	}else{
+		var registerurl = configData.base_url+configData.register;
+		var getregisterurl = configData.base_url+configData.get_myinvitecode;
+		var account;
+		if(store.state.myaccount){
+			account = store.state.myaccount;
+		}else if(sessionStorage.getItem("我的以太坊账户")){
+			account = sessionStorage.getItem("我的以太坊账户");
+		}
+		if(window.location.href.indexOf("?")>-1){
+			var id = window.location.href.split("?")[1];
+			var postData = {
+				token:account,
+				invite_uid:id
+			}
+		}else{
+			var postData = {
+				token:account
+			}
+		}
+		axios.post(registerurl,postData).then(function(response){
+			console.log("注册成功",response);
+			//获取注册码
+			axios.post(getregisterurl,{token:account}).then(function(response){
+				console.log("获取注册码成功",response);
+				var invite_uid = response.data.data.invite_code;
+				document.cookie = "invite_uid="+invite_uid;
+				console.log("打印注册码",document.cookie);
+			}).catch(function(error){
+				console.log("获取注册码失败",error);
+			})
+			
+		}).catch(function(error){
+			console.log("注册失败",error);
+		})
+	}
+	
+
 }
 
 service.confirmlogin = function(){
@@ -241,20 +286,7 @@ service.login = function(){
 		store.state.myaccount = "";								//0x56702418A78defB3d856e300e95df9384b5aB184
 	}
 	
-	//注册用户
-	if(document.cookie.indexOf("invite_uid") > -1){
-		console.log("本地已有cookie",document.cookie);
-	}else{
-		var registerurl = configData.base_url+configData.register;
-		axios.post(registerurl,{token:store.state.myaccount}).then(function(response){
-			console.log("注册成功",response);
-		}).catch(function(error){
-			console.log("注册失败",error);
-		})
-		store.state.username = "Login";
-		var invite_uid = Math.round(Math.random()*10).toString() + Math.round(Math.random()*10).toString() + Math.round(Math.random()*10).toString() + Math.round(Math.random()*10).toString() + Math.round(Math.random()*10).toString();
-		document.cookie = "invite_uid="+invite_uid;
-	}
+	
 	//登录海盗游戏用户
 	if(store.state.myaccount){
 		

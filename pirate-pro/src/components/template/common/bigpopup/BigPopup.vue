@@ -26,10 +26,10 @@
 		<div class="captain2 bold" v-bind:class="{'hidemycard':!mycaptain2.length}"><div><div>{{$t("message.game_title_owned")}}{{mycaptain2.length}}</div></div></div>
 		<div class="captain3 bold" v-bind:class="{'hidemycard':!mycaptain3.length}"><div><div>{{$t("message.game_title_owned")}}{{mycaptain3.length}}</div></div></div>
 	</div>
-	<div v-show="bigpopupBuymsg.invite" class="invite">
+	<div v-show="bigpopupBuymsg.invite && invitef" class="invite">
 		<div class="invitetitle"><div class="ghost"></div><div>{{$t("message.home_button_invite")}}</div></div>
 		<p>{{$t("message.home_text_getChests")}}</p>
-		<input type="text" v-model="inviteurl" readonly="readonly" />
+		<input type="text" v-model="inviteurl" readonly="readonly" id="inviteinput"/>
 		<div class="invitebtn" @click="copyid"></div>
 		<p class="mybox">{{$t("message.home_text_countofchest")}} {{boxamount}}</p>
 	</div>
@@ -132,7 +132,10 @@ export default {
   		}
   	},
   	copyid: function () {
-  		localStorage.setItem("邀请地址",this.inviteurl);
+  		console.log('邀请地址',this.inviteurl);
+  		var inviteinput = document.getElementById("inviteinput");
+  		inviteinput.select();
+  		document.execCommand("Copy");
   		this.closepopup();
   	}
   },
@@ -174,19 +177,30 @@ export default {
       this.popupheight = ((val)/ 1920 * 1080)* 0.58 + "px";
       this.popuptop = (val2 - parseInt(this.popupheight) )/2 + scrolltop + "px";
     // }
-    //邀请地址
-    var cookie = document.cookie;
-    var arr = cookie.split(";");
-    for(var i=0;i<arr.length;i++){
-    	if(arr[i].indexOf("invite")>-1){
-    		this.id = arr[i].split("=")[1];
-    	}
-    }
-    console.log('cookie',localStorage.getItem("邀请地址"));
-    this.inviteurl = configdata.base_url + "?"+this.id ;
+    
+    
+    
 
   },
   computed: {
+  	invitef () {
+  		if(this.bigpopupBuymsg.invite){
+  			//邀请地址
+		    var cookie = document.cookie;
+		    var arr = cookie.split(";");
+		    console.log("弹窗COOKIE",arr);
+		    this.inviteurl = configdata.base_url ;
+		    for(var i=0;i<arr.length;i++){
+		    	if(arr[i].indexOf("invite")>-1){
+		    		this.id = arr[i].split("=")[1];
+		    		this.inviteurl = configdata.base_url + "?"+this.id ;
+		    	}
+		    }
+		    return true;
+  		}else{
+  			return false;
+  		}
+  	},
     confirm_price () {
     	if(this.bigpopupBuymsg.player){
     		var index = parseInt(this.bigpopupBuymsg.player - 1);
