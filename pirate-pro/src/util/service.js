@@ -225,7 +225,7 @@ service.confirmlogin = function(){
 	if(localStorage.getItem("昵称")){
 		console.log("用户已经登录过",localStorage.getItem("昵称"));
 		if(web3.eth.accounts[0]){
-			var arr = localStorage.getItem("昵称");
+			var arr = JSON.parse(localStorage.getItem("昵称"));
 			for(var i=0;i<arr.length;i++){
 				if(arr[i].meta.indexOf(web3.eth.accounts[0]) >-1){
 					store.state.username = arr[i].name;
@@ -237,7 +237,7 @@ service.confirmlogin = function(){
 		}else{
 			console.log("11")
 			if(sessionStorage.getItem("F5") != "f"){
-				var arr = localStorage.getItem("昵称");
+				var arr = JSON.parse(localStorage.getItem("昵称"));
 				var ethaccount = sessionStorage.getItem("我的以太坊账户");
 				for(var i=0;i<arr.length;i++){
 					if(arr[i].meta == ethaccount){
@@ -789,7 +789,7 @@ service.getKitties = function () {
 }
 
 service.createKitties = function () {   //领取海盗猫
-	//add by Anna @2018/6/20
+	
 	var KittyCore = web3.eth.contract(store.state.KittyCore_abiarray);
 	var KittyCoreInstance = "";
 	var CaptainKitty = web3.eth.contract(store.state.CaptainKitty_abiarray);

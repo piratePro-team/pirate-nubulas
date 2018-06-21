@@ -1,7 +1,8 @@
 <template>
   <div class="header-banner" :style="{'height':topheight}">
+    <topnav></topnav>
     <div class="shadow" :style="{'height':topheight}" v-show="showshadow || showsmallpopup"></div>
-    <div class="topright">
+    <!-- <div class="topright">
       <ul class="language" v-bind:class="{'open':selectlan}" @click="openlanbox">
         <li></li>
         <li class="en" @click="changeLocale('en')" v-show="selectlan&&!lan_en"></li>
@@ -9,11 +10,11 @@
       </ul>
       <div class="row">
         <div class="col-50" @click="login"><p class="text-center" v-bind:title="mytitlename">{{username.username}}</p></div>
-        <div class="col-50"><p class="text-center"  @click="myassets">{{$t("message.game_title_myassets")}}</p></div>
-        <span @click="claimKitties">claim kitties</span>
-      </div>
+        <div class="col-50"><p class="text-center"  @click="myassets">{{$t("message.game_title_myassets")}}</p></div> -->
+        <!-- <span @click="claimKitties">claim kitties</span> -->
+      <!-- </div>
     </div>
-    <div class="invite" @click="showinvite"></div>
+    <div class="invite" @click="showinvite"></div> -->
     <!-- <div class="language"  @click="changeLocale()">{{$t("message.changeLocale")}}</div> -->
     <div class="startbtn hide">
       <div class="btnanimation"></div>
@@ -32,7 +33,8 @@
     <div class="alert" v-show="showsmallpopup">
       <smallPopup :smallpopup-msg="alertmsg"></smallPopup>
     </div>
-    <div class="faq" v-show="showfaq" :style="{'top':faqtop,'left':faqleft,'height':faqheight}">
+    <faq></faq>
+    <!-- <div class="faq" v-show="showfaq" :style="{'top':faqtop,'left':faqleft,'height':faqheight}">
       <div class="closefaq" @click="closeFAQ"></div>
       <h1>{{$t("message.home_title_faq1")}}</h1>
       <h2>{{$t("message.home_title_question1")}}</h2>
@@ -104,14 +106,20 @@
       <p>{{$t("message.home_text_answer25")}}</p>
       <h3>{{$t("message.home_title_question26")}}</h3>
       <p>{{$t("message.home_text_answer26")}}</p>
-    </div>
+    </div> -->
   </div>
 </template>
 
 <script>
+import topnav from "./topnav"
+import faq from "./faq"
+
 export default {
   name: 'HeaderBanner',
-  // props:['lang'],
+  components: {
+    topnav,
+    faq,
+  },
   data () {
     return {
       topheight: "",
@@ -120,10 +128,7 @@ export default {
       buymsg: this.$store.state.buymsg,
       alertmsg: this.$store.state.alertmsg,
       selectlan: false,
-      imgarr: [require("../../assets/step1.png"),require("../../assets/step2.png"),require("../../assets/step3.png"),require("../../assets/step4.png"),require("../../assets/step5.png"),require("../../assets/step6.png")],
-      faqtop: "",
-      faqleft: "",
-      faqheight: "",
+      
 
     }
   },
@@ -155,18 +160,14 @@ export default {
     openlanbox: function () {
       this.selectlan = this.selectlan?false:true;
     },
-    closeFAQ: function () {
-      this.$store.dispatch("hidefaq");
-      this.$store.dispatch("hideshadow");
-    },
     showinvite: function () {
       this.$store.dispatch("showbigpopup",{invite:true});
       this.$store.state.buymsg.invite = true;
     },
-    claimKitties: function(){
+    /*claimKitties: function(){
       this.$store.dispatch("showbigpopup");
       this.$store.state.buymsg.claimKitties = true;
-    }
+    }*/
   },
   mounted:function(){
     //缩放浏览器时改变头部top,faq位置
@@ -174,9 +175,7 @@ export default {
     var screenwidth = document.documentElement.clientWidth;
     screenwidth = screenwidth<1000?1000:screenwidth;
     this.topheight = screenwidth/1920*975 + "px";
-    this.faqheight = screenheight/10 * 8 + "px";
-    this.faqtop = screenheight/10 * 1 -17 + "px";
-    this.faqleft = (screenwidth )/10 * 1 - 10 -17 + "px";
+    
 
     const _this = this; 
     window.addEventListener("resize",function(){
@@ -185,7 +184,7 @@ export default {
       var screenheight = document.documentElement.clientHeight;
       _this.topheight = parseInt(val) / 1920 * 975 + "px";
       _this.topnavheight = parseInt(val) / 1920 * 118 + "px";
-      _this.faqheight = screenheight/10 * 8 + "px";
+      
     })
     window.onscroll = function(){
       var scrolltop = document.documentElement.scrollTop;
@@ -193,9 +192,7 @@ export default {
       var screenheight = document.documentElement.clientHeight;
       var screenwidth = document.documentElement.clientWidth;
       screenwidth = screenwidth<1000?1000:screenwidth;
-      _this.faqheight = screenheight/10 * 8 + "px";
-      _this.faqtop = screenheight/10 * 1 -17 + scrolltop + "px";
-      _this.faqleft = (screenwidth )/10 * 1 - 10 -17 + scrollleft + "px";
+      
     }
   },
   destroyed () {
@@ -250,9 +247,7 @@ export default {
         return true
       }
     },
-    showfaq () {
-        return this.$store.state.showFAQ
-    }
+    
   }
 }
 </script>
@@ -517,37 +512,5 @@ export default {
     height: 100%;
     display: block;
   }
-  .faq{
-    width: 80%;
-    height: 80vh;
-    background-color: #fff;
-    overflow-y: scroll;
-    position: absolute;
-    left: 10%;
-    top: 10vh;
-    z-index: 12;
-    text-align: center;
-    padding: 20px 30px;
-    line-height: 1.5;
-    font-size: 14px;
-    background: rgba(151,199,228);
-  }
-  .faq>p{
-    color: #000;
-  }
-  .faq>.step1,.faq>.step2,.faq>.step3,.faq>.step4,.faq>.step5,.faq>.step6{
-    width: 60%;
-    height: auto;
-  }
-  .closefaq{
-    width: 20px;
-    height: 20px;
-    background:rgb(61,98,165);
-    position: fixed;
-    top: 10%;
-    left: 10%; 
-  }
-  .closefaq:hover{
-    cursor: pointer;
-  }
+  
 </style>

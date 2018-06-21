@@ -84,12 +84,29 @@ const mutations = {
 		state.mycaptain2 = [];
 		state.mycaptain3 = [];
 	},
+	showPOPUP (state) {
+		state.showPOPUP = true;
+	},
+	hidePOPUP (state) {
+		state.showPOPUP = false;
+	},
 	showfaq (state) {
 		state.showFAQ = true;
 	},
 	hidefaq (state) {
 		state.showFAQ = false;
 	},
-
+	showterms (state) {
+		state.showTerms = true;
+	},
+	hideterms (state) {
+		state.showTerms = false;
+	},
+	showpolicy (state) {
+		state.showPolicy = true;
+	},
+	hidepolicy (state) {
+		state.showPolicy = false;
+	}
 }
 export default mutations

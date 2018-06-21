@@ -18,9 +18,11 @@
       </ul>
     </div>
     <div class="botfooter"></div> -->
+    <p class="terms" @click="showterms">{{$t("message.home_title_terms")}}</p>
+    <p class="policy" @click="showpolicy">{{$t("message.home_title_privacypolicy")}}</p>
     <p class="faq" @click="showfaq">FAQ</p>
-    <a class="twitter" href="https://twitter.com/pirateconquest" target="_Blank"></a>
     <a class="facebook" href="https://www.facebook.com/pirateconquest" target="_Blank"></a>
+    <a class="twitter" href="https://twitter.com/pirateconquest" target="_Blank"></a>
     <a class="discord" href="https://discord.gg/PPaBZ9c" target="_Blank"></a>
     <a class="telegram" href="https://t.me/pirateconquest" target="_Blank"></a>
     <div class="wechat" @mouseover="showwechatimg" @mouseout="hidewechatimg"><div class="wechatimg" v-show="showwechat"></div></div>
@@ -50,7 +52,18 @@ export default {
       
     },
     showfaq: function () {
+      this.$store.dispatch("showPOPUP");
       this.$store.dispatch("showfaq");
+      this.$store.dispatch("showshadow");
+    },
+    showterms: function () {
+      this.$store.dispatch("showPOPUP");
+      this.$store.dispatch("showterms");
+      this.$store.dispatch("showshadow");
+    },
+    showpolicy: function () {
+      this.$store.dispatch("showPOPUP");
+      this.$store.dispatch("showpolicy");
       this.$store.dispatch("showshadow");
     },
     showwechatimg: function () {
@@ -269,37 +282,71 @@ ul>li>a{
   background:url("../../assets/footer5.png") center center no-repeat;
   background-size: contain; 
 }
-.faq,.twitter,.facebook,.discord,.telegram,.wechat,.qq{
+.terms,.policy,.faq,.twitter,.facebook,.discord,.telegram,.wechat,.qq{
   display: block;
   float: left;
   margin-top: 1%;
 }
-.faq:hover,.twitter:hover,.facebook:hover,.discord:hover,.telegram:hover,.wechat:hover,.qq:hover{
+.terms:hover,.policy:hover,.faq:hover,.twitter:hover,.facebook:hover,.discord:hover,.telegram:hover,.wechat:hover,.qq:hover{
   cursor: pointer;
 }
 .faq{
   font-size: 13px;
   font-weight: 700;
   color: rgb(81,86,96);
-  margin-left: 43.3%;
+  margin-left: 0.8%;
   margin-top: 1.2%;
+}
+.terms,.policy{
+  width: auto;
+  height: 1em;
+  padding: 0 0.4em;
+  border-left:1px solid rgb(81,86,96);
+  border-right: 1px solid rgb(81,86,96);
+  text-align: center; 
+  color: rgb(81,86,96);
+}
+.terms{
+  border-right: 0;
+  margin-left: 37%;
+}
+@media all and (max-width: 1750px){
+  .terms{
+    margin-left: 36.5%;
+  }
+}
+@media all and (max-width: 1500px){
+  .terms{
+    margin-left: 35.8%;
+  }
+}
+@media all and (max-width: 1450px){
+  .terms{
+    margin-left: 34.8%;
+  }
 }
 @media all and (max-width: 1350px){
   .faq{
-    margin-left: 46%;
     margin-top: 1.2%;
+  }
+  .terms{
+    margin-left: 33.5%;
   }
 }
 @media all and (max-width: 1150px){
   .faq{
-    margin-left: 45.5%;
     margin-top: 1.1%;
+  }
+  .terms{
+    margin-left: 32.6%;
   }
 }
 @media all and (max-width: 1050px){
   .faq{
-    margin-left: 45%;
     margin-top: 1%;
+  }
+  .terms{
+    margin-left: 31.3%;
   }
 }
 .twitter,.facebook,.discord,.telegram,.wechat,.qq{
@@ -323,17 +370,17 @@ ul>li>a{
 }
 .telegram{
   margin-left: 0.4%;
-  background:url("../../assets/discord.png") center center no-repeat; 
+  background:url("../../assets/footerlogo1.png") center center no-repeat; 
   background-size: 100%;
 }
 .wechat{
   margin-left: 0.4%;
-  background:url("../../assets/discord.png") center center no-repeat; 
+  background:url("../../assets/footerlogo2.png") center center no-repeat; 
   background-size: 100%;
 }
 .qq{
   margin-left: 0.4%;
-  background:url("../../assets/discord.png") center center no-repeat; 
+  background:url("../../assets/footerlogo3.png") center center no-repeat; 
   background-size: 100%;
 }
 .copyright{
@@ -350,7 +397,7 @@ ul>li>a{
   background:transparent; 
   position: relative;
   z-index: 10;
-  top: -450%;
+  top: -480%;
   left: 15%;
   background:url("../../assets/wechatimg.png") left top no-repeat; 
   background-size:100%;
@@ -359,12 +406,13 @@ ul>li>a{
   cursor: default;
 }
 .qqtext{
-  width: 420%;
-  height: 100%;
+  width: 400%;
+  height: 460%;
   position: relative;
-  left: 100%; 
-  text-align: center;
-  color: #fff;
+  left: 10%; 
+  top: -480%;
+  background:url("../../assets/qq.png") left top no-repeat; 
+  background-size:100%;
 }
 .qqtext:hover{
   cursor: text;

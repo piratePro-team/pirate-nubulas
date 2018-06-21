@@ -9,7 +9,7 @@
         <div class="pretitle3">{{$t("message.home_title_presalehint")}}</div>
         <ul class="preplayer" :style="{'height':playerheight}">
           <li v-for="(carditem,index) in carditems">
-            <div class="soldamount">{{$t("message.game_text_sold")}}{{carditem.soldamount}}/{{carditem.totalamount}}</div>
+            <div class="soldamount">{{$t("message.game_text_sold")}}  {{carditem.soldamount}}/{{carditem.totalamount}}</div>
             <div @mouseenter="light($event)" @mouseleave="none($event)" @click="detail(index + 1)"><div></div></div>
             <div class="attack">{{$store.state.captain[index].attack}}</div><div class="defense">{{$store.state.captain[index].defense}}</div>
             <div class="level" v-bind:class="{'level1':carditem.level == 1}"></div>
@@ -667,7 +667,7 @@ export default {
   min-width: 150px;
   height: 20.8%;
   font-size: 0.9em;
-  color: rgb(120,107,99);
+  color: #fff;
   top: 60%;
   left: 23%;
 }
@@ -676,7 +676,7 @@ export default {
   min-width: 230px;
   height: 11.6%;
   font-size:0.9em;
-  color: rgb(69,102,120);
+  color: #fff;
   top: -26%;
   left: 37.7%;
 }
@@ -685,7 +685,7 @@ export default {
   min-width: 230px;
   height: 23.3%;
   font-size: 0.9em;
-  color: rgb(114,48,39);
+  color: #fff;
   top: 27%;
   left: 55.5%;
 }
@@ -853,7 +853,7 @@ export default {
   float: left;
   text-align: center;
   line-height: 1.8;
-  padding-top: 10%;
+  padding-top: 15%;
   box-sizing: border-box;
 }
 .mapbox1{

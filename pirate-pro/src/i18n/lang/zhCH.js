@@ -19,7 +19,7 @@ module.exports = {
         ,
         home_title_presalehint:"这三个神话级海盗仅在预售中出现，千万别错过！"
         ,
-        game_text_sold:"剩余："
+        game_text_sold:"剩余:"
         ,
         game_text_soldout:"已售罄"
         ,

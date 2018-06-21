@@ -1,7 +1,11 @@
 <template>
 	<div>
 		<div :style="{'top':asidebartop,'right':asidebarright,'height':asidebarheight}" class="asidebar">
-			<div class="cat"><p>CLAIM KITTIES</p><p>{{$store.state.CaptainKittyCount}}</p></div>
+			<div class="cat">
+				<div class="catk"></div>
+				<div class="btn"><div @click="claimKitties">CLAIM KITTIES</div></div>
+				<div class="catnumbox"><img src="../../assets/catnum.png" class="catnum"/><p>{{$store.state.CaptainKittyCount}}</p></div>
+			</div>
 			<ul :style="{'height':ulheight}">
 				<li v-bind:class="{'top1':top1}" @click="gotop1"><p>{{$t("message.home_title_presale")}}</p></li>
 				<li v-bind:class="{'top2':top2}" @click="gotop2"><p>{{$t("message.home_title_prizepool")}}</p></li>
@@ -37,22 +41,26 @@ export default {
   		this.top4 = false;
   	},
   	backtop: function(){
-  		document.documentElement.scrollTop =0; 
-  		document.body.scrollTop = 0;
   		var val = document.documentElement.clientWidth;
   		var topheight = val/1920*975 + "px";
-  		this.asidebartop = topheight ;
+  		var asidebarheight = (val)/1920 * 436 + "px";
+  		this.asidebartop = parseInt(topheight) + parseInt(asidebarheight)*0.22 + "px";
   		this.clear();
   		this.top1 = true;
+  		document.documentElement.scrollTop =0; 
+  		document.body.scrollTop = 0;
+  		
   	},
   	gotop1: function(){
-  		document.documentElement.scrollTop =0; 
-  		document.body.scrollTop = 0;
   		var val = document.documentElement.clientWidth;
   		var topheight = val/1920*975 + "px";
-  		this.asidebartop = topheight ;
+  		var asidebarheight = (val)/1920 * 436 + "px";
+  		this.asidebartop = parseInt(topheight) + parseInt(asidebarheight)*0.22 + "px";
   		this.clear();
   		this.top1 = true;
+  		document.documentElement.scrollTop =0; 
+  		document.body.scrollTop = 0;
+  		
   	},
   	gotop2: function(){
   		var val = document.documentElement.clientWidth;
@@ -81,6 +89,10 @@ export default {
   		document.body.scrollTop = parseInt(topheight)+parseInt(playersheight)+parseInt(potsheight)+parseInt(mapheight) ;
   		this.clear();
   	},
+  	claimKitties: function(){
+  		this.$store.dispatch("showbigpopup");
+        this.$store.state.buymsg.claimKitties = true;
+  	}
   },
   created () {
     
@@ -96,7 +108,7 @@ export default {
 	var playersheight = (val)/ 1920 * 825 + "px";
     var potsheight = (val) /1920 * 875 + "px";
     var mapheight = (val) /1920 * 715 + "px";
-    this.asidebartop = topheight ;
+    this.asidebartop = parseInt(topheight) + parseInt(this.asidebarheight)*0.22 + "px";
     
 	if(parseInt(this.asidebartop) <= parseInt(topheight) + parseInt(playersheight)){
 		this.clear();
@@ -120,10 +132,10 @@ export default {
         var scrolltop = document.documentElement.scrollTop || document.body.scrollTop;
         _this.asidebarheight = (val)/1920 * 436 + "px";
         if(scrolltop){
-        	_this.asidebartop = _this.asidebartop = (val2 - parseInt(_this.asidebarheight))/2 + scrolltop +"px";
+        	_this.asidebartop = _this.asidebartop = (val2 - parseInt(_this.asidebarheight))/2 + parseInt(_this.asidebarheight)*0.22 +scrolltop +"px";
         }else{
         	var topheight = val/1920*975 + "px";
-        	_this.asidebartop = topheight;
+        	_this.asidebartop =parseInt(topheight) + parseInt(_this.asidebarheight)*0.22 + "px";
         }
     })
     window.addEventListener("scroll",function(){
@@ -137,15 +149,19 @@ export default {
 		var val2 = document.documentElement.clientHeight;
 		var scrolltop = document.documentElement.scrollTop || document.body.scrollTop;
 		var scrollleft = document.documentElement.scrollLeft || document.body.scrollLeft;
+		var asidebarheight = (val)/1920 * 436 + "px";
 
 		console.log("1111",scrolltop)
 		if(scrolltop == 0){
-			_this.asidebartop = topheight;
+			_this.asidebartop = parseInt(topheight) + parseInt(asidebarheight)*0.22+"px";
+			console.log("1111",scrolltop)
 		}else if(scrolltop <= parseInt(topheight)/2){
-			_this.asidebartop = parseInt(topheight) - scrolltop/4 + "px";
+			_this.asidebartop = parseInt(topheight) - scrolltop/4 + parseInt(asidebarheight)*0.22 +"px";
+			console.log("1111",scrolltop)
 
 		}else{
-			_this.asidebartop = (val2 - parseInt(_this.asidebarheight))/2 + scrolltop +"px";
+			_this.asidebartop = (val2 - parseInt(_this.asidebarheight))/2 + scrolltop + parseInt(asidebarheight)*0.22  +"px";
+			console.log("1111",scrolltop,_this.asidebartop)
 		}
 		
 		_this.asidebarright = -scrollleft + "px";
@@ -182,6 +198,8 @@ export default {
 <style scoped>
 	.asidebar{
 		width: 12.8%;
+		min-width: 168px;
+		min-height: 300px;
 		position: absolute;
 		right: 0;
 		background:url("../../assets/asidebar.png") center center no-repeat; 
@@ -226,20 +244,58 @@ export default {
 	.backtop:hover{
 		cursor: pointer;
 	}
-	.cat{
-		width: 80%;
-		height: 50%;
-		margin: 0 auto;
+	.cat .catk{
+		width: 50%;
+		height: 33%;
 		background:url("../../assets/cat.png") center center no-repeat;
 		background-size: 100%;
 		position: absolute;
-		left: 0;
-		top: -30%;
+		left: 25%;
+		top: -44%;
+		z-index: 100;
 	}
-	.cat p:nth-child(1){
-		font-size: 0.9rem;
-		position: relative;
+	.cat div.btn{
+		font-size: 0.8rem;
+	    position: absolute;
+	    z-index: 0;
+	    text-align: center;
+	    top: -15%;
+	    left: 12%;
+	    background: url('../../assets/catbtn.png') center center no-repeat;
+	    background-size: 100%;
+	    width: 72%;
+	    height: 12%;
+	    -webkit-box-sizing: border-box;
+	    box-sizing: border-box;
+	    display: table;
+	}
+	.cat div.btn>div{
+		display: table-cell;
+		vertical-align: middle;
 		text-align: center;
-		top: 141px;
+		position: relative;
+	}
+	.cat div.btn>div:hover{
+		cursor: pointer;
+	}
+	.cat .catnumbox{
+		width: 27%;
+	    position: absolute;
+	    top: -25%;
+	    left: 21%;
+		display: table;
+		z-index: 100;
+	}
+	.cat .catnum{
+		width: 100%;
+	    
+	    display: table-cell;
+	}
+	.cat .catnumbox p{
+		display: table-cell;
+		vertical-align: middle;
+		text-align: center;
+		position: relative;
+		left: -50%;
 	}
 </style>

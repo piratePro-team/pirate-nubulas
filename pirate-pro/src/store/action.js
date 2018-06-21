@@ -41,12 +41,30 @@ const actions = {
 	clearmycaptain(context){
 		context.commit("clearmycaptain");
 	},
+	showPOPUP(context){
+		context.commit("showPOPUP");
+	},
+	hidePOPUP(context){
+		context.commit("hidePOPUP");
+	},
 	showfaq(context){
 		context.commit("showfaq");
 	},
 	hidefaq(context){
 		context.commit("hidefaq");
-	}
+	},
+	showterms(context){
+		context.commit("showterms");
+	},
+	hideterms(context){
+		context.commit("hideterms");
+	},
+	showpolicy(context){
+		context.commit("showpolicy");
+	},
+	hidepolicy(context){
+		context.commit("hidepolicy");
+	},
 }
 
 export default actions
